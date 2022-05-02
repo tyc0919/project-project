@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-left: 200px;
+    width: calc(100% - 200px);
+}
+
+.container .deal_square {
+    background-color: white;
+    position: relative;
+    width: 80%;
+    height: fit-content;
+    top: 50px;
+}
+
+.container .deal_square .shop_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.container .deal_square .shop_list .shop {
+    width: 250px;
+    height: 300px;
+    border: 1px solid black;
+    text-align: center;
+    margin: 15px;
+}
+
+.container .deal_square .shop_list .shop .shop_name {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid black;
+}
+
+.container .deal_square .shop_list .shop .shop_intro {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid black;
+}
+
+.container .deal_square .shop_list .shop .shop_img {
+    height: 200px;
+    line-height: 200px;
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+        top: 90px;
+        width: 100%;
+    }
+
+    .container .deal_square {
+        background-color: white;
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+
+    .container .deal_square .shop_list {
+        justify-content: space-evenly;
+
+    }
+
+    .container .deal_square .shop_list .shop {
+        width: 200px;
+        height: 250px;
+        border: 1px solid black;
+        text-align: center;
+        margin: 15px;
+    }
+
+    .container .deal_square .shop_list .shop .shop_name {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid black;
+    }
+
+    .container .deal_square .shop_list .shop .shop_intro {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid black;
+    }
+
+    .container .deal_square .shop_list .shop .shop_img {
+        height: 150px;
+        line-height: 150px;
+    }
+
+}
