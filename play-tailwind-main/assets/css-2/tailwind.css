@@ -776,6 +776,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex{
   display: flex;
+  justify-content: space-between;
 }
 
 .inline-flex{
