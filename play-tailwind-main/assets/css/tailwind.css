@@ -1719,10 +1719,7 @@ body {
   background-color: rgb(9 14 52 / var(--tw-bg-opacity));
 }
 
-/* .sticky #navbarCollapse li a{
-  --tw-text-opacity: 1;
-  color: rgb(9 14 52 / var(--tw-text-opacity));
-} */
+
 
 .sticky #navbarCollapse li a:hover{
   --tw-text-opacity: 1;
@@ -1734,35 +1731,22 @@ body {
   opacity: 0.7;
 }
 
-/* .sticky #navbarCollapse li .ud-menu-scroll.active{
-  --tw-text-opacity: 1;
-  color: rgb(48 86 211 / var(--tw-text-opacity));
-  opacity: 1;
-} */
-
 .sticky .loginBtn{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-/* .sticky .loginBtn:hover{
-  --tw-text-opacity: 1;
-  color: rgb(48 86 211 / var(--tw-text-opacity));
-  opacity: 1;
-} */
 
 .sticky .signUpBtn{
-  --tw-bg-opacity: 1;
-  background-color: rgb(48 86 211 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .sticky .signUpBtn:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(9 14 52 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .navbarTogglerActive > span:nth-child(1){
