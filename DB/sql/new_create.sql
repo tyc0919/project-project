@@ -1,6 +1,6 @@
 USE `111401_project`;
-CREATE DATABASE `111401_project`;
-DROP DATABASE `111401_project`;
+-- CREATE DATABASE `111401_project`;
+-- DROP DATABASE `111401_project`;
 
 -- 建立資料表 '使用者'
 CREATE TABLE `user`(
@@ -114,7 +114,7 @@ CREATE TABLE `review`(
     FOREIGN KEY(`reviewer`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `colab_shop`(
+CREATE TABLE `collab_shop`(
 	`id` int PRIMARY KEY,
 	`shop_email` char(30),
     `activity_id` int,

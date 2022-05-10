@@ -1,0 +1,89 @@
+.button{
+    margin-left: 200px;
+    margin-top: 30px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.button .shape-ex1{
+    position: relative;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+    background-color: lawngreen;
+    border: 1px solid #000;
+    border-radius: 10%;
+}
+
+.shape-ex1:hover{
+    background-color: #000;
+    color: #fff;
+}
+
+.container{
+    margin-left: 200px;
+    width: calc(100% - 200px);
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container .proposal{
+    border: 1px solid black;
+    height: 275px;
+    width: 400px;
+    text-align: center;
+    margin: 30px 20px;
+}
+
+.container .proposal h3{
+    font-size: 45px;
+    border-bottom: 1px solid #000;
+}
+
+.container .proposal ul li{
+    display:block;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 15px 0;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+
+@media  screen and  (max-width:768px){
+    .button{
+        position: relative;
+        margin-left: 0px;
+        top: 115px;
+        width: auto;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .container{
+        position: relative;
+        max-width: fit-content;
+        margin: 0 auto;
+        top: 130px;
+        text-align: center;
+        justify-content: center;
+        z-index: 0;
+    }
+
+    .container .proposal{
+        margin: 10px 0;
+        width: 300px;
+    }
+
+    .container .proposal h3{
+        font-size: 40px;
+        border-bottom: 1px solid #000;
+    }
+
+}

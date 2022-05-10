@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # added
+    'project',
     'rest_framework',
     # 'corsheaders',    
-    'testApp',
+    # 'testApp',
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -145,9 +146,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
+# DevStaticFiles = os.path.join(BASE_DIR, 'DevStatic').replace('\\', '/')
 STATICFILES_DIRS = (
-    ('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
-    ('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
-    ('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),
-    ('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
+    #('css', os.path.join(STATIC_ROOT, 'css').replace('\\', '/')),
+    #('images', os.path.join(STATIC_ROOT, 'images').replace('\\', '/')),
+    #('fonts', os.path.join(STATIC_ROOT, 'fonts').replace('\\', '/')),
+    #('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
+    # os.path.join(DevStaticFiles),
 )

@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+html{
+    height: 100%;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body{
+    height:100%;
+}
+
+.wrapper {
+    position: relative;
+}
+
+.wrapper .sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background: #3056D3;
+    padding: 30px 0;
+}
+
+.wrapper .sidebar h2 {
+    color: white;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.wrapper .sidebar .nav_table {
+    padding-bottom: 30px;
+}
+
+.wrapper .sidebar .nav_table ul li{
+    padding: 20px;
+}
+
+.wrapper .sidebar .nav_table .icon{
+    width: 45px;
+}
+
+.wrapper .sidebar .nav_table ul li a{
+    color: white;
+}
+
+.wrapper .sidebar .nav_table ul li:hover{
+    opacity: 0.7;
+}
+
+.wrapper .sidebar .nav_table ul li:active{
+    opacity: 1;
+    background-color: white;
+}
+
+.wrapper .sidebar .nav_table ul li:active a{
+    opacity: 1;
+    color:#3056D3;
+}
+
+.wrapper .sidebar .nav_table ul li .home:focus {
+    background-color: rgb(24, 245, 24);
+}
+
+ .wrapper .sidebar .social_media {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.wrapper .sidebar .social_media a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 5px;
+    color: #bdb8d7;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+} 
+
+.wrapper .sidebar .nav_mobile{
+    visibility: hidden;
+}
+
+.header_table {
+    position: relative;
+    margin-left: 200px;
+    width: auto;
+    height: 100px;
+    border-bottom: 1px solid #00000050;
+}
+
+.header_table .header_text {
+    line-height: 100px;
+    text-align: center;
+}
+
+.header_mobile{
+    display: none;
+}
+
+.dot {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    height: 40px;
+    width: 40px;
+    background-color: #bbb;
+    border-radius: 50%;
+}
+
+.dot:hover .dot_list {
+     opacity:1; 
+     visibility:visible; 
+}
+
+.dot .dot_list {
+    display: block;
+    position: absolute;
+    width: 100px;
+    pointer-events: auto;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 1s;
+    transform:translateX(-100%);
+    background-color: #fafafa;
+}
+
+.dot .dot_list li{
+    margin: 10px;
+}
+
+.header_mobile{
+    display: none;
+}
+
+@media  screen and  (max-width:768px){
+    .wrapper .sidebar .social_media {
+        display:none;
+    }
+    
+    .wrapper .sidebar .nav_table{
+        visibility: hidden;
+    }
+
+    .wrapper .sidebar .nav_mobile{
+        visibility: visible;
+    }
+
+    .wrapper .sidebar {
+        z-index: 1;
+        position: fixed;
+        width: 100%;
+        height: 100px;
+        background: #3056D3;
+        padding: 0;
+    }
+
+    .wrapper .sidebar h2 {
+        line-height: 100px;
+    }
+    
+    .wrapper .sidebar .function{
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+    }
+
+    .wrapper .sidebar .nav_mobile .function:hover .function_list{
+        opacity:1; 
+        visibility:visible; 
+    }
+
+    .wrapper .sidebar .nav_mobile .function .function_list{
+        display: inline-block;
+        position: absolute;
+        visibility: hidden;
+        width: 150px;
+        z-index: 2;
+        opacity: 0;
+        transition: visibility 1s;
+        background-color: white;
+    }
+
+    .wrapper .sidebar .nav_mobile .indi{
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 40px;
+        background-color: #bbb;
+        border-radius: 50%;
+    }
+
+    .wrapper .sidebar .nav_mobile .indi:hover .indi_list{
+        opacity:1; 
+        visibility:visible; 
+    }
+
+    .wrapper .sidebar .nav_mobile .indi .indi_list{
+        display: inline-block;
+        position: absolute;
+        visibility: hidden;
+        width: 150px;
+        z-index: 10;
+        opacity: 0;
+        transition: visibility 1s;
+        transform:translateX(-100%);
+        background-color: #fafafa;
+    }
+
+    .header_table{
+        display:none
+    }
+
+    .header_mobile{
+        position: relative;
+        display:inline-block;
+        margin-left: 0;
+        top: 120px;
+        width: 100%;
+        text-align: center;
+    }
+}
