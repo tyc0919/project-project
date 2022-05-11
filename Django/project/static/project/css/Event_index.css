@@ -1,50 +1,60 @@
 .container{
+    position: relative;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     margin-left: 200px;
     height: calc(100% - 100px);
     width: calc(100% - 200px);
-    background-color: #eef3f7;
+    padding: 1rem 1rem;
 }
 
 .container .main_content {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
 
+.container .main_content .item_container{
+    width: 50%;
+    padding: 1rem 1rem;
+}
+
+.container .main_content .item_container:last-child{
+    width: 100%;
+}
+
 .container .main_content .item {
-    margin-top: 25px;
     z-index: 1;
-    height: 600px;
-    width: 450px;
-    border-radius: 30px;
+    border-radius: 0.375rem;
     border: 1px solid rgb(48 86 211 / 30%);
     box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
     background-color: white;
+    padding: 1rem 1rem;
 }
 
 .container .main_content .item .item_text {
     text-align: center;
     border-bottom: #fff solid;
     font-size: 30px;
-    padding: 25px 0;
+    padding-left: 1rem;
 }
 
 
 .container .main_content .item .item_list ul li {
-    padding: 0 30px;
-    display: block;
-    width: auto;
+    display: flex;
+    width: 100%;
     line-height: 45px;
     margin: 10px 0;
     color: black;
     font-size: 20px;
     transition-duration: 1s;
+    color: rgb(99 115 129);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .container .main_content .item .item_list ul li:hover {
@@ -61,18 +71,25 @@
     .container .main_content{
         z-index: 0;
         position: relative;
-        top: 115px;
+        top: 90px;
         width:100%;
         margin:0;
         justify-content: center;
     }
-
+    .container .main_content .item_container{
+        width: 100%;
+        padding: 1rem 1rem;
+    }
     .main_content .item{
         z-index: 0;
         display: inline-block;
         margin: 20px 0 ;
         height: 400px;
-        width: 400px;
+        width: 100%;
+    }
+
+    .main_content .item_text{
+        text-align: center;
     }
 
 

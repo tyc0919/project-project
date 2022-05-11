@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="assets/css/proposal_new_create.css" />
-    <link rel="stylesheet" href="assets/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/colla_index.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
+    <div class="background"></div>
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
@@ -21,10 +21,10 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href=""><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
+                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
+                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
+                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
+                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
                     <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
                 </ul>
             </div>
@@ -34,11 +34,11 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="">主頁</a></li>
-                            <li><a href="">我的企劃</a></li>
-                            <li><a href="">我的工作</a></li>
-                            <li><a href="">合作店家</a></li>
-			    <li><a href="">社群</a></li>
+                            <li><a href="information.html">主頁</a></li>
+                            <li><a href="myproposal.html">我的企劃</a></li>
+                            <li><a href="mywork.html">我的工作</a></li>
+                            <li><a href="colla_index.html">合作店家</a></li>
+                            <li><a href="">社群</a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="">個人檔案</a></li>
+                            <li><a href="information.html">個人檔案</a></li>
                             <li><a href="">設定</a></li>
                             <li><a href="">登出</a></li>
                         </ul>
@@ -59,7 +59,7 @@
                 <a href="#"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#"><i class="fa-brands fa-github"></i></a>
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
-             </div>
+            </div>
 
         </div>
     </div>
@@ -67,13 +67,13 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">創建新方案</h3>
+        <h3 class="header_text">合作店家列表</h3>
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
                     <div class="">
-                        <li><a href="">個人檔案</a></li>
+                        <li><a href="information.html">個人檔案</a></li>
                     </div>
                     <div class="">
                         <li><a href="">設定</a></li>
@@ -87,44 +87,33 @@
     </div>
 
     <div class="header_mobile">
-        <h2>創建新方案</h2>
+        <h2>合作店家列表</h2>
     </div>
 
     <!--header end-->
 
-    <div class="main_content">
+    <div class="container">
 
-        <form action="/formprocess.php" method="post">
-
-            <p>企劃名稱</p>
-            <p><input type="text" name="name"></p>
-        
-            <p>企劃位置</p>
-            <p><input name="species" type="text"></p>
-        </form>
-
-        <div class="colla">
-            <div class="code">
-                <p>
-                邀請代碼
-                <br>
-                XDXDXDXDXDXDXDXD
-                </p>
+       <div class="shop">
+            <div class="shop_img">
+                <a href="colla_checked.html"><img src="https://picsum.photos/400/299" alt=""></a>
             </div>
-            <hr>
-            <div class="colla_email">
-                <p>合作人信箱</p>
-                <input type="text" name="name" style="margin:10px 0;">
+
+            <div class="shop_list">
+                <ul>
+                    <li><b>店家名稱店家名稱店家名稱店家名稱店家名稱家名稱店</b></li>
+                    <li><b>類型類型類型類型類型類型類型類型類型類型類型類型類型</b></li>
+                </ul>
+            </div>
+
+            <div class="shop_intro">
+                好你好好你好你好你好你好你好你好你好你好好你好好你好你好你好你好你好你好你好你好好你好好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你你好你好你好你好你好你好你好你好你好你好你好
             </div>
         </div>
 
-        <input type="submit" value="送出" style="margin-top: 30px;">
-
+       
     </div>
 
-
-
-    
 </body>
 
 </html>

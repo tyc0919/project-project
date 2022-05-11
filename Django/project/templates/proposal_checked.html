@@ -7,12 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="assets/css/proposal_checked.css" />
-    <link rel="stylesheet" href="assets/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/proposal_checked.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot2.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
+    <script>
+        function yesno(){
+            var ans = confirm("是否要發文")
+            if(ans){
+                console.log("fuck1")
+                location.assign("https://www.google.com.tw/");
+            }
+            else{
+                console.log("fuck2")
+                location.href="https://www.google.com.tw/";
+            }
+        }
+    </script>
 </head>
 
 <body>
+
+     <!-- background start -->
+     <div class="background"></div>
+     <!-- background end -->
+
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
@@ -20,10 +39,10 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href=""><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
+                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
+                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
+                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
+                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
                     <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
                 </ul>
             </div>
@@ -33,10 +52,11 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="">主頁</a></li>
-                            <li><a href="">我的企劃</a></li>
-                            <li><a href="">我的工作</a></li>
-                            <li><a href="">合作店家</a></li>
+                            <li><a href="information.html">主頁</a></li>
+                            <li><a href="myproposal.html">我的企劃</a></li>
+                            <li><a href="mywork.html">我的工作</a></li>
+                            <li><a href="colla_index.html">合作店家</a></li>
+                            <li><a href="">社群</a></li>
                         </ul>
                     </div>
                 </div>
@@ -44,7 +64,7 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="">個人檔案</a></li>
+                            <li><a href="information.html">個人檔案</a></li>
                             <li><a href="">設定</a></li>
                             <li><a href="">登出</a></li>
                         </ul>
@@ -65,13 +85,13 @@
 
     <!--header start-->
     <div class="header_table">
-        <h2 class="header_text">企劃名稱</h2>
+        <h3 class="header_text">企劃名稱</h3>
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
                     <div class="">
-                        <li><a href="">個人檔案</a></li>
+                        <li><a href="information.html">個人檔案</a></li>
                     </div>
                     <div class="">
                         <li><a href="">設定</a></li>
@@ -84,96 +104,37 @@
         </div>
     </div>
 
+    <div class="header_mobile">
+        <h2>企劃名稱</h2>
+    </div>
+
     <!--header end-->
 
     <div class="container">
         
         <div class="work">
             <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>工作名稱</b></li>
+                <li><b>負責人</b></li>
+                <li><b>狀態</b></li>
             </ul>
+
+            <div class="description">
+                就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
+            </div>
+
+            <div class="bottom">
+                <a href="work_checked_proposal.html">點擊檢視完整工作</a>
+            </div>
         </div>
 
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
+
+        <div class="plus_proposal">
+            <a href=""><i class="fa-solid fa-check fa-2x center" onclick="yesno()"></i></a>
         </div>
 
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li>工作名稱</li>
-                <li>負責人</li>
-                <!-- <li > -->
-                <li class="description">
-                    工作細項
-                </li>
-            </ul>
+        <div class="edit_proposal">
+            <a href="proposal_create_function2.html"><i class="fa-solid fa-pen fa-2x center"></i></a>
         </div>
 
     </div>

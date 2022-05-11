@@ -2,16 +2,19 @@
 <html lang="en">
 
 <head>
+  {% load static %}
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Social page2</title>
-  <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="assets/css-2/animate.css" />
-  <link rel="stylesheet" href="assets/css-2/tailwind.css" />
-
+  <!-- <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" /> -->
+  <link rel="shortcut icon" href="{% static 'project/images/favicon.png' %}" type="image/x-icon" />
+  <!-- <link rel="stylesheet" href="assets/css-2/animate.css" /> -->
+  <link rel="stylesheet" href="{% static 'project/css-2/animate.css' %}" />
+  <!-- <link rel="stylesheet" href="assets/css-2/tailwind.css" /> -->
+  <link rel="stylesheet" href="{% static 'project/css-2/tailwind.css' %}" />
   <!-- ==== WOW JS ==== -->
-  <script src="assets/js/wow.min.js"></script>
+  <script src="/static/project/js/wow.min.js"></script>
   <script>
     new WOW().init();
   </script>
@@ -34,7 +37,7 @@
       <div class="flex -mx-4 items-center justify-between relative">
         <div class="px-4 w-60 max-w-full">
           <a href="index.html" class="navbar-logo w-full block py-5">
-            <img src="assets/images/logo/logo-white.svg" alt="logo" class="w-full header-logo" />
+            <img src="/static/project/images/logo/logo-white.svg" alt="logo" class="w-full header-logo" />
           </a>
         </div>
         <div class="flex px-4 justify-between items-center w-full">
@@ -221,7 +224,7 @@
                 fadeInUp
               " data-wow-delay=".1s
               ">
-            <img src="assets/images/blog/活動圖5.jpg" alt="image" class="w-full h-full object-cover object-center" />
+            <img src="/static/project/images/blog/活動圖5.jpg" alt="image" class="w-full h-full object-cover object-center" />
             <div class="
                   absolute
                   w-full
@@ -238,7 +241,7 @@
               <div class="flex flex-wrap items-center p-4 sm:p-8 pb-4">
                 <div class="flex items-center mb-4 mr-5 md:mr-10">
                   <div class="w-10 h-10 rounded-full overflow-hidden mr-4">
-                    <img src="assets/images/blog/author-01.png" alt="image" class="w-full" />
+                    <img src="/static/project/images/blog/author-01.png" alt="image" class="w-full" />
                   </div>
                   <p class="text-base text-white font-medium">
                     活動方:
@@ -502,7 +505,7 @@
                             overflow-hidden
                             mr-5
                           ">
-                      <img src="assets/images/blog/article-author-01.png" alt="image" class="w-full" />
+                      <img src="/static/project/images/blog/article-author-01.png" alt="image" class="w-full" />
                     </div>
                     <div class="w-full">
                       <h4>
@@ -544,7 +547,7 @@
                             overflow-hidden
                             mr-5
                           ">
-                      <img src="assets/images/blog/article-author-02.png" alt="image" class="w-full" />
+                      <img src="/static/project/images/blog/article-author-02.png" alt="image" class="w-full" />
                     </div>
                     <div class="w-full">
                       <h4>
@@ -586,7 +589,7 @@
                             overflow-hidden
                             mr-5
                           ">
-                      <img src="assets/images/blog/article-author-03.png" alt="image" class="w-full" />
+                      <img src="/static/project/images/blog/article-author-03.png" alt="image" class="w-full" />
                     </div>
                     <div class="w-full">
                       <h4>
@@ -630,7 +633,7 @@
                             overflow-hidden
                             mr-5
                           ">
-                      <img src="assets/images/blog/article-author-04.png" alt="image" class="w-full" />
+                      <img src="/static/project/images/blog/article-author-04.png" alt="image" class="w-full" />
                     </div>
                     <div class="w-full">
                       <h4>
@@ -681,7 +684,7 @@
         <div class="mb-10 group wow fadeInUp" data-wow-delay=".1s">
           <div class="rounded overflow-hidden mb-8">
             <a href="blog-details.html" class="block">
-              <img src="assets/images/blog/blog-01.jpg" alt="image" class="
+              <img src="/static/project/images/blog/blog-01.jpg" alt="image" class="
                       w-full
                       transition
                       group-hover:scale-125 group-hover:rotate-6
@@ -730,7 +733,7 @@
         <div class="mb-10 group wow fadeInUp" data-wow-delay=".15s">
           <div class="rounded overflow-hidden mb-8">
             <a href="blog-details.html" class="block">
-              <img src="assets/images/blog/blog-02.jpg" alt="image" class="
+              <img src="/static/project/images/blog/blog-02.jpg" alt="image" class="
                       w-full
                       transition
                       group-hover:scale-125 group-hover:rotate-6
@@ -779,7 +782,7 @@
         <div class="mb-10 group wow fadeInUp" data-wow-delay=".2s">
           <div class="rounded overflow-hidden mb-8">
             <a href="blog-details.html" class="block">
-              <img src="assets/images/blog/blog-03.jpg" alt="image" class="
+              <img src="/static/project/images/blog/blog-03.jpg" alt="image" class="
                       w-full
                       transition
                       group-hover:scale-125 group-hover:rotate-6
@@ -916,7 +919,7 @@
                   overflow-hidden
                   mr-5
                 ">
-                <img src="assets/images/testimonials/author-01.png" alt="author">
+                <img src="/static/project/images/testimonials/author-01.png" alt="author">
               </div>
               <div class="ud-testimonial-meta">
                 <h4 class="text-sm font-semibold">靜香</h4>
@@ -985,7 +988,7 @@
                   overflow-hidden
                   mr-5
                 ">
-                <img src="assets/images/testimonials/author-02.png" alt="author">
+                <img src="/static/project/images/testimonials/author-02.png" alt="author">
               </div>
               <div class="ud-testimonial-meta">
                 <h4 class="text-sm font-semibold">工藤新一</h4>
@@ -1033,7 +1036,7 @@
                   overflow-hidden
                   mr-5
                 ">
-                <img src="assets/images/testimonials/author-03.png" alt="author">
+                <img src="/static/project/images/testimonials/author-03.png" alt="author">
               </div>
               <div class="ud-testimonial-meta">
                 <h4 class="text-sm font-semibold">胖虎</h4>
@@ -1081,7 +1084,7 @@
                   overflow-hidden
                   mr-5
                 ">
-                <img src="assets/images/testimonials/author-03.png" alt="author">
+                <img src="/static/project/images/testimonials/author-03.png" alt="author">
               </div>
               <div class="ud-testimonial-meta">
                 <h4 class="text-sm font-semibold">木村拓哉</h4>
@@ -1129,7 +1132,7 @@
                   overflow-hidden
                   mr-5
                 ">
-                <img src="assets/images/testimonials/author-03.png" alt="author">
+                <img src="/static/project/images/testimonials/author-03.png" alt="author">
               </div>
               <div class="ud-testimonial-meta">
                 <h4 class="text-sm font-semibold">胖虎</h4>
@@ -1188,7 +1191,7 @@
         <div class="w-full sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12 px-4">
           <div class="w-full mb-10">
             <a href="javascript:void(0)" class="inline-block max-w-[160px] mb-6">
-              <img src="assets/images/logo/logo-white.svg" alt="logo" class="max-w-full" />
+              <img src="/static/project/images/logo/logo-white.svg" alt="logo" class="max-w-full" />
             </a>
             <p class="text-base text-[#f3f4fe] mb-7">
               We create digital experiences for brands and companies by using
@@ -1394,7 +1397,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/tailgrids.svg" alt="tailgrids" />
+                  <img src="/static/project/images/footer/brands/tailgrids.svg" alt="tailgrids" />
                 </a>
               </li>
               <li>
@@ -1406,7 +1409,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/ayroui.svg" alt="ayroui" />
+                  <img src="/static/project/images/footer/brands/ayroui.svg" alt="ayroui" />
                 </a>
               </li>
               <li>
@@ -1418,7 +1421,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/ecommerce-html.svg" alt="ecommerce-html" />
+                  <img src="/static/project/images/footer/brands/ecommerce-html.svg" alt="ecommerce-html" />
                 </a>
               </li>
               <li>
@@ -1430,7 +1433,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/graygrids.svg" alt="graygrids" />
+                  <img src="/static/project/images/footer/brands/graygrids.svg" alt="graygrids" />
                 </a>
               </li>
               <li>
@@ -1442,7 +1445,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/lineicons.svg" alt="lineicons" />
+                  <img src="/static/project/images/footer/brands/lineicons.svg" alt="lineicons" />
                 </a>
               </li>
               <li>
@@ -1454,7 +1457,7 @@
                       xl:max-w-[100px]
                       2xl:max-w-[120px]
                     ">
-                  <img src="assets/images/footer/brands/uideck.svg" alt="uideck" />
+                  <img src="/static/project/images/footer/brands/uideck.svg" alt="uideck" />
                 </a>
               </li>
             </ul>
@@ -1504,11 +1507,11 @@
 
     <div>
       <span class="absolute left-0 top-0 z-[-1]">
-        <img src="assets/images/footer/shape-1.svg" alt="" />
+        <img src="/static/project/images/footer/shape-1.svg" alt="" />
       </span>
 
       <span class="absolute bottom-0 right-0 z-[-1]">
-        <img src="assets/images/footer/shape-3.svg" alt="" />
+        <img src="/static/project/images/footer/shape-3.svg" alt="" />
       </span>
 
       <span class="absolute top-0 right-0 z-[-1]">
@@ -1694,7 +1697,7 @@
   <!-- ====== Back To Top End -->
 
   <!-- ====== All Scripts -->
-  <script src="assets/js/main.js"></script>
+  <script src="/static/project/js/main.js"></script>
 </body>
 
 </html>
