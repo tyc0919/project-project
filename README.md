@@ -17,10 +17,10 @@
 - [編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d32)
 - [編輯店家資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d33)
 ## 循序圖
-- [登入]
-- [註冊]
-- [查看、編輯個人資料]
-- [查看、編輯店家資料]
+- [登入](https://online.visual-paradigm.com/share.jsp?id=313939343439322d34)
+- [註冊](https://online.visual-paradigm.com/share.jsp?id=323030303137392d31)
+- [查看、編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=323030303137392d32)
+-
 - 
 ## 類別圖
 - [分析類別圖](https://online.visual-paradigm.com/share.jsp?id=313937373334352d34)
