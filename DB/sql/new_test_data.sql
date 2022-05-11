@@ -1,6 +1,9 @@
+use `111401_project`;
 -- user
-INSERT INTO `user` VALUES ('10846017@ntub.edu.tw', 0, 'habi', '1.jpg');
-INSERT INTO `user` VALUES ('10846010@ntub.edu.tw', 0, 'doge', '2.jpg');
+-- pwd = sha256(habiman)
+INSERT INTO `user` VALUES ('10846017@ntub.edu.tw', '8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD', '黃XX', '1.jpg','0976448885',1,now()); 
+INSERT INTO `user` VALUES ('10846010@ntub.edu.tw', '8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD', '曾XX', '2.jpg','0952802983',1,now());
+
 -- shop genre
 INSERT INTO `shop_genre` VALUES
 (1, 'food'), 
@@ -8,40 +11,37 @@ INSERT INTO `shop_genre` VALUES
 (3, 'hotel');
 
 -- shop
-INSERT INTO `111401_project`.`shop`
-(`account`,
-`password`,
-`contact_person`,
-`shop_name`,
-`genre`,
-`profile`,
-`picture_path`)
+INSERT INTO`shop`
 VALUES
-('shop@gmail.com',
-'5D41402ABC4B2A76B9719D911017C592',
-'CEO',
-'good_shop',
+('10846015@ntub.edu.tw',
+'8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD', 
+'柯XX',
+'food_shop',
 1,
 'hello',
-'1.jpg');
-INSERT INTO `111401_project`.`shop` VALUES
-('shop2@gmail.com',
-'5D41402ABC4B2A76B9719D911017C592',
-'CEO2',
-'good_shop2',
+'3.jpg',
 1,
-'hello2',
-'2.jpg');
+now());
 INSERT INTO `111401_project`.`shop` VALUES
-('shop3@gmail.com',
-'5D41402ABC4B2A76B9719D911017C592',
-'CEO3',
-'good_shop3',
+('10846002@ntub.edu.tw',
+'8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD',
+'魏XX',
+'food shop',
+1,
+'hello!!!!',
+'4.jpg',
+1,
+now());
+INSERT INTO `111401_project`.`shop` VALUES
+('10846014@ntub.edu.tw',
+'8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD',
+'胡XX',
+'hotel shop',
 3,
 'hello3',
-'3.jpg');
-
-
+'5.jpg',
+1,
+now());
 
 -- city
 INSERT INTO `111401_project`.`city`(`id`,`city_name`) VALUES 
@@ -68,66 +68,55 @@ INSERT INTO `111401_project`.`city`(`id`,`city_name`) VALUES
 (21,'金門縣'),
 (22,'連江縣');
 
+
 -- activity
-INSERT INTO `111401_project`.`activity`
-(`id`,
-`owner`,
-`city`,
-`activity_name`,
-`is_public`,
-`content`,
-`post_time`,
-`invitation_code`)
-VALUES
+INSERT INTO `activity` VALUES
 (1,
 '10846017@ntub.edu.tw',
 2,
 'myActivity',
 0,
+0,
 'helloMyActivity',
 now(),
-'HSC5487');
+'HSC5487',
+'6.jpg');
 
 -- colab_shop
 INSERT INTO `111401_project`.`colab_shop`
 (`id`,
-`shop_account`,
+`shop_email`,
 `activity_id`)
 VALUES
-(1,'shop@gmail.com',1),
-(2,'shop2@gmail.com',1),
-(3,'shop3@gmail.com',2),
-(4,'shop4@gmail.com',3);
+(1,'10846015@ntub.edu.tw',1),
+(2,'10846002@ntub.edu.tw',1);
 
 
 INSERT INTO `111401_project`.`collaborator`
 (`id`,
 `activity_id`,
-`user_account`)
+`user_email`)
 VALUES
 (1,
 1,
-'10846017@ntub.edu.tw');
+'10846010@ntub.edu.tw');
 
+INSERT INTO `job_status` VALUES
+(1,'未完成'),
+(2,'進行中'),
+(3,'已完成');
 
 INSERT INTO `111401_project`.`job`
-(`id`,
-`activity_id`,
-`person_in_charge_account`,
-`title`,
-`order`,
-`status`,
-`create_time`,
-`dead_line`)
 VALUES
 (1,
 1,
-'10846010@ntub.edu.tw',
+'10846017@ntub.edu.tw',
 'myFirstJob',
 1,
-0,
+1,
 now(),
-now());
+date_add(now(), interval 1 month));
+
 
 
 INSERT INTO `111401_project`.`job_detail`
@@ -140,6 +129,7 @@ VALUES
 1,
 'myFirstJobDetail',
 1);
+
 
 INSERT INTO `111401_project`.`review`
 (`id`,
@@ -156,13 +146,12 @@ VALUES
 now(),
 5);
 
+
 INSERT INTO `111401_project`.`serve_city`
 (`id`,
 `city`,
-`shop_account`)
+`shop_email`)
 VALUES
 (1,
 2,
-'shop@gmail.com');
-
-
+'10846015@ntub.edu.tw');
