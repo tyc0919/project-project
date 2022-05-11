@@ -1,64 +1,71 @@
-table,
-tr,
-td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
 .container {
+    position: relative;
     width: calc(100% - 200px);
     height: calc(100% - 100px);
     margin-left: 200px;
-}
-    
-.container .mobile {
-    display: none;
-}
-
-.container .computer {
-    top: 100px;
-    width: 100%;
-    height: 450px;
-    position: relative;
     display: flex;
     justify-content: center;
 }
-
-.container .computer table {
-    width: 80%;
-    height: 100%;
+    
+.deal_square{
+    position: relative;
+    top: 50px;
+    width: 550px;
+    height: 625px;
+    background-color: white;
+    border-radius: 0.375rem;
+    bottom: 0;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
 }
 
-.container .computer table th {
-    text-align: center;
+.deal_square .decorate1{
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+}
+
+.deal_square .decorate2{
+    position: absolute;
+    bottom: 0.3rem;
+    left: 0.3rem;
+}
+
+.deal_square .content{
     font-size: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
-.container .computer table input[type="text"] {
-    margin: 0 10px;
-    height: 30%;
+.deal_square .content .Text{
+    color: rgb(99 115 129);
+}
+
+.deal_square .content .Text p{
+    color: rgb(99 115 129);
+    margin: 5px 0;
+}
+
+.deal_square .content .Text input{
+    margin: 5px;
     background-color: #FCFDFE;
     border: 2px solid #E9EDF4;
-    width: 90%;
+    line-height: 25px;
+    width: 250px;
+    font-size: 20px;
 }
 
-.container .button{
-    position: relative;
-    width: 100%;
-    text-align: center;
-    margin-top: 100px;
-}
-
-.container .button input{
+.deal_square .content .button input{
     width: 240px;
     font-size: 30px;
     background-color: rgb(48 86 211);
     color: white;
     border: none;
     border-radius: 0.375rem;
-    margin: 15px 15px;
+    margin-top: 15px;
 }
-
 
 @media screen and (max-width:768px) {
     .container {
@@ -69,53 +76,12 @@ td {
         margin: 0 auto;
     }
 
-    .container .computer {
-        display: none;
+    .deal_square{
+        top: 15px;
     }
-
-    .container .mobile {
-        width: 100%;
-        height: 400px;
-        display: table;
+    
+    .deal_square .content .button input{
+        width: 150px;
     }
-
-    .container .mobile .row {
-        display: table-row;
-        border: 1px solid black;
-        text-align: center;
-        height: 100px;
-    }
-
-    .container .mobile .cell {
-        display: table-cell;
-        border: 1px solid black;
-        font-size: 25px;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .container .mobile .start{
-        text-align: start;
-    }
-
-    .container .mobile .cell input[type="text"] {
-        margin: 0 10px;
-        height: 30px;
-        width: 80%;
-        background-color: #FCFDFE;
-        border: 2px solid #E9EDF4;
-    }
-
-    .container .button{
-        margin-top: 10px;
-        white-space: nowrap;
-    }
-
-    .container .button input{
-        width: 140px;
-        margin: 0;
-    }
-
-
 
 }

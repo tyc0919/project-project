@@ -44,9 +44,6 @@
 
 
 .container .main_content .item .item_list ul li {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: flex;
     width: 100%;
     line-height: 45px;
@@ -55,6 +52,9 @@
     font-size: 20px;
     transition-duration: 1s;
     color: rgb(99 115 129);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .container .main_content .item .item_list ul li:hover {

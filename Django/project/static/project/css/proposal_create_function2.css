@@ -39,10 +39,12 @@
     word-break: break-all;
     overflow-y: auto;
     margin: 10px 0;
+    color:rgb(99 115 129);
 }
 
 .main_function .deal_square .work_check .work ul li{
     border-bottom: 1px solid rgb(48 86 211 / 30%);
+    
 }
 
 .main_function .deal_square .work_check .work .content{

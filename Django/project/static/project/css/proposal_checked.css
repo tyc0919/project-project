@@ -49,10 +49,8 @@
 }
 
 .container .work .bottom a{
-    color: rgb(99 115 129);
+    color: #727272;
 }
-
-
 
 @media screen and (max-width:768px) {
     .container {

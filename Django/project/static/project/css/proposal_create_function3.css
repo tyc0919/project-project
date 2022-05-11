@@ -22,6 +22,7 @@
     justify-content: center;
     align-items: center;
     height: 90%;
+    color:rgb(99 115 129);
 }
 
 .main_function .colla_square{
@@ -103,6 +104,10 @@
 
     .container_colla_add .code{
         height:250px;
+    }
+
+    .container_colla_add .colla_email input[type=button]{
+        width: 150px;
     }
     
 

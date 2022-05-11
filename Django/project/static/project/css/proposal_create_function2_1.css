@@ -41,6 +41,7 @@
 }
 
 .main_function .deal_square .work_add .B textarea{
+    font-size: 20px;
     width: 80% ;
     height: 300px ;
     background-color: #FCFDFE;

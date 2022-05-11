@@ -53,7 +53,11 @@
     text-align: center;
     bottom: 0;
     font-size: 20px;
-    padding: 3px;
+    padding: 3px;   
+}
+
+.container .work .bottom a{
+    color: #727272;
 }
 
 @media  screen and  (max-width:768px){
