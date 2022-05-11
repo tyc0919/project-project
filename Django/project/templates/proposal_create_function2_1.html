@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-    </title>
-    <link rel="stylesheet" href="/static/project/css/work_checked.css" />
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/project/css/sidebar.css">
+    <link rel="stylesheet" href="/static/project/css/dot1.css">
+    <link rel="stylesheet" href="/static/project/css/proposal_create_function2_1.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
-
+    <!-- background start -->
     <div class="background"></div>
+    <!-- background end -->
 
     <!--Nav start-->
     <div class="wrapper">
@@ -70,7 +69,8 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">工作名稱</h3>
+
+        <h3 class="header_text">我的企劃</h3>
 
         <div class="dot">
             <div class="dot_list">
@@ -90,44 +90,69 @@
     </div>
 
     <div class="header_mobile">
-        <h2>工作名稱</h2>
+        <h2>我的企劃</h2>
     </div>
-
     <!--header end-->
+
     <div class="container">
-        <div class="deal_square">
+        <div class="main_function">
+            <div class="deal_square">
+                <div class="work_add">
+                    <div class="A">
+                        <p>
+                            工作名稱
+                            <br>
+                            <input type="text" name="wrok_name">
+                        </p>
+                        <p>
+                            負責人
+                            <br>
+                            <input type="text" name="work_res">
+                        </p>
+                    </div>
+    
+                    <div class="B">
+                        <p>工作內容</p>
+                        <textarea name="work_content"></textarea>
+                    </div>
+    
+                    <div class="button">
+                        <input type="button" value="送出資料">
+                    </div>
 
-            <table>
-                <tr>
-                    <th>企劃</th>
-                    <th style="text-align: left;">企劃名稱</th>
-                </tr>
-
-                <tr>
-                    <th>負責人</th>
-                    <th style="text-align: left;">負責人姓名</th>
-                </tr>
-
-                <tr>
-                    <td colspan="2">
-                        就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說
-                    </td>
-                </tr>
-
-            </table>
-
-            
+                </div>
+    
+            </div>
         </div>
 
-        <div class="button">
-            <a href="work_checked4.html"><input type="button" value="工作回報"></a>
-            <a href="work_checked2.html"><input type="button" value="增加細項"></a>
+        <div class="edit_proposal">
+            <a href=""><i class="fa-solid fa-minus fa-2x center"></i></i></a>
         </div>
+
+        <div class="plus_proposal">
+            <a href=""><i class="fa-solid fa-ellipsis fa-2x center"></i></a>
+            <div class="list">
+                <ul>
+                    <a href="proposal_create_function1.html">
+                        <li>新增工作</li>
+                    </a>
+                    <a href="proposal_create_function2.html">
+                        <li>查看工作</li>
+                    </a>
+                    <a href="proposal_create_function3.html">
+                        <li>新增協作人員</li>
+                    </a>
+                    <a href="proposal_create_function4.html">
+                        <li>查看協作人員</li>
+                    </a>
+                    <a href="#">
+                        <li style="border: none;">完成企劃</li>
+                    </a>
+                </ul>
+            </div>
+        </div>   
 
     </div>
-
-
-
 
 </body>
 

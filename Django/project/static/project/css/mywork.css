@@ -1,13 +1,21 @@
-.container {
-    width: calc(100% - 200px);
+.container{
     margin-left: 200px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    width: calc(100% - 200px);
 }
 
-.container .work {
+/* .container .work_list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+} */
+
+.container .work{
     position: relative;
     width: 450px;
     height: 355px;
@@ -29,11 +37,11 @@
     text-overflow: ellipsis;
 }
 
-.container .work .description {
+.container .work .content{
+    height: 240px;
     margin: 5px;
-    text-align: start;
     font-size: 20px;
-    height: 190px;
+    text-align: start;
     overflow: hidden;
     color: rgb(99 115 129);
 }
@@ -45,23 +53,19 @@
     text-align: center;
     bottom: 0;
     font-size: 20px;
-    padding: 8px;
+    padding: 3px;
 }
 
-.container .work .bottom a{
-    color: rgb(99 115 129);
-}
-
-
-
-@media screen and (max-width:768px) {
-    .container {
+@media  screen and  (max-width:768px){
+    .container{
+        position: relative;
+        display: flex;
         justify-content: center;
-        width: 100%;
-        top: 125px;
         margin-left: 0;
+        top: 125px;
+        width: 100%;
     }
-
+    
     .container .work{       
         width: 400px;
         text-align: center;
@@ -72,14 +76,12 @@
         font-size: 25px;
     }
 
-    .container .work .description{
-        height: 200px;
+    .container .work .content{
         font-size: 18px;
     }
 
     .container .work .bottom{
         font-size: 18px;
-        padding: 5px;
     }
-
+    
 }

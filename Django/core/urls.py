@@ -15,11 +15,10 @@ Including another URLconf
 """
 
 
-from django.urls import path
-from django.conf.urls import include
+from django.urls import path, include
 from django.urls import re_path as url
 
 
 urlpatterns = [
-
+    path('', include('project.urls')),
 ]

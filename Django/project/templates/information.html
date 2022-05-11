@@ -6,17 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
+        Index
     </title>
-    <link rel="stylesheet" href="/static/project/css/work_checked.css" />
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/information.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
-
     <div class="background"></div>
-
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
@@ -70,7 +68,7 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">工作名稱</h3>
+        <h3 class="header_text">XXX 用戶</h3>
 
         <div class="dot">
             <div class="dot_list">
@@ -90,45 +88,62 @@
     </div>
 
     <div class="header_mobile">
-        <h2>工作名稱</h2>
+        <h2>XXX 用戶</h2>
     </div>
 
     <!--header end-->
+
+    <!--content-->
     <div class="container">
-        <div class="deal_square">
-
-            <table>
+        <div class="computer">
+            <table cellpadding=5 cellspacing=1>
                 <tr>
-                    <th>企劃</th>
-                    <th style="text-align: left;">企劃名稱</th>
+                    <th colspan="4">個人資料</th>
                 </tr>
 
                 <tr>
-                    <th>負責人</th>
-                    <th style="text-align: left;">負責人姓名</th>
+                    <th style="width:20%;">姓名</th>
+                    <td style="width:50%;"><input type="text"></td>
+                    <td style="width:30%; text-align:center;" rowspan="2"><img src="https://picsum.photos/300/300" alt=""> </td>
                 </tr>
 
                 <tr>
-                    <td colspan="2">
-                        就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說
-                    </td>
+                    <th>信箱</th>
+                    <td><input type="text"></td>
                 </tr>
 
             </table>
+        </div>
 
-            
+        <div class="mobile">
+
+            <div class="row">
+                <div class="cell">頭像</div>
+                <div class="cell start" style="text-align:center;"><img src="https://picsum.photos/200/200" alt=""></div>
+            </div class="row">
+
+            <div class="row">
+                <div class="cell">姓名</div>
+                <div class="cell start"><input type="text"></div>
+            </div class="row">
+
+            <div class="row">
+                <div class="cell">信箱</div>
+                <div class="cell start"><input type="text"></div>
+            </div class="row">
+
+            <div class="row">
+                <div class="cell">地址</div>
+                <div class="cell start"><input type="text"></div>
+            </div class="row">
+
+
         </div>
 
         <div class="button">
-            <a href="work_checked4.html"><input type="button" value="工作回報"></a>
-            <a href="work_checked2.html"><input type="button" value="增加細項"></a>
+            <input type="button" value="編輯">
+            <input type="button" value="確定">
         </div>
 
+
     </div>
-
-
-
-
-</body>
-
-</html>

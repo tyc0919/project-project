@@ -1,0 +1,103 @@
+.main_content {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    margin-left: 200px;
+    width: calc(100% - 200px);
+}
+
+.main_content .deal_square{
+    position: relative;
+    top: 50px;
+    width: 525px;
+    height: 600px;
+    background-color: white;
+    border-radius: 0.375rem;
+    bottom: 0;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
+}
+
+.main_content .deal_square .decorate1{
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+}
+
+.main_content .deal_square .decorate2{
+    position: absolute;
+    bottom: 0.3rem;
+    left: 0.3rem;
+}
+
+.main_content .deal_square .content{
+    font-size: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main_content .deal_square .content .Text{
+    color: rgb(99 115 129);
+}
+
+.main_content .deal_square .content .Text p{
+    margin: 25px;
+    color: rgb(99 115 129);
+}
+
+.main_content .deal_square .content .Text input{
+    margin: 5px;
+    background-color: #FCFDFE;
+    border: 2px solid #E9EDF4;
+    line-height: 25px;
+    width: 250px;
+}
+
+
+.main_content .deal_square .content .button input{
+    width: 250px;
+    margin-top: 10px;
+    font-size: 30px;
+    background-color: rgb(48 86 211);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+}
+
+@media screen and (max-width:768px) {
+    .main_content {
+        position: relative;
+        top: 140px;
+        margin-left: 0;
+        width: 90%;
+        margin: auto;
+    }
+
+    .main_content .deal_square{
+        position: relative;
+        top: 50px;
+        width: 525px;
+        height: 500px;
+
+    }
+
+    .main_content .deal_square{
+        top: 0;
+    }
+
+    /* .main_content .deal_square .content{
+        font-size: 25px;
+    }
+
+    .main_content .deal_square .content .colla{
+        font-size: 25px;
+    }
+
+    .main_content .deal_square .content .button input{
+        font-size: 25px;
+    } */
+    
+
+}
