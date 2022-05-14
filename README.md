@@ -20,8 +20,8 @@
 2. [註冊](https://online.visual-paradigm.com/share.jsp?id=323030303137392d31)
 3. [查看、編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=323030303137392d32)
 4. [瀏覽、評論貼文](https://online.visual-paradigm.com/share.jsp?id=323030303137392d33)
-5. [引用合作店家](https://online.visual-paradigm.com/w/hbbnfbwo/diagrams/#diagram:workspace=hbbnfbwo&proj=0&id=2)
-6. [新增企劃](https://online.visual-paradigm.com/w/hbbnfbwo/diagrams/#diagram:workspace=hbbnfbwo&proj=0&id=1)
+5. [引用合作店家](https://online.visual-paradigm.com/share.jsp?id=323030313636372d32)
+6. [新增企劃](https://online.visual-paradigm.com/share.jsp?id=323030313636372d31)
 7. [編輯工作](https://online.visual-paradigm.com/share.jsp?id=313331303432302d37)
 8. [發表貼文](https://online.visual-paradigm.com/share.jsp?id=313331303432302d39)
 ## 類別圖
