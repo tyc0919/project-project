@@ -20,7 +20,7 @@
 - [登入](https://online.visual-paradigm.com/share.jsp?id=313939343439322d34)
 - [註冊](https://online.visual-paradigm.com/share.jsp?id=323030303137392d31)
 - [查看、編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=323030303137392d32)
-- [瀏覽、評論貼文(等VP可以用會再改一次)](https://drive.google.com/file/d/1mMJRoIheV_VUO-oZRdYdXfU2WH9Mv0xz/view?usp=sharing)
+- [瀏覽、評論貼文(等VP可以用會再改一次)](https://online.visual-paradigm.com/share.jsp?id=323030303137392d33)
 -
 - 
 ## 類別圖
