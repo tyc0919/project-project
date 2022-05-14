@@ -23,6 +23,8 @@
 - [瀏覽、評論貼文](https://online.visual-paradigm.com/share.jsp?id=323030303137392d33)
 - [引用合作店家](https://online.visual-paradigm.com/w/hbbnfbwo/diagrams/#diagram:workspace=hbbnfbwo&proj=0&id=2)
 - [新增企劃](https://online.visual-paradigm.com/w/hbbnfbwo/diagrams/#diagram:workspace=hbbnfbwo&proj=0&id=1)
+- [編輯工作](https://online.visual-paradigm.com/share.jsp?id=313331303432302d37)
+- [發表貼文](https://online.visual-paradigm.com/share.jsp?id=313331303432302d39)
 ## 類別圖
 - [分析類別圖](https://online.visual-paradigm.com/share.jsp?id=313937373334352d34)
 ## 待補充
