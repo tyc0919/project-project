@@ -10,9 +10,9 @@
 4. [編輯工作](https://online.visual-paradigm.com/share.jsp?id=313235323933372d36)
 5. [邀請協作人員](https://online.visual-paradigm.com/share.jsp?id=313939343439322d31)
 6. [引用合作店家](https://online.visual-paradigm.com/share.jsp?id=313939343439322d32)
-7. [發表貼文](https://online.visual-paradigm.com/share.jsp?id=313939343439322d33)
-8. [瀏覽貼文](https://online.visual-paradigm.com/share.jsp?id=313330363836372d3133)
-9. [查看店家資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d31)
+7. [查看店家資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d31)
+8. [發表貼文](https://online.visual-paradigm.com/share.jsp?id=313939343439322d33)
+9. [瀏覽貼文](https://online.visual-paradigm.com/share.jsp?id=313330363836372d3133)
 10. [編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d32)
 11. [編輯店家資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d33)
 ## 循序圖
