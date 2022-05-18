@@ -244,10 +244,17 @@
               <div class="mb-10 text-center text-2xl font-bold">
                登入
               </div>
-              <form>
+              {% if status %}
+              <div class="mb-10 text-center text-2xl font-bold">
+                {{ message }}
+              </div>
+              {% endif %}
+              <form method="post">
+                {% csrf_token %}
                 <div class="mb-6">
                   <input
                     type="email"
+                    name="user_email"
                     placeholder="電子信箱"
                     class="
                       w-full
@@ -269,6 +276,7 @@
                 <div class="mb-6">
                   <input
                     type="password"
+                    name="password"
                     placeholder="密碼"
                     class="
                       w-full
@@ -291,7 +299,7 @@
                   <div class="mb-8">
                
                       <input
-                      type="button"
+                      type="submit"
                       value="登入"
                       class="
                         w-full
@@ -308,7 +316,6 @@
                         duration-300
                         ease-in-out
                       "
-                      onclick="location.href='event/Event_index.html';"
                     />
                   
                   </div>

@@ -244,7 +244,13 @@
               <div class="mb-10 text-center text-2xl font-bold">
               註冊
               </div>
-              <form>
+              {% if response %}
+              <div class="mb-10 text-center text-2xl font-bold">
+              {{ response }}
+              </div>
+              {% endif %}
+              <form method="post">
+                {% csrf_token %}
                 <div class="mb-6">
                   <input
                     type="text"
@@ -264,6 +270,7 @@
                       focus:border-primary
                       transition
                     "
+                    name="user_name"
                   />
                 </div>
                 <div class="mb-6">
@@ -285,6 +292,7 @@
                       focus:border-primary
                       transition
                     "
+                    name="user_email"
                   />
                 </div>
                 <div class="mb-6">
@@ -306,6 +314,7 @@
                       focus:border-primary
                       transition
                     "
+                    name="password"
                   />
                 </div>
                 <div class="mb-10">
