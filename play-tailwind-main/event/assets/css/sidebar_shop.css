@@ -50,12 +50,12 @@ body{
     padding: 20px;
 }
 
-.wrapper .sidebar .nav_table ul a{
-    color: white;
-}
-
 .wrapper .sidebar .nav_table .icon{
     width: 45px;
+}
+
+.wrapper .sidebar .nav_table ul li a{
+    color: white;
 }
 
 .wrapper .sidebar .nav_table ul li:hover{
@@ -101,28 +101,18 @@ body{
 }
 
 .header_table {
+    position: relative;
+    margin-left: 200px;
     width: auto;
     height: 100px;
-    margin-left: 200px;
-    position: relative;
     border-bottom: 1px solid #00000050;
     background: white;
 }
 
-.header_table .detail{
-    position: absolute;
-    font-size: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 12%;
-}
-
 .header_table .header_text{
-    position: absolute;
     line-height: 100px;
+    text-align: center;
     font-size: 30px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .header_mobile{
@@ -210,7 +200,7 @@ body{
         visibility: hidden;
         text-align: center;
         width: 125px;
-        height: 150px;
+        height: 60px;
         opacity: 0;
         transition: visibility 1s;
         background-color: #fafafa;
@@ -222,7 +212,7 @@ body{
         height: 25px;
     }
 
-    .wrapper .sidebar .nav_mobile .function .function_list ul a{
+    .wrapper .sidebar .nav_mobile .function .function_list ul li a{
         color: black;
     }
 
@@ -256,7 +246,6 @@ body{
         border-radius: 10px;
     }
     
-
     .wrapper .sidebar .nav_mobile .indi .indi_list ul li{
         margin-top: 5px;
         height: 25px;
@@ -265,7 +254,6 @@ body{
     .wrapper .sidebar .nav_mobile .indi .indi_list ul li a{
         color: black;
     }
-
 
     .header_table{
         display:none
