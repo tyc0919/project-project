@@ -83,7 +83,7 @@ now(),
 '6.jpg');
 
 -- colab_shop
-INSERT INTO `111401_project`.`colab_shop`
+INSERT INTO `111401_project`.`collab_shop`
 (`id`,
 `shop_email`,
 `activity_id`)
