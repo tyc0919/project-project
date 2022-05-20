@@ -118,6 +118,7 @@ CREATE TABLE `collab_shop`(
 	`id` int PRIMARY KEY,
 	`shop_email` char(30),
     `activity_id` int,
+    `shop_permittion` int default 0,
     FOREIGN KEY(`shop_email`) REFERENCES `shop`(`shop_email`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

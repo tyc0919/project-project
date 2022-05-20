@@ -86,10 +86,11 @@ now(),
 INSERT INTO `111401_project`.`collab_shop`
 (`id`,
 `shop_email`,
-`activity_id`)
+`activity_id`,
+`shop_permittion`)
 VALUES
-(1,'10846015@ntub.edu.tw',1),
-(2,'10846002@ntub.edu.tw',1);
+(1,'10846015@ntub.edu.tw',1,0),
+(2,'10846002@ntub.edu.tw',1,0);
 
 
 INSERT INTO `111401_project`.`collaborator`
