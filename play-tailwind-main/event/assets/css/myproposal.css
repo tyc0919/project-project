@@ -27,6 +27,7 @@
     border-radius: 0.375rem;
     padding: 0.5rem 1rem;
     overflow: hidden;
+    color:rgb(99 115 129);
 }
 
 .container .not_finish .proposal h3{
@@ -45,6 +46,7 @@
     font-size: 20px;
     line-height: 45px;
     margin: 15px 0;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgb(99 115 129);
@@ -79,6 +81,7 @@
     border-radius: 0.375rem;
     padding: 0.5rem 1rem;
     overflow: hidden;
+    color:rgb(99 115 129);
 }
 
 .container .finish .proposal h3{
@@ -98,6 +101,7 @@
     font-size: 20px;
     line-height: 45px;
     margin: 15px 0;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: rgb(99 115 129);

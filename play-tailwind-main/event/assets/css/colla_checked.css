@@ -24,8 +24,8 @@ table td {
 .container .deal_square {
     position: relative;
     width: 90%;
-    height: 700px;
-    margin: 20px 0;
+    height: 750px;
+    top: 20px;
     background-color: white;
     overflow-y: auto;
 }
@@ -37,13 +37,24 @@ table td {
     font-size: 20px;
     border-spacing: 10px 30px;
     width: 100%;
+    color:rgb(99 115 129);
 }
+
+.container .deal_square img{
+    width: 400px;
+    height: 200px;
+}
+
 
 .container .deal_square table td {
     overflow: hidden;
     padding: 0 10px;
     max-height: 500px;
     color: rgb(99 115 129);
+}
+
+.container .deal_square table td p{
+   line-height: 30px;
 }
 
 .container .button {
@@ -67,9 +78,9 @@ table td {
     }
 
     .container .deal_square {
-        top: 120px;
-        height: 600px;
+        height: 650px;
         overflow-x: hidden;
+        top:140px;
     }
 
     .computer {
@@ -91,6 +102,13 @@ table td {
         font-size: 25px;
         padding:10px;
         overflow-y: auto;
+    }
+
+
+    .cell p{
+        font-size: 18px;
+        line-height: 30px;
+        color: rgb(99 115 129);
     }
 
     .container .button {

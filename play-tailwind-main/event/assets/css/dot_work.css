@@ -58,22 +58,26 @@
     display: inline-block;
     position: absolute;
     visibility: hidden;
-    text-align: center;
-    width: 200px;
+    width: 250px;
     height: 105px;
+    padding: 1.5px 30px;
     opacity: 0;
     transition: visibility 1s;
-    background-color: #fafafa;
-    border-radius: 10px;
-    transform: translate(-120%, -75%);
+    background-color: white;
+    border-radius: 0.375rem;
+    transform: translate(-115%, -80%);
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
 }
 
-.list ul li{
-    font-size: 30px;
+.list ul li{    
+    font-size: 18px;
     line-height: 35px;
     height: 35px;
-    border-bottom: 1px solid rgb(48 86 211 / 30%);
-    color: black;
+    color: rgb(99 115 129);
+}
+
+.list ul li:hover{
+    color: #3056D3;
 }
 
 @media  screen and  (max-width:768px){

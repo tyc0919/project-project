@@ -1,0 +1,78 @@
+.container {
+    width: calc(100% - 200px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 200px;
+    margin-top: 25px;
+}
+
+.container .post_detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .post_detail img{
+    width: 50%;
+    height: 300px;
+    margin: 10px 0;
+}
+
+.container .post_detail .title{
+    text-align: center;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.container .post_detail .title p{
+    margin: 10px 0;
+}
+
+.container .post_detail .content{
+    width: 80%;
+    font-size: 20px;
+    line-height: 30px;
+    margin: 10px 0;
+}
+
+.container .post_detail .comment_list{
+    position: relative;
+    width: 80%;
+}
+
+.container .post_detail .comment_list .comment{
+    font-size: 20px;
+    line-height: 35px;
+    background-color: white;
+    border-radius: 0.375rem;
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.container .post_detail .comment_list .comment .infor{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+.container .post_detail .comment_list .comment .infor img{
+    width: 50px;
+    height: 50px;
+    margin-right: 30px;
+}
+
+
+@media screen and (max-width:768px) {
+    .container {
+        width: 100%;
+        margin-left: 0px;
+        top: 115px;
+
+    }
+
+
+
+}

@@ -4,7 +4,6 @@
     justify-content: center;
     margin-left: 200px;
     width: calc(100% - 200px);
-    height: calc(100% - 150px);
 }
 
 .main_function{
@@ -13,7 +12,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    top: 10px;
+    top: 20px;
 }
 
 .main_function .deal_square{
@@ -43,17 +42,20 @@
     line-height: 35px;
     background-color: #FCFDFE;
     border: 2px solid #E9EDF4;
+    margin: 15px 0;
 }
 
 .main_function .deal_square .work_add .A p{
-    padding: 10px 0;
+    margin: 15px 0;
 }
 
 .main_function .deal_square .work_add .B textarea{
     width: 80% ;
     height: 300px ;
+    line-height: 30px;
     background-color: #FCFDFE;
     border: 2px solid #E9EDF4;
+    margin: 15px 0;
 }
 
 .main_function .deal_square .work_add .button input[type=button]{
@@ -69,7 +71,7 @@
     .container{
         margin-left: 0px;
         width: 100%;
-        top: 130px;
+        top: 120px;
     }
     
     .main_function .deal_square{

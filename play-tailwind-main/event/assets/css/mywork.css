@@ -17,6 +17,7 @@
     background-color: white;
     box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
     border-radius: 0.375rem;
+    color:rgb(99 115 129);
 }
 
 .container .work ul li {
@@ -31,6 +32,7 @@
 
 .container .work .content{
     height: 170px;
+    line-height: 30px;
     margin: 5px;
     font-size: 20px;
     text-align: start;

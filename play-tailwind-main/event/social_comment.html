@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/sidebar.css">
-    <link rel="stylesheet" href="./assets/css/proposal_post.css">
+    <link rel="stylesheet" href="./assets/css/social_comment.css" />
+    <link rel="stylesheet" href="./assets/css/sidebar.css" />
+    <link rel="stylesheet" href="./assets/css/dot2.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <!-- background start -->
     <div class="background"></div>
+    <!-- background end -->
+
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
@@ -32,10 +35,10 @@
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
                     <a href="colla_index.html">
-                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
                     <a href="social_index.html">
-                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
             </div>
@@ -102,7 +105,7 @@
         </div>
 
         <div class="header_text">
-            <b>創建貼文</b>
+            <b>發表評論</b>
         </div>
 
 
@@ -124,37 +127,58 @@
     </div>
 
     <div class="header_mobile">
-        <h2>創建貼文</h2>
+        <h2>發表評論</h2>
     </div>
 
     <!--header end-->
 
     <div class="container">
-        <div class="main_function">
-            <div class="deal_square">
-                <div class="work_add">
-                    <div class="A">
-                        <p>
-                            貼文名稱
-                            <br>
-                            <input type="text" name="wrok_name">
-                        </p>
-                    </div>
+        <div class="deal_square">
+            <div class="comment_add">
 
-                    <div class="B">
-                        <p>貼文內容</p>
-                        <textarea name="work_content"></textarea>
-                    </div>
+                <div class="comment_text">
+                    評論星數
+                </div>
 
-                    <div class="button">
-                        <a href="./myproposal.html"><input type="button" value="送出資料"></a>
+                <div class="comment_star">
+                    <div class="box1">
+                    </div>
+                    <div class="box1">
+                    </div>
+                    <div class="box1">
+                    </div>
+                    <div class="box1">
+                    </div>
+                    <div class="box1">
                     </div>
                 </div>
 
+                <div class="comment_content">
+                    <p>評論內容</p>
+                    <textarea></textarea>
+                </div>
+
+                <div class="button">
+                    <a href="social_checked.html"><input type="button" value="送出資料"></a>
+                </div>
+                
             </div>
         </div>
-
     </div>
+
+    <script type="text/javascript">
+        var arBox1 = document.getElementsByClassName("box1");
+        for (let x = 0; x < 5; x++) {
+            arBox1[x].onclick = function () {
+                for (let y = 0; y < 5; y++) {
+                    arBox1[y].style.backgroundImage = "url(0.png)"
+                    for (let z = 0; z <= x; z++) {
+                        arBox1[z].style.backgroundImage = "url(1.png)"
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 

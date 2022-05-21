@@ -4,7 +4,6 @@
     position: relative;
     display: flex;
     justify-content: center;
-    top: 10px;
 }
 
 .main_function .deal_square{
@@ -13,12 +12,14 @@
     position: relative;
     background-color: white;
     border-radius: 0.375rem;
+    top: 20px;
 }
 
 .main_function .deal_square .work_add{
     height: 100%;
     width: 100%;
     position: relative;
+    top: 30px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
