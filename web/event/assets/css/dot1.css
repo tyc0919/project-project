@@ -1,0 +1,91 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-left: 200px;
+    width: calc(100% - 200px);
+    height: calc(100% - 150px);
+}
+
+.function_menu {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(59 130 246 / 0.5);
+    border-radius: 50%;
+}
+
+.edit_proposal{
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(59 130 246 / 0.5);
+    border-radius: 50%;
+}
+
+.edit_proposal .center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.function_menu .center {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.function_menu a {
+    color: white;
+}
+
+.edit_proposal a {
+    color: white;
+}
+
+
+.function_menu:hover .list {
+    opacity: 1;
+    visibility: visible;
+}
+
+.list {
+    display: inline-block;
+    position: absolute;
+    visibility: hidden;
+    padding: 1.5px 30px;
+    width: 200px;
+    height: 175px;
+    opacity: 0;
+    background-color: white;
+    transition: visibility 1s;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
+    border-radius: 0.375rem;
+    transform: translate(-115%, -80%);
+}
+
+.list ul li{
+    font-size: 18px;
+    line-height: 35px;
+    height: 35px;
+    color: rgb(99 115 129);
+}
+
+.list ul li:hover{
+    color: #3056D3;
+}
+
+@media  screen and  (max-width:768px){
+    .container{
+        margin-left: 0px;
+        width: 100%;
+        top: 130px;
+    }
+
+}
