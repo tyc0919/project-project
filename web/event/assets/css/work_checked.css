@@ -1,0 +1,54 @@
+table th , tr{
+    font-size: 30px;
+}
+
+table th{
+    font-weight: normal;
+}
+
+table td {
+    font-size: 20px;
+}
+
+.container{
+    align-items: center;
+    top: 10px;
+}
+
+.container .deal_square{
+    position: relative;
+    width: 90%;
+    height: 750px;
+    background-color: white;
+    overflow-y: auto;
+    top: 10px;
+}
+
+.container .deal_square table{
+    height: 100px;
+    table-layout: fixed;
+    border-collapse:separate;
+    font-size: 20px;
+    border-spacing: 10px 30px;
+    width: 100%;
+    color: rgb(99 115 129);
+}
+
+.container .deal_square table th{
+    width: 50%;
+}
+
+.container .deal_square table td{
+    overflow: hidden;
+    padding: 0 10px;
+    max-height: 500px;
+    line-height: 30px;
+}
+
+
+@media  screen and  (max-width:768px){
+    .container .deal_square{
+        margin: 10px auto;
+        height: 650px;
+    }
+}

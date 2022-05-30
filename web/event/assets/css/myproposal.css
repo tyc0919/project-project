@@ -1,0 +1,165 @@
+.container{
+    width: calc(100% - 200px);
+    margin-left: 200px;
+}
+
+.container .not_finish{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container .finish{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container .not_finish .proposal{
+    position: relative;
+    width: 450px;
+    height: 400px;
+    margin: 10px 20px;
+    background-color: white;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    color:rgb(99 115 129);
+}
+
+.container .not_finish .proposal h3{
+    text-align: center;
+    max-width: 100%;
+    font-size: 30px;
+    line-height: 45px;
+    border-bottom: 3px solid #b8c1df;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container .not_finish .proposal ul li{
+    display:block;
+    font-size: 20px;
+    line-height: 45px;
+    margin: 15px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(99 115 129);
+    transition-duration: 1s;
+}
+
+.container .not_finish .proposal ul li:hover{
+    background-color: rgb(216, 215, 215);
+}
+
+.container .not_finish .proposal .bottom_text{
+    position: absolute;
+    font-size: 20px;
+    display: block;
+    bottom: 0;
+    left: 50%;
+    margin-bottom: 5px;
+    transform: translateX(-50%);
+}
+
+.container .not_finish .proposal .bottom_text a{
+    color: #727272;
+}
+
+.container .finish .proposal{
+    position: relative;
+    width: 450px;
+    height: 400px;
+    margin: 10px 20px;
+    background-color: white;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    overflow: hidden;
+    color:rgb(99 115 129);
+}
+
+.container .finish .proposal h3{
+    text-align: center;
+    max-width: 100%;
+    font-size: 30px;
+    line-height: 45px;
+    border-bottom: 3px solid #b8c1df;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.container .finish .proposal ul li{
+    display:block;
+    font-size: 20px;
+    line-height: 45px;
+    margin: 15px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(99 115 129);
+    transition-duration: 1s;
+}
+
+.container .finish .proposal ul li:hover{
+    background-color: rgb(216, 215, 215);
+}
+
+.container .finish .proposal  .bottom_text{
+    position: absolute;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    bottom: 0;
+    left: 50%;
+    margin-bottom: 5px;
+    transform: translateX(-50%);
+}
+
+.container .finish .proposal .bottom_text a{
+    color: #727272;
+}
+
+@media  screen and  (max-width:768px){    
+    .container{
+        width: 100%;
+        position: relative;
+        margin: 0 auto;
+        top: 130px;
+        text-align: center;
+        justify-content: center;
+        z-index: 0;
+    }
+
+    .container .not_finish .proposal{
+        width: 425px;
+        height: 400px;
+    }
+
+    .container .finish .proposal{
+        width: 425px;
+        height: 400px;
+    }
+
+    .container .proposal h3{
+        font-size: 25px;
+        border-bottom: 1px solid #000;
+    }
+
+    .container .proposal ul li{
+        line-height: 40px;
+        font-size: 18px;
+    }
+
+    .container .proposal .bottom_text{
+        font-size: 18px;
+    }
+
+}

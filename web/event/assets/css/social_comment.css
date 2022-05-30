@@ -1,0 +1,130 @@
+.container{
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.deal_square{
+    width: 90%;
+    height: 750px;
+    position: relative;
+    background-color: white;
+    border-radius: 0.375rem;
+    top: 20px;
+}
+
+.deal_square .comment_add{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 80px;
+    color: rgb(99 115 129);
+    width: 100%;
+}
+
+.deal_square .comment_add .comment_text{
+    font-size: 30px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.deal_square .comment_add .comment_star{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.deal_square .comment_add .comment_star .box1 {
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+    background-image: url(0.png)
+}
+
+.deal_square .comment_add .comment_content{
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.deal_square .comment_add .comment_content p{
+    text-align: center;
+    font-size: 30px;
+}
+
+.deal_square .comment_add .comment_content textarea{
+    
+    height: 300px;
+    width: 80%;
+    font-size: 25px;
+    line-height: 30px;
+    background-color: #FCFDFE;
+    border: 2px solid #E9EDF4;
+    margin: 15px auto;
+}
+
+.deal_square .comment_add .button{
+    margin: 10px 0;
+}
+
+.deal_square .comment_add .button input[type=button]{
+    width: 240px;
+    font-size: 30px;
+    background-color: rgb(48 86 211);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+}
+
+@media  screen and  (max-width:768px){
+    .container{
+        margin-left: 0px;
+        width: 100%;
+        top: 120px;
+    }
+    
+    .main_function .deal_square{
+        width: 100%;
+        height: 600px;
+        position: relative;
+        background-color: white;
+        border-radius: 0.375rem ;
+    }
+
+    .main_function .deal_square .comment_add{
+        top: 15px;
+        font-size: 25px;
+    }
+
+    .main_function .deal_square .comment_add input[type=text]{
+        font-size: 18px;
+        width: 250px;
+        line-height: 33px;
+        background-color: #FCFDFE;
+        border: 2px solid #E9EDF4;
+    }
+
+    .main_function .deal_square .comment_add .A p{
+        padding: 1px 0;
+    }
+
+    .main_function .deal_square .comment_add .B textarea{
+        width: 80%;
+    }
+
+    .main_function .deal_square .comment_add .button input[type=button]{
+        width: 150px;
+    }
+
+}
+
+ 

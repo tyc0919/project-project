@@ -1,0 +1,78 @@
+.container {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.container .work {
+    position: relative;
+    width: 450px;
+    height: 400px;
+    margin: 10px 20px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+}
+
+.container .work ul li{
+    font-size: 30px;
+    line-height: 45px;
+    background-color: white;
+    border-bottom: 3px solid #b8c1df;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container .work .description {
+    text-align: start;
+    font-size: 20px;
+    height: 175px;
+    overflow: hidden;
+    color: rgb(99 115 129);
+    line-height: 30px;
+}
+
+.container .work .bottom{
+    position: absolute;
+    display: block;
+    font-size: 20px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container .work .bottom a{
+    color: #727272;
+}
+
+@media screen and (max-width:768px) {
+    .container {
+        justify-content: center;
+        width: 100%;
+        top: 125px;
+        margin-left: 0;
+    }
+
+    .container .work ul li{
+        font-size: 25px;
+    }
+
+    .container .work .description{
+        font-size: 18px;
+    }
+
+    .container .work .bottom{
+        font-size: 18px;
+    }
+
+    .container .work .bottom a{
+        font-size: 18px;
+    }
+
+}
