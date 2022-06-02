@@ -17,31 +17,31 @@ VALUES
 '8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD', 
 '柯XX',
 'food_shop',
-1,
 'hello',
 '3.jpg',
 1,
-now());
+now(),
+1);
 INSERT INTO `111401_project`.`shop` VALUES
 ('10846002@ntub.edu.tw',
 '8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD',
 '魏XX',
 'food shop',
-1,
 'hello!!!!',
 '4.jpg',
 1,
-now());
+now(),
+1);
 INSERT INTO `111401_project`.`shop` VALUES
 ('10846014@ntub.edu.tw',
 '8EFC336430B427923869C1722463FB3F41615A0C0DC419E84ED78D2A74C4F9FD',
 '胡XX',
 'hotel shop',
-3,
 'hello3',
 '5.jpg',
 1,
-now());
+now(),
+3);
 
 -- city
 INSERT INTO `111401_project`.`city`(`id`,`city_name`) VALUES 
@@ -87,7 +87,7 @@ INSERT INTO `111401_project`.`collab_shop`
 (`id`,
 `shop_email`,
 `activity_id`,
-`shop_permittion`)
+`shop_permission`)
 VALUES
 (1,'10846015@ntub.edu.tw',1,0),
 (2,'10846002@ntub.edu.tw',1,0);

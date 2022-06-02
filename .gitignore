@@ -8,4 +8,6 @@ env.bak/
 venv.bak/
 .vscode/
 Django/project/migrations/0*.py
-*.pyc
+Django/project/migrations/__pycache__/*.pyc
+Django/core/__pycache__/*.pyc
+Django/project/__pycache__/*.pyc

@@ -3,7 +3,7 @@
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `#managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
@@ -20,7 +20,7 @@ class Activity(models.Model):
     activity_picture = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'activity'
 
 
@@ -28,7 +28,7 @@ class City(models.Model):
     city_name = models.CharField(max_length=3, blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'city'
 
 
@@ -36,9 +36,10 @@ class CollabShop(models.Model):
     id = models.IntegerField(primary_key=True)
     shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    shop_permission = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'collab_shop'
 
 
@@ -47,7 +48,7 @@ class Collaborator(models.Model):
     user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'collaborator'
 
 
@@ -61,7 +62,7 @@ class Job(models.Model):
     dead_line = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'job'
 
 
@@ -72,7 +73,7 @@ class JobDetail(models.Model):
     order = models.IntegerField(unique=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'job_detail'
 
 
@@ -80,7 +81,7 @@ class JobStatus(models.Model):
     status_name = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'job_status'
 
 
@@ -93,7 +94,7 @@ class Review(models.Model):
     review_star = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'review'
 
 
@@ -102,7 +103,7 @@ class ServeCity(models.Model):
     shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'serve_city'
 
 
@@ -111,14 +112,14 @@ class Shop(models.Model):
     password = models.CharField(max_length=130, blank=True, null=True)
     contact_person = models.CharField(max_length=15, blank=True, null=True)
     shop_name = models.CharField(max_length=30, blank=True, null=True)
-    genre = models.ForeignKey('ShopGenre', models.DO_NOTHING, db_column='genre', blank=True, null=True)
     profile = models.TextField(blank=True, null=True)
     picture_path = models.CharField(max_length=50, blank=True, null=True)
     enable = models.IntegerField(blank=True, null=True)
     enable_time = models.DateTimeField(blank=True, null=True)
+    genre = models.ForeignKey('ShopGenre', models.DO_NOTHING, db_column='genre', blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'shop'
 
 
@@ -127,12 +128,12 @@ class ShopGenre(models.Model):
     genre = models.CharField(max_length=15, blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'shop_genre'
 
 
 class User(models.Model):
-    user_email = models.EmailField(primary_key=True, max_length=30)
+    user_email = models.CharField(primary_key=True, max_length=30)
     password = models.CharField(max_length=130, blank=True, null=True)
     user_name = models.CharField(max_length=15, blank=True, null=True)
     picture_path = models.CharField(max_length=50, blank=True, null=True)
@@ -141,5 +142,5 @@ class User(models.Model):
     enable_time = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        #managed = False
+        managed = False
         db_table = 'user'
