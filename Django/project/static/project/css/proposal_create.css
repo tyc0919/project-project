@@ -10,8 +10,8 @@
 .main_content .deal_square{
     position: relative;
     top: 50px;
-    width: 525px;
-    height: 600px;
+    width: 600px;
+    height: 650px;
     background-color: white;
     border-radius: 0.375rem;
     bottom: 0;
@@ -51,11 +51,11 @@
     margin: 5px;
     background-color: #FCFDFE;
     border: 2px solid #E9EDF4;
+    border-radius: 0.375rem;
     line-height: 25px;
     width: 250px;
     font-size: 20px;
 }
-
 
 .main_content .deal_square .content .button input{
     width: 250px;
@@ -78,27 +78,12 @@
 
     .main_content .deal_square{
         position: relative;
-        top: 50px;
-        width: 525px;
-        height: 500px;
-
+        top: 15px;
+        height: 600px;
     }
 
     .main_content .deal_square{
         top: 0;
     }
-
-    /* .main_content .deal_square .content{
-        font-size: 25px;
-    }
-
-    .main_content .deal_square .content .colla{
-        font-size: 25px;
-    }
-
-    .main_content .deal_square .content .button input{
-        font-size: 25px;
-    } */
-    
 
 }

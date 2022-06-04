@@ -7,7 +7,6 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('signin/', views.signin, name="signin"),
     path('signup/', views.signup, name="signup"),
-    path('social/', views.social, name="social"),
     path('forgetpasswd/', views.forgetpasswd, name="forgetpasswd"),
     path('logout/', views.logout, name="logout"),
     #---------------------------------------------
@@ -15,7 +14,7 @@ urlpatterns = [
     #---------------------------------------------
     path('information/', views.information, name="information"),
     #---------------------------------------------
-    path('my_proposal/', views.my_proposal, name="my_proposal"),
+    path('myproposal/', views.my_proposal, name="myproposal"),
     path('proposal_checked/', views.proposal_checked, name="proposal_checked"),
     path('proposal_create/', views.proposal_create, name="proposal_create"),
     path('proposal_create_function1/', views.proposal_create_function1, name="proposal_create_function1"),
@@ -35,6 +34,8 @@ urlpatterns = [
     path('colla_index/', views.colla_index, name="colla_index"),
     path('colla_checked/', views.colla_checked, name="colla_checked"),
     #---------------------------------------------
-    path('my_community/', views.my_community, name="my_community"),
-    path('blog_details/', views.blog_details, name="blog_details"),
+    path('social_index/', views.social_index, name="social_index"),
+    path('social_checked/', views.social_checked, name="social_checked"),
+    path('social_comment/', views.social_comment, name="social_comment"),
+    path('mysocial/', views.mysocial, name="mysocial"),
 ]   

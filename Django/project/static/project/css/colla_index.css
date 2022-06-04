@@ -1,5 +1,5 @@
 .container {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 200px;
     width: calc(100% - 200px);
     display: flex;
@@ -10,22 +10,33 @@
 .container .shop{
     position: relative;
     width: 400px;
-    height: 505px;
+    margin: 10px 20px;
+    color:rgb(99 115 129);
 }
 
 .container .shop .shop_img{
-    width:400px;
-    height:300px;
+    overflow:hidden;
+}
+
+.container .shop .shop_img img{
+    width: 400px;
+    height: 270px;
     margin: 0 auto;
+    transition: all 150ms ease-out;
+}
+
+.container .shop .shop_img :hover{
+    transform:scale(1.25,1.25)
 }
 
 .container .shop .shop_list{
     text-align: center;
     font-size: 30px;
+    padding: 0.5rem 1rem;
 }
 
 .container .shop .shop_list ul li{
-    border-bottom: 2px solid #b8c1df;
+    line-height: 45px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -35,9 +46,11 @@
     display: inline-block;
     position: relative;
     text-align: start;
-    height: 120px;
+    padding: 0.5rem 1rem;
     font-size: 20px;
+    line-height: 30px;
     overflow-y: auto;
+    height: 165px;
     color: rgb(99 115 129);
 }
 
@@ -52,18 +65,22 @@
 
     .container .shop{
         position: relative;
-        width: 450px;
+        width: 400px;
+    }
+
+    .container .shop .shop_img img{
+        width: 400px;
+        height: 300px;
+        margin: 0 auto;
     }
 
     .container .shop .shop_list{
         text-align: center;
         font-size: 25px;
-        margin: 0 25px;
     }
 
     .container .shop .shop_intro{
         font-size: 18px;
-        margin: 0 25px;
     }
     
 }
