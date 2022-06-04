@@ -4,7 +4,12 @@ from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 from . import modules
-from .modules import not_authed
+from .models import Activity
+from .models import User
+from .models import Job
+from .modules import *
+
+
 # Create your views here.
 
 #---------Test-----------
@@ -17,8 +22,9 @@ from .modules import not_authed
 
 #----------Not Required Login----------
 
-def index(request):
-    return render(request, 'index.html')
+def index(request: HttpRequest):
+    data = {'response': request.session.get('user_email')}
+    return render(request, 'index.html', data)
 
 def signin(request: HttpRequest):
     if request.POST:
@@ -48,9 +54,6 @@ def signup(request: HttpRequest):
         return render(request, 'signup.html', data)
     return render(request, 'signup.html', data)
 
-def social(request):
-    return render(request, 'social.html')
-
 def forgetpasswd(request):
     return render(request, 'forgetpasswd.html')
 
@@ -61,9 +64,24 @@ def logout(request: HttpRequest):
 #----------Required Login----------
 
 def event_index(request):
-    if not_authed(request): return redirect(index) # add this line as long as the view requires the user stay logged in
+    # add this line as long as the view requires the user stay logged in
+    if not_authed(request): return redirect(index)
+    user = get_user(request)
+    answer_dic = {}
 
-    return render(request, 'event_index.html')
+    data_A = Activity.objects.filter(owner = user)[0:5].values()
+    data_A = list(data_A)
+    answer_dic['activities'] = data_A
+
+    data_W = Job.objects.filter(person_in_charge_email = user).order_by('-create_time')[0:5].values()
+    data_W = list(data_W)
+    answer_dic['Jobs'] = data_W
+
+    data_W2 = Job.objects.filter(person_in_charge_email = user).order_by('dead_line')[0:5].values()
+    data_W2 = list(data_W2)
+    answer_dic['Jobs2'] = data_W2
+
+    return render(request, 'event_index.html' , answer_dic)
 
 ##----------User Area-----------
 
@@ -73,7 +91,7 @@ def information(request):
 ##----------Proposal----------
 
 def my_proposal(request):
-    return render(request, 'my_proposal.html')
+    return render(request, 'myproposal.html')
 
 def proposal_checked(request):
     return render(request, 'proposal_checked.html')
@@ -129,10 +147,16 @@ def colla_checked(request):
 
 ##----------Social----------
 
-def my_community(request):
-    return render(request, 'my_community.html')
+def social_index(request):
+    return render(request, 'social_index.html')
 
-def blog_details(request):
-    return render(request, 'blog_details.html')
+def social_checked(request):
+    return render(request, 'social_checked.html')
+
+def social_comment(request):
+    return render(request, 'social_comment.html')
+
+def mysocial(request):
+    return render(request, 'mysocial.html')
 
 #----------custom functions-----------

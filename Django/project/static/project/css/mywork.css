@@ -1,35 +1,28 @@
 .container{
+    width: calc(100% - 200px);
     margin-left: 200px;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    width: calc(100% - 200px);
 }
-
-/* .container .work_list{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-} */
 
 .container .work{
     position: relative;
     width: 450px;
-    height: 355px;
-    margin: 20px;
+    height: 405px;
+    margin: 10px 20px;
+    padding: 0.5rem 1rem;
     text-align: center;
     background-color: white;
     box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 5%);
     border-radius: 0.375rem;
+    color:rgb(99 115 129);
 }
 
 .container .work ul li {
     font-size: 30px;
-    line-height: 30px;
-    padding: 5px;
+    line-height: 45px;
     background-color: white;
     border-bottom: 2px solid #b8c1df;
     white-space: nowrap;
@@ -38,7 +31,8 @@
 }
 
 .container .work .content{
-    height: 240px;
+    height: 185px;
+    line-height: 30px;
     margin: 5px;
     font-size: 20px;
     text-align: start;
@@ -47,13 +41,14 @@
 }
 
 .container .work .bottom{
-    width: 100%;
     position: absolute;
     display: block;
     text-align: center;
     bottom: 0;
+    left: 50%;
+    margin: 2.5px 0;
+    transform: translateX(-50%);
     font-size: 20px;
-    padding: 3px;   
 }
 
 .container .work .bottom a{
@@ -71,9 +66,7 @@
     }
     
     .container .work{       
-        width: 400px;
         text-align: center;
-        margin: 15px;
     }
 
     .container .work ul li{

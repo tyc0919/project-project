@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="/static/project/css/mywork.css" />
+    <link rel="stylesheet" href="../static/project/css/mywork.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -19,15 +19,27 @@
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
-            <h2>專案管理系統</h2>
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
+                    <a href="event_index.html">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href="myproposal.html">
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href="mywork.html">
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href="colla_index.html">
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href="social_index.html">
+                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
                 </ul>
             </div>
 
@@ -36,11 +48,21 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="information.html">主頁</a></li>
-                            <li><a href="myproposal.html">我的企劃</a></li>
-                            <li><a href="mywork.html">我的工作</a></li>
-                            <li><a href="colla_index.html">合作店家</a></li>
-                            <li><a href="">社群</a></li>
+                            <a href="information.html">
+                                <li>主頁</li>
+                            </a>
+                            <a href="myproposal.html">
+                                <li>我的企劃</li>
+                            </a>
+                            <a href="mywork.html">
+                                <li>我的工作</li>
+                            </a>
+                            <a href="colla_index.html">
+                                <li>合作店家</li>
+                            </a>
+                            <a href="social_index.html">
+                                <li>社群</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -48,9 +70,15 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="">個人檔案</a></li>
-                            <li><a href="">設定</a></li>
-                            <li><a href="">登出</a></li>
+                            <a href="information.html">
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="">
+                                <li>設定</li>
+                            </a>
+                            <a href="../tailwind/index.html">
+                                <li>登出</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -69,47 +97,93 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">你尚有X項工作未完成</h3>
+
+        <div class="detail">
+            1個專案
+            <br>
+            3個工作
+        </div>
+
+        <div class="header_text">
+            <b>XXX用戶</b>
+        </div>
+
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <div class="">
-                        <li><a href="information.html">個人檔案</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">設定</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">登出</a></li>
-                    </div>
+                    <a href="information.html">
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="">
+                        <li>設定</li>
+                    </a>
+                    <a href="../tailwind/index.html">
+                        <li>登出</li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="header_mobile">
-        <h2>你尚有X項工作未完成</h2>
+        <h2>XXX 用戶</h2>
     </div>
 
     <!--header end-->
 
     <div class="container">
-        
-            <div class="work">
-                <ul>
-                    <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>專案名稱</b> </li>
-                    <li><b>工作名稱</b></li>
-                </ul>
 
-                <div class="content">
-                    就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
-                </div>
+        <div class="work">
+            <ul>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>舉辦演唱會</b></li>
+                <li>租借場地</li>
+                <li>2022_05_21</li>
+                <li>未完成</li>
+            </ul>
 
-                <div class="bottom">
-                    <a href="work_checked.html">點擊檢視完整工作</a>
-                </div>
+            <div class="content">
+                就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義
             </div>
+
+            <div class="bottom">
+                <a href="work_checked.html">點擊檢視完整工作</a>
+            </div>
+        </div>
+
+        <div class="work">
+            <ul>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>企劃名稱</b></li>
+                <li>工作名稱</li>
+                <li>到期時間</li>
+                <li>狀態</li>
+            </ul>
+
+            <div class="content">
+                就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
+            </div>
+
+            <div class="bottom">
+                <a href="work_checked.html">點擊檢視完整工作</a>
+            </div>
+        </div>
+
+        <div class="work">
+            <ul>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>企劃名稱</b></li>
+                <li>工作名稱</li>
+                <li>到期時間</li>
+                <li>狀態</li>
+            </ul>
+
+            <div class="content">
+                就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
+            </div>
+
+            <div class="bottom">
+                <a href="work_checked.html">點擊檢視完整工作</a>
+            </div>
+        </div>
 
     </div>
 

@@ -93,33 +93,12 @@
                 lg:block lg:static lg:shadow-none
               "
             >
-              <ul class="blcok lg:flex">
-                <li class="relative group">
-                  <a
-                    href="index.html"
-                    class="
-                      ud-menu-scroll
-                      text-base text-dark
-                      lg:text-white
-                      lg:group-hover:opacity-70
-                      lg:group-hover:text-white
-                      group-hover:text-primary
-                      py-2
-                      lg:py-6 lg:inline-flex lg:px-0
-                      flex
-                      mx-8
-                      lg:mr-0
-                    "
-                  >
-                    首頁
-                  </a>
-                </li>
-              </ul>
+
             </nav>
           </div>
           <div class="sm:flex justify-end hidden pr-16 lg:pr-0">
             <a
-              href="signin.html"
+              href="/signin"
               class="
                 text-base
                 font-medium
@@ -133,7 +112,7 @@
               登入
             </a>
             <a
-              href="signup.html"
+              href="/signup"
               class="
                 text-base
                 font-medium
@@ -244,12 +223,7 @@
               <div class="mb-10 text-center text-2xl font-bold">
                登入
               </div>
-              {% if status %}
-              <div class="mb-10 text-center text-2xl font-bold">
-                {{ message }}
-              </div>
-              {% endif %}
-              <form method="post">
+              <form method="POST">
                 {% csrf_token %}
                 <div class="mb-6">
                   <input
@@ -301,6 +275,7 @@
                       <input
                       type="submit"
                       value="登入"
+
                       class="
                         w-full
                         rounded-md

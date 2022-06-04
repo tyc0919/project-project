@@ -2,27 +2,26 @@ table th , tr{
     font-size: 30px;
 }
 
+table th{
+    font-weight: normal;
+}
+
 table td {
     font-size: 20px;
 }
 
 .container{
-    width: calc(100% - 200px);
-    position: relative;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-left: 200px;
     top: 10px;
 }
 
 .container .deal_square{
     position: relative;
     width: 90%;
-    height: 650px;
+    height: 750px;
     background-color: white;
     overflow-y: auto;
+    top: 10px;
 }
 
 .container .deal_square table{
@@ -35,15 +34,16 @@ table td {
 }
 
 .container .deal_square table th{
+    color: rgb(99 115 129);
     width: 50%;
 }
-
 
 .container .deal_square table td{
     overflow: hidden;
     padding: 0 10px;
     max-height: 500px;
     color: rgb(99 115 129);
+    line-height: 30px;
 }
 
 .container .button{
@@ -62,19 +62,12 @@ table td {
 }
 
 @media  screen and  (max-width:768px){
-    .container{
-        width: 100%;
-        margin-left: 0;
-        top: 130px;
-    }
-
     .container .deal_square{
-        margin: 0 auto;
-        height: 550px;
+        margin: 10px auto;
+        height: 650px;
     }
 
     .container .button input{
         width: 140px;
     }
-    
 }

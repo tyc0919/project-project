@@ -36,7 +36,7 @@ class CollabShop(models.Model):
     id = models.IntegerField(primary_key=True)
     shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    shop_permission = models.IntegerField(blank=True, null=True)
+    shop_permittion = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -112,11 +112,11 @@ class Shop(models.Model):
     password = models.CharField(max_length=130, blank=True, null=True)
     contact_person = models.CharField(max_length=15, blank=True, null=True)
     shop_name = models.CharField(max_length=30, blank=True, null=True)
+    genre = models.ForeignKey('ShopGenre', models.DO_NOTHING, db_column='genre', blank=True, null=True)
     profile = models.TextField(blank=True, null=True)
     picture_path = models.CharField(max_length=50, blank=True, null=True)
     enable = models.IntegerField(blank=True, null=True)
     enable_time = models.DateTimeField(blank=True, null=True)
-    genre = models.ForeignKey('ShopGenre', models.DO_NOTHING, db_column='genre', blank=True, null=True)
 
     class Meta:
         managed = False

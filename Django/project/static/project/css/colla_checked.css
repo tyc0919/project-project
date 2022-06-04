@@ -3,6 +3,10 @@ tr {
     font-size: 30px;
 }
 
+table th{
+    font-weight: normal;
+}
+
 table td {
     font-size: 20px;
 }
@@ -32,18 +36,24 @@ table td {
 
 .container .deal_square table {
     height: 100px;
-    table-layout: fixed;
     border-collapse: separate;
     font-size: 20px;
     border-spacing: 10px 30px;
     width: 100%;
+    color: rgb(99 115 129);
+}
+
+.container .deal_square img {
+    width: 300px;
+    height: 200px;
 }
 
 .container .deal_square table td {
     overflow: hidden;
     padding: 0 10px;
     max-height: 500px;
-    color: rgb(99 115 129);
+    line-height: 30px;
+
 }
 
 .container .button {
@@ -67,9 +77,9 @@ table td {
     }
 
     .container .deal_square {
-        top: 120px;
-        height: 600px;
+        height: 650px;
         overflow-x: hidden;
+        top:140px;
     }
 
     .computer {
@@ -93,8 +103,13 @@ table td {
         overflow-y: auto;
     }
 
+    .cell p{
+        font-size: 18px;
+        line-height: 30px;
+        color: rgb(99 115 129);
+    }
+
     .container .button {
         margin-top: 120px;
     }
-
 }
