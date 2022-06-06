@@ -31,19 +31,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href="/event_index">
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href="/mywork">
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href="/colla_index">
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href="/social_index">
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -54,19 +54,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href="/myproposal">
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href="/mywork">
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href="/colla_index">
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href="/social_index">
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -76,13 +76,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>個人檔案</li>
                             </a>
-                            <a href="">
+                            <a href="/">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="/logout">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -92,9 +92,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -105,26 +105,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            我的企劃
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}用戶</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href="/information">
                         <li>個人檔案</li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="/logout">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -133,7 +131,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}}用戶</h2>
     </div>
 
     <!--header end-->
@@ -145,18 +143,27 @@
         </h2>
 
         <div class="not_finish">
+            {% for pair in not_finished %}
             <div class="proposal">
-                <h3>舉辦演唱會</h3>
+                <h3>{{ pair.activity_object.activity_name }}</h3>
                 <ul>
-                    <li>購買器材</li>
-                    <li>租借場地</li>
-                    <li>超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試超出範圍測試</li>
+                    {% for job in pair.jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
                 </ul>
 
                 <div class="bottom_text">
-                    <a href="proposal_checked.html">檢視完整企劃</a>
+                    <a href="/proposal_checked/{{pair.activity_object.id}}">檢視完整企劃</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
 
         <h2 style="position: relative; text-align: center; margin-top:10px;">
@@ -164,26 +171,37 @@
         </h2>
 
         <div class="finish">
+            {% for pair in finished %}
             <div class="proposal">
-                <h3>市集活動</h3>
+                <h3>{{ pair.activity_object.activity_name }}</h3>
                 <ul>
-                    <li>租借攤位</li>
+                    {% for job in pair.jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
                 </ul>
 
                 <div class="bottom_text">
-                    <a href="proposal_checked.html">檢視完整企劃</a>
+                    <a href="/proposal_checked/{{pair.activity_object.id}}">檢視完整企劃</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
 
     </div>
-
+    </div>
     <div class="edit_proposal">
-        <a href="proposal_create.html"><i class="fa-solid fa-plus fa-2x center "></i></a>
+        <a href="/proposal_create"><i class="fa-solid fa-plus fa-2x center "></i></a>
     </div>
 
     <div class="plus_proposal">
-        <a href="" onclick="input()"><i class="fa-solid fa-bold fa-2x center "></i></a>
+        <a href="/" onclick="input()"><i class="fa-solid fa-bold fa-2x center "></i></a>
     </div>
 
 
