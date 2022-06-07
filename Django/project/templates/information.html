@@ -25,19 +25,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href="/event_index">
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href="/mywork">
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href="/colla_index">
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href="/social_index">
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -48,19 +48,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href="/myproposal">
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href="/mywork">
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href="/colla_index">
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href="/social_index">
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -70,13 +70,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>個人檔案</li>
                             </a>
-                            <a href="">
+                            <a href="/">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="../tailwind/index">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -86,9 +86,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -99,26 +99,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            個人資訊
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{name}}用戶</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href="/information">
                         <li>個人檔案</li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="../tailwind/index">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -127,7 +125,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{name}}用戶</h2>
     </div>
 
     <!--header end-->
@@ -204,17 +202,17 @@
             <div class="content">
 
                 <div class="Text">
-                    <p><img src="https://picsum.photos/250/250" alt=""> </p>
+                    <p><img src="{{ pic }}"> </p>
                     <p>名字</p>
-                    <p><input type="text" name="name"></p>
+                    <p><input type="text" name="name" placeholder="{{ name }}" readonly></p>
 
                     <p>信箱</p>
-                    <p><input name="species" type="text"></p>
+                    <p><input name="species" type="text" placeholder="{{ email }}" readonly></p>
                 </div>
 
                 <div class="button">
-                    <a href=""><input type="submit" value="編輯"></a>
-                    <a href=""><input type="submit" value="送出"></a>
+                    <a href="/"><input type="submit" value="編輯"></a>
+                    <a href="/"><input type="submit" value="送出"></a>
                 </div>
 
             </div>

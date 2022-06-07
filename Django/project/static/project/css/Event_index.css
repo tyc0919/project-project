@@ -44,6 +44,7 @@
 
 .container .main_content .item .item_list ul li {
     display: flex;
+    justify-content: space-around;
     width: 100%;
     line-height: 45px;
     margin: 10px 0;
@@ -55,6 +56,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.container .main_content .item .item_list ul li .one{
+    width: 50%;
+}
+
+.container .main_content .item .item_list ul li .two{
+    width: 50%;
+    text-align: end;
+}
+
+
 
 .container .main_content .item .item_list ul li:hover {
     background-color: rgb(200, 200, 209) ;
