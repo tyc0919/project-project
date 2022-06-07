@@ -210,7 +210,7 @@
                         {% csrf_token %}
 
                         <p>狀態</p>
-                        <input type="radio" name="status" value="1"checked>未完成
+                        <input type="radio" name="status" value="1" checked>未完成
                         <input type="radio" name="status" value="2">進行中
                         <input type="radio" name="status" value="3">已完成
                         {% comment %} <p style="margin-top: 50px;">是否使用我們的合作店家</p>
@@ -230,12 +230,10 @@
             <a href=""><i class="fa-solid fa-ellipsis fa-2x center "></i></a>
             <div class="list">
                 <ul>
-                    <a href={%url 'work_checked4' job.id%}>
-                        <li>工作回報</li>
+                    <a href={%url 'work_checked3' job.id%}>
+                        <li>返回工作</li>
                     </a>
-                    <a href={%url 'work_checked2' job.id%}>
-                        <li>增加工作細項</li>
-                    </a>
+
                 </ul>
             </div>
         </div>
