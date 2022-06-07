@@ -26,19 +26,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href={%url 'event_index'%}>
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href={%url 'myproposal'%}>
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href={%url 'mywork'%}>
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href={%url 'colla_index'%}>
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href={%url 'social_index'%}>
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -49,19 +49,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href={%url 'myproposal'%}>
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href={%url 'mywork'%}>
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href={%url 'colla_index'%}>
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href={%url 'social_index'%}>
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -71,13 +71,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>個人檔案</li>
                             </a>
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href={%url 'logout'%}>
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -100,26 +100,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            工作回報
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href={%url 'information'%}"information.html">
                         <li>個人檔案</li>
                     </a>
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href={%url 'logout'%}>
                         <li>登出</li>
                     </a>
                 </ul>
@@ -128,7 +126,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}}</h2>
     </div>
 
     <!--header end-->
@@ -208,43 +206,35 @@
                 </div>
 
                 <div class="content">
-                    <form action="">
+                    <form method='post'>
+                        {% csrf_token %}
+
                         <p>狀態</p>
-                        <input type="radio" name="status" value="">預先排定
-                        <input type="radio" name="status" value="">未完成
-                        <br>
-                        <input type="radio" name="status" value="">執行中
-                        <input type="radio" name="status" value="">完成
-                        <p style="margin-top: 50px;">是否使用我們的合作店家</p>
+                        <input type="radio" name="status" value="1"checked>未完成
+                        <input type="radio" name="status" value="2">進行中
+                        <input type="radio" name="status" value="3">已完成
+                        {% comment %} <p style="margin-top: 50px;">是否使用我們的合作店家</p>
                         <p>(選是跳到合作店家頁面)</p>
-                        <input type="radio" name="yesno" value="">是
-                        <input type="radio" name="yesno" value="">否
+                        <input type="radio" name="yesno" value="1" checked>是
+                        <input type="radio" name="yesno" value="2">否 {% endcomment %}
+
+                        <div class="button">
+                            <input type="submit" value="確定">
+                        </div>
                     </form>
-
-                    <div class="button">
-                        <input type="button" value="確定">
-                    </div>
-
                 </div>
-
-
             </div>
-
-
         </div>
 
         <div class="function_menu">
             <a href=""><i class="fa-solid fa-ellipsis fa-2x center "></i></a>
             <div class="list">
                 <ul>
-                    <a href="work_checked4.html">
+                    <a href={%url 'work_checked4' job.id%}>
                         <li>工作回報</li>
                     </a>
-                    <a href="work_checked2.html">
+                    <a href={%url 'work_checked2' job.id%}>
                         <li>增加工作細項</li>
-                    </a>
-                    <a href="work_checked2.html">
-                        <li style="border: none;">編輯工作細項</li>
                     </a>
                 </ul>
             </div>

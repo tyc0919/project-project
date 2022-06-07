@@ -100,7 +100,7 @@
     <div class="header_table">
 
         <div class="detail">
-            新增工作細項
+            刪除工作細項
         </div>
 
         <div class="header_text">
@@ -207,9 +207,11 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="content">
-                    <h2>增加的內容</h2>
-                    <textarea name="content_data" >eeee</textarea>
+                    <h2>確定要刪除這個工作細項嗎</h2>
+                    {{job_detail.content}}
+                    <br>
                     <input type="submit" value="確定">
+                    <a href={%url 'work_checked3' job.id%}><input type="button" value="取消"></a>
                 </div>
             </form>
             </div>

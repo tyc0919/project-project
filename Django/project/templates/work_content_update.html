@@ -77,7 +77,7 @@
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href={%url 'logout'%}>
+                            <a href="../tailwind/index.html">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -100,7 +100,7 @@
     <div class="header_table">
 
         <div class="detail">
-            新增工作細項
+            編輯工作簡介
         </div>
 
         <div class="header_text">
@@ -117,7 +117,7 @@
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href={%url 'logout'%}>
+                    <a href="../tailwind/index.html">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -207,8 +207,8 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="content">
-                    <h2>增加的內容</h2>
-                    <textarea name="content_data" >eeee</textarea>
+                    <h2>編輯工作簡介</h2>
+                    <textarea name="content_data" >{{job.content}}</textarea>
                     <input type="submit" value="確定">
                 </div>
             </form>
