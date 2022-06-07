@@ -154,6 +154,10 @@
                     <th style="text-align: left;">{{job.dead_line | date:'Y/m/d'}}</th>
                 </tr>
                 <tr>
+                    <th>工作狀態</th>
+                    <th style="text-align: left;">{{job.status.status_name}}</th>
+                </tr>
+                <tr>
                     <th colspan="2">
                         工作簡介
                         <a href={%url 'work_content_update' job.id%}>
