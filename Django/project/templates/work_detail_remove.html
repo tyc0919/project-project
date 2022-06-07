@@ -208,7 +208,13 @@
                 {% csrf_token %}
                 <div class="content">
                     <h2>確定要刪除這個工作細項嗎</h2>
-                    {{job_detail.content}}
+                    <table>
+                        <tr>
+                            <td colspan="2" style="word-break:break-all">
+                                {{job_detail.content}}
+                            </td>
+                        </tr>
+                    </table>
                     <br>
                     <input type="submit" value="確定">
                     <a href={%url 'work_checked3' job.id%}><input type="button" value="取消"></a>
