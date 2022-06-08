@@ -56,11 +56,12 @@ class Job(models.Model):
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
-    order = models.IntegerField(unique=True)
+    order = models.IntegerField()
     status = models.ForeignKey('JobStatus', models.DO_NOTHING, db_column='status', blank=True, null=True)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
-
+    content = models.TextField(blank=True, null=True)
+    
     class Meta:
         managed = False
         db_table = 'job'
@@ -70,7 +71,7 @@ class JobDetail(models.Model):
     id = models.IntegerField(primary_key=True)
     job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    order = models.IntegerField(unique=True)
+    order = models.IntegerField()
 
     class Meta:
         managed = False
@@ -117,7 +118,7 @@ class Shop(models.Model):
     picture_path = models.CharField(max_length=50, blank=True, null=True)
     enable = models.IntegerField(blank=True, null=True)
     enable_time = models.DateTimeField(blank=True, null=True)
-
+    serve_city = models.ForeignKey('City', models.DO_NOTHING, db_column='serve_city', blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'shop'

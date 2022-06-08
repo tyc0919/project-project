@@ -25,19 +25,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href={%url "event_index"%}>
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href={%url "myproposal" %}>
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href={%url "mywork" %}>
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href={%url "colla_index" %}>
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href={%url "social_index" %}>
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -48,19 +48,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information' %}>
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href={%url 'myproposal' %}>
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href={%url "mywork"%}>
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href={%url "colla_index" %}>
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href={%url "social_index" %}>
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -70,13 +70,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url "information" %}>
                                 <li>個人檔案</li>
                             </a>
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href={%url 'logout'%}>
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -99,26 +99,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            我的工作
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href={%url "information"%}>
                         <li>個人檔案</li>
                     </a>
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href={%url 'logout'%}>
                         <li>登出</li>
                     </a>
                 </ul>
@@ -127,67 +125,60 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{ user.user_name }}</h2>
     </div>
 
     <!--header end-->
-
+ 
     <div class="container">
+    {% if jobs%}
+    {%else%}
+    <a href={%url 'myproposal'%}>
+        <div class="work" style="display: flex ;flex-direction: column;">
+            <ul>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>目前沒有被指派任何工作</b></li>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"></li>
+            </ul>
+            
+            <div style="margin:auto; color:#f34c4c; display:flex; flex-direction: column;" >
+                <div>
+                    <h1>想查看企劃嗎?</h1>
+                </div>
+                <div>
+                    <h2>點擊查看<h2>
+                </div>
+            </div>
+            
+        </div>
+    </a>
+    {%endif%}
 
+    {% for job in jobs%}
+
+    
         <div class="work">
             <ul>
-                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>舉辦演唱會</b></li>
-                <li>租借場地</li>
-                <li>2022_05_21</li>
-                <li>未完成</li>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>{{job.activity.activity_name}}</b></li>
+                <li>{{job.title}}</li>
+                <li>{{job.dead_line}}</li>
+                <li>{{job.status.status_name}}</li>
             </ul>
 
             <div class="content">
-                就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義
+                {{job.content|linebreaksbr}}
             </div>
 
             <div class="bottom">
-                <a href="work_checked.html">點擊檢視完整工作</a>
+                <a href={%url 'work_checked3' job.id %}>點擊檢視完整工作</a>
             </div>
         </div>
 
-        <div class="work">
-            <ul>
-                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>企劃名稱</b></li>
-                <li>工作名稱</li>
-                <li>到期時間</li>
-                <li>狀態</li>
-            </ul>
-
-            <div class="content">
-                就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
-            </div>
-
-            <div class="bottom">
-                <a href="work_checked.html">點擊檢視完整工作</a>
-            </div>
-        </div>
-
-        <div class="work">
-            <ul>
-                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>企劃名稱</b></li>
-                <li>工作名稱</li>
-                <li>到期時間</li>
-                <li>狀態</li>
-            </ul>
-
-            <div class="content">
-                就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，
-            </div>
-
-            <div class="bottom">
-                <a href="work_checked.html">點擊檢視完整工作</a>
-            </div>
-        </div>
-
+  
+    
+    {%endfor%}
     </div>
 
-
+   
 
 </body>
 

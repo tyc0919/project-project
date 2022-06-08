@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="/static/project/css/work_checked4.css" />
+    <link rel="stylesheet" href="/static/project/css/work_checked2.css" />
     <link rel="stylesheet" href="/static/project/css/sidebar.css" />
     <link rel="stylesheet" href="/static/project/css/dot_work.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href={%url 'logout'%}>
+                            <a href="/tailwind/index.html">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -100,7 +100,7 @@
     <div class="header_table">
 
         <div class="detail">
-            工作回報
+            編輯工作簡介
         </div>
 
         <div class="header_text">
@@ -111,13 +111,13 @@
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href={%url 'information'%}"information.html">
+                    <a href={%url 'information'%}>
                         <li>個人檔案</li>
                     </a>
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href={%url 'logout'%}>
+                    <a href="/tailwind/index.html">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -204,41 +204,38 @@
                             fill="#3056D3"></circle>
                     </svg>
                 </div>
-
+            <form method="post">
+                {% csrf_token %}
                 <div class="content">
-                    <form method='post'>
-                        {% csrf_token %}
-
-                        <p>狀態</p>
-                        <input type="radio" name="status" value="1" checked>未完成
-                        <input type="radio" name="status" value="2">進行中
-                        <input type="radio" name="status" value="3">已完成
-                        {% comment %} <p style="margin-top: 50px;">是否使用我們的合作店家</p>
-                        <p>(選是跳到合作店家頁面)</p>
-                        <input type="radio" name="yesno" value="1" checked>是
-                        <input type="radio" name="yesno" value="2">否 {% endcomment %}
-
-                        <div class="button">
-                            <input type="submit" value="確定">
-                        </div>
-                    </form>
+                    <h2>工作簡介</h2>
+                    <textarea name="content_data">
+                        {{job.content}}
+                    </textarea>
+                    <input type="submit" value="確定">
+                    <a href={%url 'work_checked3' job.id%}><input type="button" value="取消"></a>
                 </div>
+            </form>
             </div>
+
         </div>
 
         <div class="function_menu">
             <a href=""><i class="fa-solid fa-ellipsis fa-2x center "></i></a>
             <div class="list">
                 <ul>
+                   
                     <a href={%url 'work_checked3' job.id%}>
                         <li>返回工作</li>
                     </a>
-
+                    
                 </ul>
             </div>
         </div>
 
     </div>
+
+
+
 
 </body>
 

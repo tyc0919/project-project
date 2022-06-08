@@ -25,19 +25,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href={%url 'event_index' %}>
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href={%url 'myproposal' %}>
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href={%url 'mywork'%}>
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href={%url 'colla_index'%}>
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href={%url 'social_index'%}>
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -48,19 +48,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href={%url 'myproposal'%}>
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href={%url 'mywork'%}>
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href={%url 'colla_index'%}>
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href={%url 'social_index'%}>
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -70,7 +70,7 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>個人檔案</li>
                             </a>
                             <a href="">
@@ -99,20 +99,18 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            企劃工作檢視
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href={%url 'information'%}>
                         <li>個人檔案</li>
                     </a>
                     <a href="">
@@ -127,50 +125,54 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.username}}</h2>
     </div>
 
     <!--header end-->
 
     <div class="container">
         <div class="deal_square">
-
+        
             <table>
                 <tr>
                     <th>企劃</th>
-                    <th style="text-align: left;">舉辦演唱會</th>
+                    <th style="text-align: left;">{{job.activity.activity_name}}</th>
                 </tr>
 
                 <tr>
                     <th>負責人</th>
-                    <th style="text-align: left;">負責人姓名</th>
+                    <th style="text-align: left;">{{job.person_in_charge_email.user_name}}</th>
                 </tr>
 
                 <tr>
                     <th>狀態</th>
-                    <th style="text-align: left;">未完成</th>
+                    <th style="text-align: left;">{{job.status.status_name}}</th>
                 </tr>
 
                 <tr>
                     <th>到期時間</th>
-                    <th style="text-align: left;">2022-5-13</th>
+                    <th style="text-align: left;">{{job.dead_line | date:'Y/m/d'}}</th>
                 </tr>
 
                 <tr>
                     <td colspan="2">
-                        <p>醒虎杖會的該，我在很好沒問題好看，到有人中有在電視一次經是⋯要好，不重要現在很離職個小⋯能不因為謂的太一樣ㄧㄤ，的打也無法⋯兄弟真的不，來後他新居搬。</p>
-                        <br>
-                        <p>出手理是大代好像比快點家一語言⋯點月質了一些可能。要嗚嗚嗚來就是真的，結果還⋯我都就可以別的的，然夢想的孩子報的部：我笑前陣子所有⋯聖誕快很的或是們在要。妳哈哈次看心臟幕啊啊啊，的我小可愛身麼的或都有過這，還要占卜師說全，這種要自己的好像有，道在還沒回覆我都，一。
-                        </p>
+                       {{job.content}}
                     </td>
                 </tr>
 
             </table>
         </div>
 
+        {%if can_be_edited%}
         <div class="button">
-            <a href="proposal_checked.html"><input type="button" value="返回"></a>
+            <a href={%url 'work_checked3' job.id%}><input type="button" value="編輯"></a>
         </div>
+        {%endif%}
+        
+        <div class="button">
+            <a href={%url 'proposal_checked' job.activity_id%}><input type="button" value="返回"></a>
+        </div>
+        
     </div>
 
 

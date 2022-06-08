@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="../static/project/css/work_checked2.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="../static/project/css/dot_work.css">
+    <link rel="stylesheet" href="/static/project/css/work_checked2.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot_work.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,24 +21,24 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="../static/project/images/logo/logoE.svg" alt="">
+                <img src="/static/project/images/logo/logoE.svg" alt="">
             </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href={%url 'event_index'%}>
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href={%url 'myproposal'%}>
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href={%url 'mywork'%}>
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href={%url 'colla_index'%}>
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href={%url 'social_index'%}>
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -49,19 +49,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href={%url 'myproposal'%}>
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href={%url 'mywork'%}>
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href={%url 'colla_index'%}>
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href={%url 'social_index'%}>
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -71,13 +71,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href={%url 'information'%}>
                                 <li>個人檔案</li>
                             </a>
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href={%url 'logout'%}>
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -100,26 +100,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            新增工作細項
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href={%url 'information'%}>
                         <li>個人檔案</li>
                     </a>
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href={%url 'logout'%}>
                         <li>登出</li>
                     </a>
                 </ul>
@@ -128,7 +126,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}}</h2>
     </div>
 
     <!--header end-->
@@ -206,13 +204,14 @@
                             fill="#3056D3"></circle>
                     </svg>
                 </div>
-
+            <form method="post">
+                {% csrf_token %}
                 <div class="content">
-                    <h2>增加的內容</h2>
-                    <textarea>eeee</textarea>
-                    <a href="work_checked3.html"><input type="button" value="確定"></a>
+                    <h2>新增工作細項</h2>
+                    <textarea name="content_data" ></textarea>
+                    <input type="submit" value="確定">
                 </div>
-
+            </form>
             </div>
 
         </div>
@@ -221,15 +220,11 @@
             <a href=""><i class="fa-solid fa-ellipsis fa-2x center "></i></a>
             <div class="list">
                 <ul>
-                    <a href="work_checked4.html">
-                        <li>工作回報</li>
+                   
+                    <a href={%url 'work_checked3' job.id%}>
+                        <li>返回工作</li>
                     </a>
-                    <a href="work_checked2.html">
-                        <li>增加工作細項</li>
-                    </a>
-                    <a href="work_checked2.html">
-                        <li style="border: none;">編輯工作細項</li>
-                    </a>
+                    
                 </ul>
             </div>
         </div>
