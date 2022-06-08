@@ -1,6 +1,6 @@
 use `111401_project`;
 -- user
--- pwd = sha256(habiman)
+-- pwd = sha256(test)
 INSERT INTO `user` VALUES ('10846017@ntub.edu.tw', 'ce351470542b4a638d0eca628a0eba0e594f0161c8ae4f1ca54b28c74762dc07$e860a501b0dd2e47073f928d5b9bcd8ba3eced9e091a0c5ee09108fe54e8b309', '黃XX', '1.jpg','0976448885',1,now()); 
 INSERT INTO `user` VALUES ('10846010@ntub.edu.tw', 'ce351470542b4a638d0eca628a0eba0e594f0161c8ae4f1ca54b28c74762dc07$e860a501b0dd2e47073f928d5b9bcd8ba3eced9e091a0c5ee09108fe54e8b309', '曾XX', '2.jpg','0952802983',1,now());
 INSERT INTO `user` VALUES ('test@gmail.com', 'ce351470542b4a638d0eca628a0eba0e594f0161c8ae4f1ca54b28c74762dc07$e860a501b0dd2e47073f928d5b9bcd8ba3eced9e091a0c5ee09108fe54e8b309', '測試者', '2.jpg','0952802983',1,now());
