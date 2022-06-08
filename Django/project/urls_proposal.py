@@ -19,4 +19,5 @@ urlpatterns = [
     path('proposal_post/<int:activity_id>', views_proposal.proposal_post, name="proposal_post"),
     path('proposal_job_delete/<int:activity_id>/<int:job_id>', views_proposal.proposal_job_delete, name="proposal_job_delete"),
     path('proposal_delete/<int:activity_id>', views_proposal.proposal_delete, name="proposal_delete"),
+    path('proposal_join/<str:invitation_code>', views_proposal.proposal_join, name="proposal_join"),
 ]   

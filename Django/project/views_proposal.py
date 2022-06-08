@@ -1,10 +1,9 @@
-from multiprocessing.dummy import active_children
 import datetime
 import uuid
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from .models import Activity, Job, JobDetail, City, Collaborator, JobStatus
 from .modules import *
 from django.utils import timezone
@@ -257,3 +256,17 @@ def proposal_delete(request, activity_id=None):
     a = get_object_or_404(Activity, id=activity_id, owner=user)
     a.delete()
     return redirect(my_proposal)
+
+def proposal_join(request, invitation_code):
+    if request.method == "POST":
+        user = get_user(request)
+        data = {'status': 'success', 'message': '已成功加入該企劃!'}
+        try:
+            a = get_object_or_404(Activity, invitation_code=invitation_code)
+            test = Collaborator.objects.get(activity=a, user_email=user)
+            if test: raise Exception
+            collab_user = Collaborator.objects.create(activity=a, user_email=user)
+        except:
+            data = {'status': 'fail', 'message': '此邀請碼不存在或已經是協作者了!'}
+        return JsonResponse(data)
+    return JsonResponse({'status': 'fail', 'message': '此邀請碼不存在!'})

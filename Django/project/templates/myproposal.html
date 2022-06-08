@@ -12,14 +12,36 @@
     <link rel="stylesheet" href="../static/project/css/dot2.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
     <script>
-        function input() {
+        async function input() {
             var name = prompt("請輸入邀請碼");
+            message = {}
+            const request = new Request(
+            `/proposal_join/${name}`,
+            {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken},
+                mode: 'same-origin' // Do not send CSRF token to another domain.
+            }
+            );
+            await fetch(request).then(function(response) {
+                response.json().then(data => {
+                    alert(data.message);
+                    if (data.status === 'success'){
+                        location.reload();
+                    }
+                })
+            });
+            
         }
     </script>
+    
 </head>
 
 <body>
-
+    {% csrf_token %}
+    <script defer>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        </script>
     <div class="background"></div>
 
     <!--Nav start-->
@@ -200,8 +222,8 @@
         <a href="/proposal_create"><i class="fa-solid fa-plus fa-2x center "></i></a>
     </div>
 
-    <div class="plus_proposal">
-        <a href="/" onclick="input()"><i class="fa-solid fa-bold fa-2x center "></i></a>
+    <div class="plus_proposal" style="cursor: pointer;">
+        <a  onclick="input()"><i class="fa-solid fa-bold fa-2x center "></i></a>
     </div>
 
 
