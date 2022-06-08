@@ -52,7 +52,7 @@
     margin: 5px 0;
 }
 
-.deal_square .content .Text input{
+.deal_square .content form .Text input{
     margin: 5px;
     background-color: #FCFDFE;
     border: 2px solid #E9EDF4;
@@ -62,7 +62,7 @@
     font-size: 20px;
 }
 
-.deal_square .content .button input{
+.deal_square .content form .button input{
     width: 240px;
     font-size: 30px;
     background-color: rgb(48 86 211);
@@ -85,7 +85,7 @@
         top: 15px;
     }
     
-    .deal_square .content .button input{
+    .deal_square .content form .button input{
         width: 150px;
     }
 

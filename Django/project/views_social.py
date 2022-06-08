@@ -26,7 +26,7 @@ def social_index(request):
     return render(request, 'social_index.html', data)
 
 def social_checked(request, activity_Id):
-
+    
     if not_authed(request): 
         return redirect('index')
 
@@ -55,18 +55,19 @@ def social_comment(request:HttpRequest, activity_Id):
     data ={}
 
     if request.POST:
-        Review.objects.create(
-            id = Review.objects.all().latest('id').id + 1,
-            activity = temp,
-            reviewer= temp2,
-            content = request.POST.get("review_comment"),
-            review_time = timezone.now(),
-            review_star = int(request.POST.get("rating"))
-            )
-
-        return render(request, 'social_comment.html')
-    else:
-        return render(request, 'social_comment.html')
+        star = request.POST.get("rating")
+        if star is not None:
+            if star > 0 and star <= 5:
+                Review.objects.create(
+                    id = Review.objects.all().latest('id').id + 1,
+                    activity = temp,
+                    reviewer= temp2,
+                    content = request.POST.get("review_comment"),
+                    review_time = timezone.now(),
+                    review_star = int(request.POST.get("rating"))
+                )
+                
+    return render(request, 'social_comment.html')
 
 def mysocial(request):
 

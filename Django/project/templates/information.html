@@ -122,6 +122,7 @@
                 </ul>
             </div>
         </div>
+
     </div>
 
     <div class="header_mobile">
@@ -201,22 +202,44 @@
 
             <div class="content">
 
-                <div class="Text">
-                    <p><img src="{{ pic }}"> </p>
-                    <p>名字</p>
-                    <p><input type="text" name="name" placeholder="{{ name }}" readonly></p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="Text">
+                        <p><img src="/static/project/avatar/{{ pic }}"></p>
+                        <input type="file" name="myfile" id="edit_pic" style="display:none;">
+                        
+                        <p>名字</p>
+                        <p><input type="text" name="name" placeholder="{{ name }}" disabled="true" id='edit_name' data-value="{{ name }}"></p>
 
-                    <p>信箱</p>
-                    <p><input name="species" type="text" placeholder="{{ email }}" readonly></p>
-                </div>
+                        <p>信箱</p>
+                        <p><input type="text" name="email" placeholder="{{ email }}" disabled="true" id='edit_email' data-value="{{ email }}">
+                        </p>
+                    </div>
 
-                <div class="button">
-                    <a href="/"><input type="submit" value="編輯"></a>
-                    <a href="/"><input type="submit" value="送出"></a>
-                </div>
+                    <div class="button">
+                        <input type="button" value="編輯" onclick="edit()">
+                        <input type="submit" value="送出">
+                    </div>
+                </form>
 
             </div>
 
         </div>
     </div>
+
+    <script defer>
+        function edit() {
+            document.getElementById('edit_name').disabled = false;
+            document.getElementById('edit_pic').click();
+        }
+
+        var x = document.querySelector("#edit_name");
+        x.value = x.dataset.value;
+
+        var y = document.querySelector("#edit_email");
+        y.value = y.dataset.value;
+
+
+    </script>
 </body>
+

@@ -1,8 +1,11 @@
 import re
+import uuid
+import os
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
+from django.conf import settings
 from . import modules
 from .models import Activity
 from .models import User
@@ -33,10 +36,33 @@ def event_index(request):
 
     return render(request, 'event_index.html' , answer_dic)
 
-def information(request):
+def information(request:HttpRequest):
     if not_authed(request): return redirect('index')
-
+    
     user = get_user(request)
     data = {'pic':user.picture_path ,'name' : user.user_name ,'email' : user.user_email}
-    
+
+    if request.POST:
+        temp_user = User.objects.get(user_email = user.user_email)
+        temp_user.user_name = request.POST.get('name')
+        temp_user.save()
+        user = get_user(request)
+        data = {'pic':user.picture_path ,'name' : user.user_name ,'email' : user.user_email}
+        # return render(request, 'information.html', data)
+
+    if request.method == 'POST':
+        myfile = request.FILES.get('myfile')
+        if  myfile: # files判斷檔案
+            file_name = uuid.uuid4().hex + ".jpg"
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in myfile.chunks():
+                    destination.write(chunk)
+            user.picture_path = file_name
+            user.save()
+            data['pic'] = user.picture_path
+            return render(request, 'information.html', data)
     return render(request, 'information.html', data)
+
+    # return render(request, 'information.html', data)
+
+    
