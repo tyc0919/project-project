@@ -113,17 +113,22 @@ def work_checked2(request: HttpRequest, job_id):
     data['job'] = job
     
     if request.POST:
-        job_detail_id = JobDetail.objects.all().latest('id').id
+        # --預防資料沒有資料
         try:
-            biggest_order = JobDetail.objects.filter(job=job).latest('order').order
+            job_detail_id = JobDetail.objects.all().latest('id').id + 1 
         except:
-            biggest_order = 0
+            job_detail_id = 1
+            
+        try:
+            order = JobDetail.objects.filter(job=job).latest('order').order + 1
+        except:
+            order = 1
             
         new_job_detail = JobDetail.objects.create(
-            id=job_detail_id+1,
+            id= job_detail_id,
             job=job, 
             content=request.POST['content_data'], 
-            order=biggest_order+1
+            order=order
         )
         
         return redirect('work_checked3', job_id=job_id)
@@ -271,6 +276,7 @@ def work_detail_update(request: HttpRequest, job_detail_id, counter):
 
 # --------------- 判斷 -----------------------------
 
+# 使用者不是該企畫的參與者
 def not_in_activity(user, job):
     activity = job.activity
     

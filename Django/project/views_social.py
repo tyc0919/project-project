@@ -1,4 +1,6 @@
+from logging import exception
 import re
+from tkinter import EXCEPTION
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
@@ -54,19 +56,28 @@ def social_comment(request:HttpRequest, activity_Id):
     temp2 = User.objects.get(user_email = user.user_email)
     data ={}
 
+    
     if request.POST:
         star = request.POST.get("rating")
         if star is not None:
+            star = int(star)
+            
+            try:
+                id = Review.objects.all().latest('id').id + 1
+            except:
+                id = 1
+                
             if star > 0 and star <= 5:
                 Review.objects.create(
-                    id = Review.objects.all().latest('id').id + 1,
+                    id = id,
                     activity = temp,
                     reviewer= temp2,
                     content = request.POST.get("review_comment"),
                     review_time = timezone.now(),
                     review_star = int(request.POST.get("rating"))
                 )
-                
+        return redirect('social_checked',activity_Id)
+    
     return render(request, 'social_comment.html')
 
 def mysocial(request):
