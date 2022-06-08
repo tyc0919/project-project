@@ -122,22 +122,18 @@ VALUES
 
 
 INSERT INTO `collaborator`
-(`id`,
-`activity_id`,
+(`activity_id`,
 `user_email`)
 VALUES
 (1,
-1,
 '10846010@ntub.edu.tw');
 
 
 INSERT INTO `collaborator`
-(`id`,
-`activity_id`,
+(`activity_id`,
 `user_email`)
 VALUES
-(2,
-1,
+(1,
 'test@gmail.com');
 
 

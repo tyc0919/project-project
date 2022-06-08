@@ -43,8 +43,6 @@ CREATE TABLE `shop`(
     FOREIGN KEY(`genre`) REFERENCES `shop_genre`(`id`) ON DELETE CASCADE
 );
 
-
-
 -- 建立資料表 '服務地點'
 CREATE TABLE `serve_city`(
 	`id` int PRIMARY KEY AUTO_INCREMENT,
@@ -71,12 +69,12 @@ CREATE TABLE `activity`(
 );
 
 -- 建立資料表 '協作人員'
-CREATE TABLE `collaborator`(
-	`id` int PRIMARY KEY AUTO_INCREMENT,
-    `activity_id` int NOT NULL,
+CREATE TABLE `collaborator` (
+   `activity_id` int NOT NULL,
     `user_email` char(30) NOT NULL,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (`activity_id`, `user_email`)
 );
 
 

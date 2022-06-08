@@ -23,7 +23,6 @@ class Activity(models.Model):
         managed = False
         db_table = 'activity'
 
-
 class City(models.Model):
     city_name = models.CharField(max_length=3, blank=True, null=True)
 
@@ -36,7 +35,7 @@ class CollabShop(models.Model):
     id = models.IntegerField(primary_key=True)
     shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    shop_permittion = models.IntegerField(blank=True, null=True)
+    shop_permission = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -44,24 +43,25 @@ class CollabShop(models.Model):
 
 
 class Collaborator(models.Model):
-    activity = models.ForeignKey(Activity, models.DO_NOTHING)
+    activity = models.OneToOneField(Activity, models.DO_NOTHING, primary_key=True)
     user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
 
     class Meta:
         managed = False
         db_table = 'collaborator'
+        unique_together = (('activity', 'user_email'),)
 
 
 class Job(models.Model):
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
-    order = models.IntegerField()
+    order = models.IntegerField(blank=True, null=True)
     status = models.ForeignKey('JobStatus', models.DO_NOTHING, db_column='status', blank=True, null=True)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    
+
     class Meta:
         managed = False
         db_table = 'job'
@@ -118,7 +118,8 @@ class Shop(models.Model):
     picture_path = models.CharField(max_length=50, blank=True, null=True)
     enable = models.IntegerField(blank=True, null=True)
     enable_time = models.DateTimeField(blank=True, null=True)
-    serve_city = models.ForeignKey('City', models.DO_NOTHING, db_column='serve_city', blank=True, null=True)
+    serve_city = models.ForeignKey(City, models.DO_NOTHING, db_column='serve_city', blank=True, null=True)
+
     class Meta:
         managed = False
         db_table = 'shop'
