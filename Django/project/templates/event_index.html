@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="../static/project/css/event_index.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/event_index.css" />
+    <link rel="stylesheet"  href="/static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -25,19 +25,19 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href="/event_index">
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href="/mywork">
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href="/colla_index">
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href="/social_index">
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -48,19 +48,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href="/myproposal">
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href="/mywork">
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href="/colla_index">
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href="/social_index">
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -70,13 +70,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>個人檔案</li>
                             </a>
-                            <a href="">
+                            <a href="/">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="/../tailwind/index">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -86,9 +86,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -99,26 +99,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            工作首頁
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}用戶</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href="/information">
                         <li>個人檔案</li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="/../tailwind/index">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -127,7 +125,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}}用戶</h2>
     </div>
 
     <!--header end-->
@@ -145,12 +143,10 @@
                         <ul>
                             {% for activity in activities%}
                             <li>
-                                {{activity.activity_name }}
+                                <div class="one">{{activity.activity_name }}</div>
+                                <div class="two">{{activity.post_time|date:'Y/m/d'}}</div>
                             </li>
                             {% endfor %}
-
-                            
-                
                         </ul>
                     </div>
                 </div>
@@ -163,7 +159,8 @@
                         <ul>
                             {% for job in Jobs%}
                             <li>
-                                {{job.title}}
+                                <div class="one">{{job.title}}</div>
+                                <div class="two">{{job.create_time|date:'Y/m/d'}}</div>
                             </li>
                             {% endfor %}
                         </ul>
@@ -176,15 +173,18 @@
                     <div class="item_text"><b>快要到期</b></div>
                     <div class="item_list">
                         <ul>
-                            {% for job in Jobs2%}
+                            {% for job2 in Jobs2%}
                             <li>
-                                {{job.title}}
+                                <div class="one">{{job2.title }}</div>
+                                <div class="two">{{job2.dead_line|date:'Y/m/d'}}</div>
                             </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
+
+            
         </div>
     </div>
 

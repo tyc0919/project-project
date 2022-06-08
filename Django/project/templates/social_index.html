@@ -24,20 +24,20 @@
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
-                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    <a href="/event_index">
+                        <li><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href="/mywork">
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href="/colla_index">
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
-                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    <a href="/social_index">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
             </div>
@@ -47,19 +47,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href="/myproposal">
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href="/mywork">
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href="/colla_index">
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href="/social_index">
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -69,13 +69,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>個人檔案</li>
                             </a>
-                            <a href="">
+                            <a href="/">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="../tailwind/index">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -85,9 +85,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -98,26 +98,24 @@
     <div class="header_table">
 
         <div class="detail">
-            1個專案
-            <br>
-            3個工作
+            社群首頁
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}用戶</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href="/information">
                         <li>個人檔案</li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="../tailwind/index">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -126,61 +124,35 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}} 用戶</h2>
     </div>
 
     <!--header end-->
 
     <div class="container">
 
+        {% for article in articles %}
         <div class="post">
             <div class="post_img">
-                <a href="social_checked.html"><img src="./assets/image/test.jpg" alt=""></a>
+                <a href="/social_checked/{{article.id}}"><img src="{{article.activity_picture}}" alt=""></a>
             </div>
 
             <div class="post_list">
                 <ul>
-                    <li><b>2019_11_30</b></li>
-                    <li><b>演唱會企劃</b></li>
-                    <li><b>黃紹齊</b></li>
+                    <li><b>{{article.post_time|date:'Y/m/d'}}</b></li>
+                    <li><b>{{article.activity_name}}</b></li>
+                    <li><b>{{article.owner.user_name}}</b></li>
                 </ul>
             </div>
         </div>
-
-        <div class="post">
-            <div class="post_img">
-                <a href="social_checked.html"><img src="./assets/image/test.jpg" alt=""></a>
-            </div>
-
-            <div class="post_list">
-                <ul>
-                    <li><b>2019_11_30</b></li>
-                    <li><b>演唱會企劃</b></li>
-                    <li><b>貼文擁有者</b></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="post">
-            <div class="post_img">
-                <a href="social_checked.html"><img src="./assets/image/test.jpg" alt=""></a>
-            </div>
-
-            <div class="post_list">
-                <ul>
-                    <li><b>2019_11_30</b></li>
-                    <li><b>演唱會企劃</b></li>
-                    <li><b>貼文擁有者</b></li>
-                </ul>
-            </div>
-        </div>
+        {% endfor %}
 
         <div class="edit_proposal">
-            <a href="mysocial.html"><i class="fa-solid fa-address-card fa-2x center"></i></a>
+            <a href="/mysocial"><i class="fa-solid fa-address-card fa-2x center"></i></a>
         </div>
 
     </div>
 
 </body>
 
-</html>
+<>

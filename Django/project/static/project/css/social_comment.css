@@ -21,30 +21,40 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 40px;
     color: rgb(99 115 129);
     width: 100%;
-}
-
-.deal_square .comment_add .comment_text{
     font-size: 30px;
-    text-align: center;
-    margin: 10px 0;
 }
 
-.deal_square .comment_add .comment_star{
-    height: 50px;
+.deal_square .comment_add .rating {
     display: flex;
-    align-items: center;
+    width: 100%;
     justify-content: center;
+    overflow: hidden;
+    flex-direction: row-reverse;
+    position: relative;
     margin: 10px 0;
-}
-
-.deal_square .comment_add .comment_star .box1 {
+  }
+  
+.deal_square .comment_add .rating > input {
+    display: none;
+  }
+  
+.deal_square .comment_add .rating > label{
+    cursor: pointer;
+    width: 50px;
     height: 40px;
-    width: 40px;
-    margin: 0 10px;
-    background-image: url(0.png)
+    margin-top: auto;
+    background-image: url("0.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 76%;
+}
+  
+.deal_square .comment_add .rating > input:checked ~ label,
+.deal_square .comment_add .rating > input:checked ~ label ~ label{
+    background-image: url("1.png");
 }
 
 .deal_square .comment_add .comment_content{
@@ -58,11 +68,10 @@
 
 .deal_square .comment_add .comment_content p{
     text-align: center;
-    font-size: 30px;
+
 }
 
 .deal_square .comment_add .comment_content textarea{
-    
     height: 300px;
     width: 80%;
     font-size: 25px;
@@ -76,7 +85,7 @@
     margin: 10px 0;
 }
 
-.deal_square .comment_add .button input[type=button]{
+.deal_square .comment_add .button input[type=submit]{
     width: 240px;
     font-size: 30px;
     background-color: rgb(48 86 211);
