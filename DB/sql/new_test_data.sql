@@ -73,11 +73,6 @@ INSERT INTO `shop` VALUES
 now(),
 2);
 
-
-
-
-
-
 -- activity
 INSERT INTO `activity` VALUES
 (1,
@@ -120,7 +115,7 @@ INSERT INTO `collab_shop`
 (`id`,
 `shop_email`,
 `activity_id`,
-`shop_permittion`)
+`shop_permission`)
 VALUES
 (1,'10846015@ntub.edu.tw',1,0),
 (2,'10846002@ntub.edu.tw',1,0);
