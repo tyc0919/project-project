@@ -61,6 +61,11 @@ def proposal_work_checked(request: HttpRequest, job_id):
     data['job'] = job
     data['user'] = user
     
+    if user == job.person_in_charge_email:
+        data['can_be_edited'] = True
+    else:
+        data['can_be_edited'] = False
+        
     return render(request, 'proposal_work_checked.html', data)
 
 

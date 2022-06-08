@@ -163,9 +163,16 @@
             </table>
         </div>
 
+        {%if can_be_edited%}
+        <div class="button">
+            <a href={%url 'work_checked3' job.id%}><input type="button" value="編輯"></a>
+        </div>
+        {%endif%}
+        
         <div class="button">
             <a href={%url 'proposal_checked'%}><input type="button" value="返回"></a>
         </div>
+        
     </div>
 
 
