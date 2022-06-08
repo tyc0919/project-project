@@ -141,9 +141,7 @@
                 <li>{{pair.job_object.dead_line | date:'Y/m/d'}}</li>
             </ul>
             <div class="description">
-                {% for job_detail_object in pair.job_details %}
-                {{job_detail_object.content}}
-                {% endfor %}
+                {{pair.job_object.content}}
             </div>
 
             <div class="bottom">

@@ -131,13 +131,31 @@
     <!--header end-->
  
     <div class="container">
-
-
-    
+    {% if jobs%}
+    {%else%}
+    <a href={%url 'myproposal'%}>
+        <div class="work" style="display: flex ;flex-direction: column;">
+            <ul>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>目前沒有被指派任何工作</b></li>
+                <li style="border-radius: 0.375rem 0.375rem 0px 0px;"></li>
+            </ul>
+            
+            <div style="margin:auto; color:#f34c4c; display:flex; flex-direction: column;" >
+                <div>
+                    <h1>想查看企劃嗎?</h1>
+                </div>
+                <div>
+                    <h2>點擊查看<h2>
+                </div>
+            </div>
+            
+        </div>
+    </a>
+    {%endif%}
 
     {% for job in jobs%}
 
-    {% if job%}
+    
         <div class="work">
             <ul>
                 <li style="border-radius: 0.375rem 0.375rem 0px 0px;"><b>{{job.activity.activity_name}}</b></li>
@@ -154,8 +172,9 @@
                 <a href={%url 'work_checked3' job.id %}>點擊檢視完整工作</a>
             </div>
         </div>
-    {%endif%}
 
+  
+    
     {%endfor%}
     </div>
 
