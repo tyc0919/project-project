@@ -109,7 +109,11 @@ def work_checked2(request: HttpRequest, job_id):
     
     if request.POST:
         job_detail_id = JobDetail.objects.all().latest('id').id
-        biggest_order = JobDetail.objects.filter(job=job).latest('order').order
+        try:
+            biggest_order = JobDetail.objects.filter(job=job).latest('order').order
+        except:
+            biggest_order = 0
+            
         new_job_detail = JobDetail.objects.create(
             id=job_detail_id+1,
             job=job, 
@@ -199,7 +203,7 @@ def work_content_update(request: HttpRequest, job_id):
 
     return render(request, 'work_content_update.html', data)
 
-def work_detail_remove(request: HttpRequest, job_detail_id):
+def work_detail_remove(request: HttpRequest, job_detail_id, counter):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
@@ -211,23 +215,24 @@ def work_detail_remove(request: HttpRequest, job_detail_id):
         return redirect('index')
     
     # job
-    job = Job.objects.get(pk=job_detail.job_id)
+    job = job_detail.job
     
     # if user not in the activity
     if not_in_activity(user, job): return redirect('index')
 
-    print(job_detail.id)
     data = {}
     data['user'] = user
     data['job'] = job
     data['job_detail'] = job_detail
+    data['counter'] = counter
+    
     if request.POST:
         job_detail.delete()
         return redirect('work_checked3', job.id)
     
     return render(request, 'work_detail_remove.html', data)
 
-def work_detail_update(request: HttpRequest, job_detail_id):
+def work_detail_update(request: HttpRequest, job_detail_id, counter):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
@@ -239,7 +244,7 @@ def work_detail_update(request: HttpRequest, job_detail_id):
         return redirect('index')
     
     # job
-    job = Job.objects.get(pk=job_detail.job_id)
+    job = job_detail.job
     
     # if user not in the activity
     if not_in_activity(user, job): return redirect('index')
@@ -248,6 +253,7 @@ def work_detail_update(request: HttpRequest, job_detail_id):
     data['user'] = user
     data['job'] = job
     data['job_detail'] = job_detail
+    data['counter'] = counter 
     
     if request.POST:
         content = request.POST['content_data']
@@ -261,7 +267,8 @@ def work_detail_update(request: HttpRequest, job_detail_id):
 # --------------- 判斷 -----------------------------
 
 def not_in_activity(user, job):
-    activity = Activity.objects.get(pk=job.activity_id)
+    activity = job.activity
+    
     try:
         collaborators = Collaborator.objects.filter(activity=activity).values('user_email')
     except:
@@ -276,4 +283,5 @@ def not_in_activity(user, job):
         
     if not(user == activity.owner) and not(is_collaborator):
         return True
+    
     return False

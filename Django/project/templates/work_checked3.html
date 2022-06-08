@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="../static/project/css/work_checked3.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="../static/project/css/dot_work.css">
+    <link rel="stylesheet" href="/static/project/css/work_checked3.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot_work.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,7 +21,7 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="../static/project/images/logo/logoE.svg" alt="">
+                <img src="/static/project/images/logo/logoE.svg" alt="">
             </div>
 
             <div class="nav_table">
@@ -166,26 +166,26 @@
                     </th>
                 </tr>
                 <tr>
-                    <td colspan="2" style="word-break:break-all">
-                        {{job.content}}
+                    <td colspan="2" word-break='break-all'; word-wrap='break-word';>
+                        {{job.content|linebreaksbr}}
                     </td>
                 </tr>
             {%for job_detail in all_job_detail%}
                 <tr>
                     <th colspan="2">
                         工作細項{{forloop.counter}}
-                        <a href={%url 'work_detail_update' job_detail.id%}>
+                        <a href={%url 'work_detail_update' job_detail.id forloop.counter%}>
                             編輯
                         </a>
-                        <a href={%url 'work_detail_remove' job_detail.id%}>
+                        <a href={%url 'work_detail_remove' job_detail.id forloop.counter%}>
                             刪除
                         </a>
                     </th>
                 </tr>
 
                 <tr>
-                    <td colspan="2" style="word-break:break-all">
-                        {{job_detail.content}}
+                    <td colspan="2"  word-break='break-all'; word-wrap='break-word';>
+                        {{job_detail.content|linebreaksbr}}
                     </td>
                 </tr>
             {%endfor%}

@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="../static/project/css/work_checked2.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="../static/project/css/dot_work.css">
+    <link rel="stylesheet" href="/static/project/css/work_checked2.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot_work.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,7 +21,7 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="../static/project/images/logo/logoE.svg" alt="">
+                <img src="/static/project/images/logo/logoE.svg" alt="">
             </div>
 
             <div class="nav_table">
@@ -207,16 +207,8 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="content">
-                    <h2>確定要刪除這個工作細項嗎</h2>
-                    <table>
-                        <tr>
-                            <td colspan="2" style="word-break:break-all">
-                                {{job_detail.content}}
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <input type="submit" value="確定">
+                    <h2>確定要刪除<i><font color='red'>工作細項{{counter}}</font></i></h2>
+                    <input background-color='red' type="submit" value="確定">
                     <a href={%url 'work_checked3' job.id%}><input type="button" value="取消"></a>
                 </div>
             </form>

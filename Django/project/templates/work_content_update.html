@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="../static/project/css/work_checked2.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="../static/project/css/dot_work.css">
+    <link rel="stylesheet" href="/static/project/css/work_checked2.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot_work.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -21,7 +21,7 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="../static/project/images/logo/logoE.svg" alt="">
+                <img src="/static/project/images/logo/logoE.svg" alt="">
             </div>
 
             <div class="nav_table">
@@ -77,7 +77,7 @@
                             <a href="">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="/tailwind/index.html">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -117,7 +117,7 @@
                     <a href="">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="/tailwind/index.html">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -207,9 +207,12 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="content">
-                    <h2>編輯工作簡介</h2>
-                    <textarea name="content_data" >{{job.content}}</textarea>
+                    <h2>工作簡介</h2>
+                    <textarea name="content_data">
+                        {{job.content}}
+                    </textarea>
                     <input type="submit" value="確定">
+                    <a href={%url 'work_checked3' job.id%}><input type="button" value="取消"></a>
                 </div>
             </form>
             </div>
