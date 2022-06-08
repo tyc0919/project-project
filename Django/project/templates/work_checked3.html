@@ -170,6 +170,7 @@
                         {{job.content|linebreaksbr}}
                     </td>
                 </tr>
+            {%if all_job_detail%}
             {%for job_detail in all_job_detail%}
                 <tr>
                     <th colspan="2">
@@ -189,6 +190,16 @@
                     </td>
                 </tr>
             {%endfor%}
+            
+            {%else%}
+            <tr>
+                <th colspan="2">
+                    <a href={%url 'work_checked2' job.id%}>
+                        目前沒有工作細項喔!(點我新增)
+                    </a>
+                </th>
+            </tr>
+            {%endif%}
             </table>
 
 
