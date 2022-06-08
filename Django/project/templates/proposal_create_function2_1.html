@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/project/css/proposal_create_function2_1.css" />
-    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
-    <link rel="stylesheet" href="../static/project/css/dot1.css" />
+    <link rel="stylesheet" href="/static/project/css/proposal_create_function2_1.css" />
+    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="/static/project/css/dot1.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
@@ -19,24 +19,24 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="../static/project/images/logo/logoE.svg" alt="">
+                <img src="/static/project/images/logo/logoE.svg" alt="">
             </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <a href="event_index.html">
+                    <a href="/event_index">
                         <li><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li style="opacity: 0.7;"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
                     </a>
-                    <a href="mywork.html">
+                    <a href="/mywork">
                         <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
                     </a>
-                    <a href="colla_index.html">
+                    <a href="/colla_index">
                         <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
                     </a>
-                    <a href="social_index.html">
+                    <a href="/social_index">
                         <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
                     </a>
                 </ul>
@@ -47,19 +47,19 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>主頁</li>
                             </a>
-                            <a href="myproposal.html">
+                            <a href="/myproposal">
                                 <li>我的企劃</li>
                             </a>
-                            <a href="mywork.html">
+                            <a href="/mywork">
                                 <li>我的工作</li>
                             </a>
-                            <a href="colla_index.html">
+                            <a href="/colla_index">
                                 <li>合作店家</li>
                             </a>
-                            <a href="social_index.html">
+                            <a href="/social_index">
                                 <li>社群</li>
                             </a>
                         </ul>
@@ -69,13 +69,13 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <a href="information.html">
+                            <a href="/information">
                                 <li>個人檔案</li>
                             </a>
-                            <a href="">
+                            <a href="/">
                                 <li>設定</li>
                             </a>
-                            <a href="../tailwind/index.html">
+                            <a href="/logout">
                                 <li>登出</li>
                             </a>
                         </ul>
@@ -85,9 +85,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -97,27 +97,29 @@
     <!--header start-->
     <div class="header_table">
 
-        <div class="detail">
-            1個專案
-            <br>
-            3個工作
+        <div class="detail" style="    left: 5%;
+        max-width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;">
+            我的企劃 > {{activity.activity_name}} > 編輯企劃 > 編輯工作 
         </div>
 
         <div class="header_text">
-            <b>XXX用戶</b>
+            <b>{{user.user_name}}用戶</b>
         </div>
 
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <a href="information.html">
+                    <a href="/information">
                         <li>個人檔案</li>
                     </a>
-                    <a href="">
+                    <a href="/">
                         <li>設定</li>
                     </a>
-                    <a href="../tailwind/index.html">
+                    <a href="/logout">
                         <li>登出</li>
                     </a>
                 </ul>
@@ -126,7 +128,7 @@
     </div>
 
     <div class="header_mobile">
-        <h2>XXX 用戶</h2>
+        <h2>{{user.user_name}}用戶</h2>
     </div>
 
     <!--header end-->
@@ -135,59 +137,69 @@
         <div class="main_function">
             <div class="deal_square">
                 <div class="work_add">
+                    <form method="post">
+                    {% csrf_token %}
                     <div class="A">
+                        {% if alert %}
+                        <h2>{{alert}}</h2>
+                        {% endif %}
                         <p>
-                            工作名稱
-                            <br>
-                            <input type="text" name="wrok_name">
+                            工作名稱<br>
+                            <input type="text" id="title" name="title" data-value="{{job.title}}">
                         </p>
                         <p>
-                            負責人
-                            <br>
-                            <input type="text" name="work_res">
+                            負責人<br>
+                            <select id="person_in_charge_email" name="person_in_charge_email">
+                                {% for collaborator in collaborators %}
+                                {% if job.person_in_charge_email.user_email == collaborator.user_email.user_email %}
+                                <option value="{{collaborator.user_email.user_email}}" selected>{{collaborator.user_email.user_email}}</option>
+                                {% else %}
+                                <option value="{{collaborator.user_email.user_email}}">{{collaborator.user_email.user_email}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
                         </p>
                         <p>
-                            到期日期
-                            <br>
-                            <input type="date" name="work_res">
+                            到期日期<br>
+                            <input type="date" id="dead_line" name="dead_line" data-value="{{job.dead_line | date:'Y-m-d'}}">
                         </p>
                     </div>
 
                     <div class="B">
                         <p>工作內容</p>
-                        <textarea name="work_content"></textarea>
+                        <textarea name="content" id="content" data-value="{% for job_detail in job_details %}{{job_detail.content}}{% endfor %}"></textarea>
                     </div>
 
                     <div class="button">
-                        <input type="button" value="送出資料">
+                        <input type="submit" value="送出資料">
                     </div>
-
+                </form>
                 </div>
 
             </div>
         </div>
 
         <div class="edit_proposal">
-            <a href=""><i class="fa-solid fa-minus fa-2x center"></i></i></a>
+            <a href="/proposal_job_delete/{{activity.id}}/{{job.id}}"><i class="fa-solid fa-minus fa-2x center"></i></i></a>
         </div>
 
         <div class="function_menu">
-            <a href=""><i class="fa-solid fa-ellipsis fa-2x center"></i></a>
+            <a><i class="fa-solid fa-ellipsis fa-2x center"></i></a>
             <div class="list">
                 <ul>
-                    <a href="proposal_create_function1.html">
+                    <a href="/proposal_create_function1">
                         <li>新增工作</li>
                     </a>
-                    <a href="proposal_create_function2.html">
+                    <a href="/proposal_create_function2">
                         <li>查看工作</li>
                     </a>
-                    <a href="proposal_create_function3.html">
+                    <a href="/proposal_create_function3">
                         <li>新增協作人員</li>
                     </a>
-                    <a href="proposal_create_function4.html">
+                    <a href="/proposal_create_function4">
                         <li>查看協作人員</li>
                     </a>
-                    <a href="myproposal.html">
+                    <a href="/myproposal">
                         <li style="border: none;">完成企劃</li>
                     </a>
                 </ul>
@@ -195,7 +207,15 @@
         </div>
 
     </div>
-
+    <script defer>
+        title = document.querySelector('#title');
+        date = document.querySelector('#dead_line');
+        pice = document.querySelector('#person_in_charge_email');
+        content = document.querySelector('#content');
+        title.value = title.dataset.value
+        date.value = date.dataset.value
+        content.value = content.dataset.value
+    </script>
 </body>
 
 </html>
