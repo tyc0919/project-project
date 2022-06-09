@@ -205,7 +205,12 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="Text">
+                        {% if pic %}
                         <p><img src="/static/project/avatar/{{ pic }}"></p>
+                        {% else%}
+                        <p><img src="/static/project/images/user.png"></p>
+                        {% endif %}
+                        
                         <input type="file" name="myfile" id="edit_pic" style="display:none;">
                         
                         <p>名字</p>

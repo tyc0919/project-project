@@ -119,6 +119,7 @@ def proposal_create(request: HttpRequest):
         if not_authed(request): return redirect('index')
         user = get_user(request)
         data = {
+            'user': user,
             'cities': City.objects.all(),
         }
         return render(request, 'proposal_create.html', data)
