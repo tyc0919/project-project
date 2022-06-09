@@ -27,6 +27,7 @@ def index(request: HttpRequest):
     return render(request, 'index.html', data)
 
 def signin(request: HttpRequest):
+    data={}
     if request.POST:
         user = modules.custom_login(request.POST.get("user_email"), request.POST.get("password"))
         print(user)
@@ -35,8 +36,7 @@ def signin(request: HttpRequest):
             return redirect('event_index')
         else:
             data = {'status': 'fail', 'message':'帳號或密碼有誤'}
-            return redirect(index)
-    else: return render(request, 'signin.html')
+    return render(request, 'signin.html', data)
 
 def signup(request: HttpRequest):
     data = {}

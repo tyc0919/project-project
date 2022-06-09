@@ -48,15 +48,23 @@ def my_proposal(request):
         all_collab = Collaborator.objects.filter(user_email=user)
     except:
         all_collab = None
-        
+    collab_pairs = []
     for collab in all_collab:
-        print(collab.activity.activity_name)
+        # print(collab.activity.activity_name)
+        collab_jobs_temp = []
+        for cj in Job.objects.filter(activity=collab.activity):
+            collab_jobs_temp.append(cj)
+        
+        collab_pairs.append({
+            "collab_a": collab.activity,
+            "collab_jobs": collab_jobs_temp
+        })
         
     data = {
         "user": user,
         "not_finished": not_fin_list,
         "finished": fin_list,
-        "all_collab": all_collab
+        "collab_pairs": collab_pairs
     }
 
     return render(request, 'myproposal.html', data)

@@ -222,18 +222,18 @@
 
         {% comment %}  協作企劃 {% endcomment %}
         <div class="finish">
-            {% for pair in all_collab %}
-            {% if pair.activity.owner != user %}
+            {% for pair in collab_pairs %}
+            {% if pair.collab_a.owner != user %}
             
             <div class="proposal">
-                <h3>{{ pair.activity.activity_name }}</h3>
+                <h3>{{ pair.collab_a.activity_name }}</h3>
                 <ul style="height:80%; overflow-y:scroll;">
-                    {% for job in pair.jobs %}
+                    {% for collab_job in pair.collab_jobs %}
                     <li><div style="
                         display: flex;
                         width: 100%;
                         justify-content: space-between;
-                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    "><div>{{collab_job.title}}</div><div>{{collab_job.dead_line | date:'Y/m/d' }}</div></div>
                     </li>
                     {% empty %}
                     <li>現在還沒有工作喔</li>

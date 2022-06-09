@@ -223,6 +223,11 @@
               <div class="mb-10 text-center text-2xl font-bold">
                登入
               </div>
+              {% if message %}
+              <h5 style="margin-top: 1rem; margin-bottom: 1rem; color: red;">{{message}}</h5>
+              {% else %}
+              <h5 style="margin-top: 1rem; margin-bottom: 1rem; color: red; visibility: hidden;">placeholder</h5>
+              {% endif %}
               <form method="POST">
                 {% csrf_token %}
                 <div class="mb-6">
