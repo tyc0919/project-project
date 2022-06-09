@@ -167,7 +167,11 @@
 
                     <div class="B">
                         <p>工作內容</p>
-                        <textarea name="content" id="content" data-value="{{job.content}}"></textarea>
+                        {% if job.content %}
+                        <textarea name="content" id="content">{{job.content}}</textarea>
+                        {% else %}
+                        <textarea name="content" id="content"></textarea>
+                        {% endif %}
                     </div>
 
                     <div class="button">
@@ -187,16 +191,16 @@
             <a><i class="fa-solid fa-ellipsis fa-2x center"></i></a>
             <div class="list">
                 <ul>
-                    <a href="/proposal_create_function1">
+                    <a href="/proposal_create_function1/{{activity.id}}" >
                         <li>新增工作</li>
                     </a>
-                    <a href="/proposal_create_function2">
+                    <a href="/proposal_create_function2/{{activity.id}}" >
                         <li>查看工作</li>
                     </a>
-                    <a href="/proposal_create_function3">
+                    <a href="/proposal_create_function3/{{activity.id}}" >
                         <li>新增協作人員</li>
                     </a>
-                    <a href="/proposal_create_function4">
+                    <a href="/proposal_create_function4/{{activity.id}}">
                         <li>查看協作人員</li>
                     </a>
                     <a href="/myproposal">
@@ -210,11 +214,9 @@
     <script defer>
         title = document.querySelector('#title');
         date = document.querySelector('#dead_line');
-        pice = document.querySelector('#person_in_charge_email');
-        content = document.querySelector('#content');
+        pice = document.querySelector('#person_in_charge_email');      
         title.value = title.dataset.value
         date.value = date.dataset.value
-        content.value = content.dataset.value
     </script>
 </body>
 

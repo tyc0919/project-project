@@ -51,7 +51,7 @@ def signup(request: HttpRequest):
         except Exception:
             data = {'response': '欄位不能為空'}
 
-        return render(request, 'signup.html', data)
+        return redirect('signin')
     return render(request, 'signup.html', data)
 
 def forgetpasswd(request):

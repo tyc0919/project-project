@@ -276,23 +276,22 @@ def work_detail_update(request: HttpRequest, job_detail_id, counter):
 
 # --------------- 判斷 -----------------------------
 
-# 使用者不是該企畫的參與者
+# 使用者不是該企劃的參與者
 def not_in_activity(user, job):
     activity = job.activity
     
     try:
-        collaborators = Collaborator.objects.filter(activity=activity).values('user_email')
+        activity = Activity.objects.get(id=job.activity_id, owner=user)
+        return False
     except:
-        collaborators = None
-        
-    if collaborators == None:
-        is_collaborator = False
-    elif (user in collaborators):
-        is_collaborator = True
-    else:
-        is_collaborator = False
-        
-    if not(user == activity.owner) and not(is_collaborator):
-        return True
+        pass
     
-    return False
+    try:
+        activity = Activity.objects.get(id=job.activity_id)
+        collab = Collaborator.objects.get(activity=activity, user_email=user)
+        return False
+    except:
+        pass
+    
+    return True
+

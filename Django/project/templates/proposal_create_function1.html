@@ -168,7 +168,11 @@
 
                     <div class="B">
                         <p>工作內容</p>
-                        <textarea name="content"></textarea>
+                        {% if job.content %}
+                        <textarea name="content" id="content">{{job.content}}</textarea>
+                        {% else %}
+                        <textarea name="content" id="content"></textarea>
+                        {% endif %}
                     </div>
 
                     <div class="button">

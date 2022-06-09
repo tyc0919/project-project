@@ -26,7 +26,10 @@ def my_proposal(request):
             "activity_object": a,
             "jobs": jobs
         })
-
+        
+    
+    
+    
     fin_list = []
     for a in Activity.objects.filter(owner=user, is_finished=1):
         a.post_time = a.post_time.strftime("%Y/%m/%d")
@@ -39,10 +42,21 @@ def my_proposal(request):
             "jobs": jobs
         })
         
+        
+    # fetch all collab activities
+    try:
+        all_collab = Collaborator.objects.filter(user_email=user)
+    except:
+        all_collab = None
+        
+    for collab in all_collab:
+        print(collab.activity.activity_name)
+        
     data = {
         "user": user,
         "not_finished": not_fin_list,
-        "finished": fin_list
+        "finished": fin_list,
+        "all_collab": all_collab
     }
 
     return render(request, 'myproposal.html', data)
@@ -53,7 +67,13 @@ def proposal_checked(request, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    activity = get_object_or_404(Activity, pk=activity_id, owner=user)
+    
+    activity = get_activity(activity_id, user)
+    
+        
+    # activity = get_object_or_404(Activity, pk=activity_id, owner=user)
+   
+        
     jobs = Job.objects.filter(activity_id=activity)
     job_and_detail = []
     for job in jobs:
@@ -109,7 +129,7 @@ def proposal_create_function1(request: HttpRequest, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, id=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     collaborators = Collaborator.objects.filter(activity=a)
     data = {
         'user': user,
@@ -121,7 +141,15 @@ def proposal_create_function1(request: HttpRequest, activity_id=None):
         try:
             person_in_charge = get_object_or_404(User, pk=request.POST.get("person_in_charge_email"))
             dead_line = datetime.datetime.strptime(request.POST.get("dead_line"), "%Y-%m-%d").date()
-            job = Job.objects.create(activity=a, person_in_charge_email=person_in_charge, title=request.POST.get("title"), status=JobStatus.objects.get(pk=1),order=3, create_time=timezone.now(), dead_line=dead_line)
+            job = Job.objects.create(
+                activity=a, 
+                person_in_charge_email=person_in_charge, 
+                title=request.POST.get("title"), 
+                status=JobStatus.objects.get(pk=1), 
+                order=3, 
+                create_time=timezone.now(), 
+                dead_line=dead_line,
+                content=request.POST['content'])
             # 記得改order 資料表有問題
         except ObjectDoesNotExist:
             data['alert'] = '該人員不存在'
@@ -136,7 +164,7 @@ def proposal_create_function2(request, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, pk=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     jobs = Job.objects.filter(activity=a)
     job_and_detail = []
     for job in jobs:
@@ -161,7 +189,7 @@ def proposal_create_function2_1(request: HttpRequest,activity_id=None,job_id=Non
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, id=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     job = get_object_or_404(Job, pk=job_id, activity=a)
     job_details = JobDetail.objects.filter(job=job)
     collaborators = Collaborator.objects.filter(activity=a)
@@ -181,8 +209,7 @@ def proposal_create_function2_1(request: HttpRequest,activity_id=None,job_id=Non
             job.dead_line = dead_line
             job.title = request.POST.get("title")
             job.person_in_charge_email = person_in_charge
-            for job_detail in job_details:
-                job_detail.content = request.POST.get("content")
+            job.content = request.POST.get("content")
             job.save()
         except ObjectDoesNotExist:
             data['alert'] = '該人員不存在'
@@ -198,7 +225,7 @@ def proposal_create_function3(request, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, pk=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     data = {
         'user': user,
         'activity': a,
@@ -213,7 +240,7 @@ def proposal_create_function4(request, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, pk=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     collaborators = Collaborator.objects.filter(activity=a)
     data = {
         'user': user,
@@ -229,7 +256,7 @@ def proposal_post(request, activity_id=None):
     # add this line as long as the view requires the user stay logged in
     if not_authed(request): return redirect('index')
     user = get_user(request)
-    a = get_object_or_404(Activity, pk=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     data = {
         'user': user,
         'activity': a,
@@ -246,14 +273,14 @@ def proposal_post(request, activity_id=None):
 
 def proposal_job_delete(request, activity_id=None, job_id=None):
     user = get_user(request)
-    a = get_object_or_404(Activity, id=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     job = get_object_or_404(Job, pk=job_id, activity=a)
     job.delete()
     return redirect(f'/proposal_checked/{activity_id}')
 
 def proposal_delete(request, activity_id=None):
     user = get_user(request)
-    a = get_object_or_404(Activity, id=activity_id, owner=user)
+    a = get_activity(activity_id, user)
     a.delete()
     return redirect(my_proposal)
 
@@ -263,10 +290,24 @@ def proposal_join(request, invitation_code):
         data = {'status': 'success', 'message': '已成功加入該企劃!'}
         try:
             a = get_object_or_404(Activity, invitation_code=invitation_code)
-            test = Collaborator.objects.get(activity=a, user_email=user)
-            if test: raise Exception
             collab_user = Collaborator.objects.create(activity=a, user_email=user)
         except:
             data = {'status': 'fail', 'message': '此邀請碼不存在或已經是協作者了!'}
         return JsonResponse(data)
     return JsonResponse({'status': 'fail', 'message': '此邀請碼不存在!'})
+
+def get_activity(activity_id, user):
+    try:
+        activity = Activity.objects.get(id=activity_id, owner=user)
+        return activity
+    except:
+        pass
+    
+    try:
+        activity = Activity.objects.get(id=activity_id)
+        collab = Collaborator.objects.get(activity=activity, user_email=user)
+        return activity
+    except:
+        pass
+    
+    return get_object_or_404(Activity, pk=activity_id, owner=user)

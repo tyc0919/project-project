@@ -216,6 +216,39 @@
             {% endfor %}
         </div>
 
+        <h2 style="position: relative; text-align: center; margin-top:10px;">
+            _協作企劃_
+        </h2>
+
+        {% comment %}  協作企劃 {% endcomment %}
+        <div class="finish">
+            {% for pair in all_collab %}
+            {% if pair.activity.owner != user %}
+            
+            <div class="proposal">
+                <h3>{{ pair.activity.activity_name }}</h3>
+                <ul>
+                    {% for job in pair.jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="bottom_text">
+                    <a href="/proposal_checked/{{pair.activity.id}}">檢視完整企劃</a>
+                </div>
+            </div>
+
+            {% endif %}
+            {% endfor %}
+        </div>
+
     </div>
     </div>
     <div class="edit_proposal">

@@ -142,9 +142,9 @@
                                 <li>到期日期: {{pair.job_object.dead_line | date:'Y/m/d' }}</li>
                             </ul>
                             <div class="content">
-                                {% for job_detail in pair.job_details %}
-                                {{job_detail.content}}
-                                {% endfor %}
+                               
+                                {{pair.job_object.content}}
+                              
                             </div>
                         </a>
                     </div>
@@ -154,6 +154,11 @@
                                 <li>目前沒有指派工作</li>
                             </ul>
                             <div class="content">
+                                {% if pair.job_object.content %}
+                                    {{pair.job_object.content}}
+                                {% else %}
+                                    該工作尚未添加內容
+                                {% endif %}
                             </div>
                     </div>
                     {% endfor %}
