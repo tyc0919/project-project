@@ -32,10 +32,10 @@ def signin(request: HttpRequest):
         print(user)
         if user is not None:
             request = modules.set_credential(request, user)
-            return redirect(index)
+            return redirect('event_index')
         else:
             data = {'status': 'fail', 'message':'帳號或密碼有誤'}
-            return render(request, 'signin.html', data)
+            return redirect(index)
     else: return render(request, 'signin.html')
 
 def signup(request: HttpRequest):

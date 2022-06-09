@@ -23,6 +23,7 @@ class Activity(models.Model):
         managed = False
         db_table = 'activity'
 
+
 class City(models.Model):
     city_name = models.CharField(max_length=3, blank=True, null=True)
 
@@ -43,7 +44,7 @@ class CollabShop(models.Model):
 
 
 class Collaborator(models.Model):
-    activity = models.OneToOneField(Activity, models.DO_NOTHING, primary_key=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, primary_key=True)
     user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
 
     class Meta:

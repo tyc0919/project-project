@@ -56,29 +56,51 @@ def social_comment(request:HttpRequest, activity_Id):
     temp2 = User.objects.get(user_email = user.user_email)
     data ={}
 
+    # to see if the review has existed.
+    try:
+        review = Review.objects.get(
+            activity_id=activity_Id,
+            reviewer=user
+        )
+    except:
+        review = None
     
+    # Render html page by existing review data if the review has existed
+    if review == None:
+        pass
+    else:
+        data['review'] = review
+        
     if request.POST:
         star = request.POST.get("rating")
+    
         if star is not None:
             star = int(star)
-            
-            try:
-                id = Review.objects.all().latest('id').id + 1
-            except:
-                id = 1
+            if review == None:
+                try:
+                    id = Review.objects.all().latest('id').id + 1
+                except:
+                    id = 1
                 
-            if star > 0 and star <= 5:
-                Review.objects.create(
-                    id = id,
-                    activity = temp,
-                    reviewer= temp2,
-                    content = request.POST.get("review_comment"),
-                    review_time = timezone.now(),
-                    review_star = int(request.POST.get("rating"))
-                )
+                if star > 0 and star <= 5:
+                    Review.objects.create(
+                        id = id,
+                        activity = temp,
+                        reviewer= temp2,
+                        content = request.POST.get("review_comment"),
+                        review_time = timezone.now(),
+                        review_star = star
+                    )
+            else:
+                review.review_star = star
+                review.content = request.POST.get("review_comment")
+                review_time = timezone.now()
+                review.save()
+        
+         
         return redirect('social_checked',activity_Id)
     
-    return render(request, 'social_comment.html')
+    return render(request, 'social_comment.html', data)
 
 def mysocial(request):
 
