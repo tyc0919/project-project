@@ -43,15 +43,13 @@ def signup(request: HttpRequest):
     if request.POST:
         try:
             modules.register(request.POST.get("user_email"), request.POST.get("password"), request.POST.get("user_name"))
-            data = {'response': '註冊成功!'}
+            data = {'message': '註冊成功!'}
         except ValidationError:
-            data = {'response': 'Email格式輸入錯誤'}
+            data = {'message': 'Email格式輸入錯誤'}
         except IntegrityError:
-            data = {'response': '該Email已經被註冊'}
+            data = {'message': '該Email已經被註冊'}
         except Exception:
-            data = {'response': '欄位不能為空'}
-
-        return redirect('signin')
+            data = {'message': '欄位不能為空'}
     return render(request, 'signup.html', data)
 
 def forgetpasswd(request):
