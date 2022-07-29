@@ -5,28 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/project/css/sidebar.css">
-    <link rel="stylesheet" href="/static/project/css/proposal_post.css">
+    <link rel="stylesheet" href="../static/project/css/proposal_post.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <!-- background start -->
+
     <div class="background"></div>
-    <!-- background end -->
 
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
-            <h2>專案管理系統</h2>
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
+                    <a href="/event_index">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href="/myproposal">
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href="/mywork">
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href="/colla_index">
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href="/social_index">
+                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
                 </ul>
             </div>
 
@@ -35,11 +46,21 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="information.html">主頁</a></li>
-                            <li><a href="myproposal.html">我的企劃</a></li>
-                            <li><a href="mywork.html">我的工作</a></li>
-                            <li><a href="colla_index.html">合作店家</a></li>
-                            <li><a href="">社群</a></li>
+                            <a href="/information">
+                                <li>主頁</li>
+                            </a>
+                            <a href="/myproposal">
+                                <li>我的企劃</li>
+                            </a>
+                            <a href="/mywork">
+                                <li>我的工作</li>
+                            </a>
+                            <a href="/colla_index">
+                                <li>合作店家</li>
+                            </a>
+                            <a href="/social_index">
+                                <li>社群</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -47,9 +68,15 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="information.html">個人檔案</a></li>
-                            <li><a href="">設定</a></li>
-                            <li><a href="">登出</a></li>
+                            <a href="/information">
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="/">
+                                <li>設定</li>
+                            </a>
+                            <a href="/logout">
+                                <li>登出</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -57,9 +84,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -69,57 +96,70 @@
     <!--header start-->
     <div class="header_table">
 
-        <h3 class="header_text">我的企劃</h3>
+        <div class="detail" style="left: 5%;
+        max-width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;">
+            我的企劃 > {{activity.activity_name}} > 公開企劃
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}用戶</b>
+        </div>
+
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <div class="">
-                        <li><a href="information.html">個人檔案</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">設定</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">登出</a></li>
-                    </div>
+                    <a href="/information">
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="/">
+                        <li>設定</li>
+                    </a>
+                    <a href="/logout">
+                        <li>登出</li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="header_mobile">
-        <h2>我的企劃</h2>
+        <h2>{{user.user_name}}用戶</h2>
     </div>
+
     <!--header end-->
 
     <div class="container">
         <div class="main_function">
             <div class="deal_square">
                 <div class="work_add">
-                    <div class="A">
-                        <p>
-                            貼文名稱
-                            <br>
-                            <input type="text" name="wrok_name">
-                        </p>
-                    </div>
-    
+                    <form method="post">
+                    {% csrf_token %}
+                    {% if alert %}
+                    <h2>{{alert}}</h2>
+                    {% endif %}
                     <div class="B">
                         <p>貼文內容</p>
-                        <textarea name="work_content"></textarea>
+                        <textarea id="content" name="content" data-value="">{{activity.content}}</textarea>
                     </div>
-    
+
                     <div class="button">
-                        <input type="button" value="送出資料">
+                        <input type="submit" value="送出資料">
                     </div>
+                    </form>
                 </div>
-    
+
             </div>
         </div>
 
     </div>
-
+<script>
+    content = document.querySelector('#content');
+    content.value = content.dataset.value;
+</script>
 </body>
 
 </html>

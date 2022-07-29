@@ -7,26 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="/static/project/css/colla_checked.css" />
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="../static/project/css/colla_checked.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
     <div class="background"></div>
+    
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
-            <h2>專案管理系統</h2>
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
+                    <a href={%url 'event_index'%}>
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href={%url 'myproposal'%}>
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href={%url 'mywork'%}>
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href={%url 'colla_index'%}>
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href={%url 'social_index'%}>
+                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
                 </ul>
             </div>
 
@@ -35,11 +48,21 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="information.html">主頁</a></li>
-                            <li><a href="myproposal.html">我的企劃</a></li>
-                            <li><a href="mywork.html">我的工作</a></li>
-                            <li><a href="colla_index.html">合作店家</a></li>
-                            <li><a href="">社群</a></li>
+                            <a href={%url 'information'%}>
+                                <li>主頁</li>
+                            </a>
+                            <a href={%url 'myproposal'%}>
+                                <li>我的企劃</li>
+                            </a>
+                            <a href={%url 'mywork'%}>
+                                <li>我的工作</li>
+                            </a>
+                            <a href={%url 'colla_index'%}>
+                                <li>合作店家</li>
+                            </a>
+                            <a href={%url 'social_index'%}>
+                                <li>社群</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -47,9 +70,15 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="information.html">個人檔案</a></li>
-                            <li><a href="">設定</a></li>
-                            <li><a href="">登出</a></li>
+                            <a href={%url 'information'%}>
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="">
+                                <li>設定</li>
+                            </a>
+                            <a href={%url 'logout'%}>
+                                <li>登出</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -68,27 +97,35 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">合作店家</h3>
+
+        <div class="detail">
+            店家詳細資料
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}</b>
+        </div>
+
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <div class="information.html">
-                        <li><a href="information.html">個人檔案</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">設定</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">登出</a></li>
-                    </div>
+                    <a href={%url 'information'%}>
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="">
+                        <li>設定</li>
+                    </a>
+                    <a href={%url 'logout'%}>
+                        <li>登出</li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="header_mobile">
-        <h2>合作店家</h2>
+        <h2>{{user.user_name}}</h2>
     </div>
 
     <!--header end-->
@@ -97,54 +134,59 @@
         <div class="deal_square">
 
             <div class="computer">
+
                 <table>
                     <tr>
-                        <th></th>
-                        <th style="text-align: left;"></th>
-                        <th rowspan="4"><img src="https://picsum.photos/400/250" alt=""></th>
+                        <th colspan="2"><img src="/static/project/images/shop.jpg" alt=""></th>
                     </tr>
 
                     <tr>
                         <th>店家名稱</th>
-                        <th style="text-align: left;"> 就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說就我個人來說就我個人來說</th>
+                        <th style="text-align: left;">{{shop.shop_name}}</th>
                     </tr>
 
                     <tr>
                         <th>聯絡資訊</th>
-                        <th style="text-align: left;"> 就我個人來說，就我個人來說，就我個人來說，就我個人來說， 就我個人來說，就我個人來說，就我個人來說，就我個人來說，</th>
+                        <th style="text-align: left;">
+                            <a href="mailto:{{shop.shop_email}}">
+                                <i>{{shop.shop_email}}</i>
+                            </a>
+                        </th>
                     </tr>
+
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <th>服務地點</th>
+                        <th style="text-align: left;">{{shop.serve_city.city_name}}</th>
                     </tr>
 
                     <tr>
                         <td colspan="3">
-                            就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說就我個人來說，就我個人來說，就我個人來說，就我個人來說，就我個人來說
+                            {{shop.profile}}
                         </td>
                     </tr>
                 </table>
+
             </div>
 
-            <div class="mobile">               
-                    <div class="row">
-                        <div class="cell"><img src="https://picsum.photos/400/250" alt=""></div class="cell">
-                    </div class="row">
+            <div class="mobile">
+                <div class="row">
+                    <div class="cell"><img src="assets/image/MC.png" alt=""></div class="cell">
+                </div class="row">
 
-                    <div class="row">
-                        <div class="cell">店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱</div class="cell">
+                <div class="row">
+                    <div class="cell">{{shop.shop_name}}</div class="cell">
 
-                    </div class="row">
+                </div class="row">
 
-                    <div class="row">
-                        <div class="cell">聯絡資店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱店家名稱訊</div class="cell">
-                    </div class="row">
+                <div class="row">
+                    <div class="cell">{{shop.shop_email}}</div class="cell">
+                </div class="row">
 
-                    <div class="row">
-                        <div class="cell" style="font-size:18px;">
-                            就我個人來說，我個人來說，就我個人來說就我個人來說，就
-                        </div class="cell">
-                    </div class="row">
+                <div class="row">
+                    <div class="cell">
+                        {{shop.profile|linebreaksbr}}
+                    </div class="cell">
+                </div class="row">
             </div>
         </div>
 

@@ -7,28 +7,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="/static/project/css/myproposal.css" />
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="../static/project/css/myproposal.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="../static/project/css/dot2.css">
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
+    <script>
+        async function input() {
+            var name = prompt("請輸入邀請碼");
+            message = {}
+            const request = new Request(
+            `/proposal_join/${name}`,
+            {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken},
+                mode: 'same-origin' // Do not send CSRF token to another domain.
+            }
+            );
+            await fetch(request).then(function(response) {
+                response.json().then(data => {
+                    alert(data.message);
+                    if (data.status === 'success'){
+                        location.reload();
+                    }
+                })
+            });
+            
+        }
+    </script>
+    
 </head>
 
 <body>
-    <!-- background start -->
+    {% csrf_token %}
+    <script defer>
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        </script>
     <div class="background"></div>
-    <!-- background end -->
 
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
-            <h2>專案管理系統</h2>
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
+                    <a href="/event_index">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href="/myproposal">
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href="/mywork">
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href="/colla_index">
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href="/social_index">
+                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
                 </ul>
             </div>
 
@@ -37,11 +76,21 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="information.html">主頁</a></li>
-                            <li><a href="myproposal.html">我的企劃</a></li>
-                            <li><a href="mywork.html">我的工作</a></li>
-                            <li><a href="colla_index.html">合作店家</a></li>
-                            <li><a href="">社群</a></li>
+                            <a href="/information">
+                                <li>主頁</li>
+                            </a>
+                            <a href="/myproposal">
+                                <li>我的企劃</li>
+                            </a>
+                            <a href="/mywork">
+                                <li>我的工作</li>
+                            </a>
+                            <a href="/colla_index">
+                                <li>合作店家</li>
+                            </a>
+                            <a href="/social_index">
+                                <li>社群</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -49,9 +98,15 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="information.html">個人檔案</a></li>
-                            <li><a href="">設定</a></li>
-                            <li><a href="">登出</a></li>
+                            <a href="/information">
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="/">
+                                <li>設定</li>
+                            </a>
+                            <a href="/logout">
+                                <li>登出</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -59,9 +114,9 @@
             </div>
 
             <div class="social_media">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
         </div>
@@ -71,84 +126,137 @@
     <!--header start-->
     <div class="header_table">
 
-        <h3 class="header_text">我的企劃</h3>
+        <div class="detail">
+            我的企劃
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}用戶</b>
+        </div>
+
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <div class="">
-                        <li><a href="information.html">個人檔案</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">設定</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">登出</a></li>
-                    </div>
+                    <a href="/information">
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="/">
+                        <li>設定</li>
+                    </a>
+                    <a href="/logout">
+                        <li>登出</li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="header_mobile">
-        <h2>我的企劃</h2>
+        <h2>{{user.user_name}}用戶</h2>
     </div>
 
     <!--header end-->
+    
     <div class="container">
 
-        <h2 style="position: relative; text-align: center; margin-top: 15px;">
+        <h2 style="position: relative; text-align: center; margin-top:10px;">
             _未完成_
         </h2>
 
         <div class="not_finish">
+            {% for pair in not_finished %}
             <div class="proposal">
-                <h3>sdsdsdsdsdsdsdsdsdsdsdssddsdsdsdsdssdssdsdsd</h3>
+                <h3>{{ pair.activity_object.activity_name }}</h3>
                 <ul>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>工作二</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
+                    {% for job in pair.jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
                 </ul>
 
                 <div class="bottom_text">
-                    <a href="proposal_checked.html"><i class="fa-solid fa-ellipsis "></i>檢視完整企劃</a>
+                    <a href="/proposal_checked/{{pair.activity_object.id}}">檢視完整企劃</a>
                 </div>
             </div>
-
+            {% endfor %}
         </div>
 
-
-
-
-        <h2 style="position: relative; text-align: center; top: 5px;">
+        <h2 style="position: relative; text-align: center; margin-top:10px;">
             _完成_
         </h2>
 
         <div class="finish">
-
+            {% for pair in finished %}
             <div class="proposal">
-                <h3>sdsdsdsdsdsdsdsdsdsdsdssddsdsdsdsdssdssdsdsd</h3>
+                <h3>{{ pair.activity_object.activity_name }}</h3>
                 <ul>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>工作二</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
-                    <li>dsdsdsdsdsdsdsdsdsdsdsdsdsdssdsdssdsdsds</li>
+                    {% for job in pair.jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{job.title}}</div><div>{{job.dead_line}}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
                 </ul>
 
                 <div class="bottom_text">
-                    <a href="proposal_checked.html"><i class="fa-solid fa-ellipsis "></i>檢視完整企劃</a>
+                    <a href="/proposal_checked/{{pair.activity_object.id}}">檢視完整企劃</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2 style="position: relative; text-align: center; margin-top:10px;">
+            _協作企劃_
+        </h2>
+
+        {% comment %}  協作企劃 {% endcomment %}
+        <div class="finish">
+            {% for pair in collab_pairs %}
+            {% if pair.collab_a.owner != user %}
+            
+            <div class="proposal">
+                <h3>{{ pair.collab_a.activity_name }}</h3>
+                <ul style="height:80%; overflow-y:scroll;">
+                    {% for collab_job in pair.collab_jobs %}
+                    <li><div style="
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+                    "><div>{{collab_job.title}}</div><div>{{collab_job.dead_line | date:'Y/m/d' }}</div></div>
+                    </li>
+                    {% empty %}
+                    <li>現在還沒有工作喔</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="bottom_text">
+                    <a href="/proposal_checked/{{pair.collab_a.id}}">檢視完整企劃</a>
                 </div>
             </div>
 
+            {% endif %}
+            {% endfor %}
         </div>
 
     </div>
+    </div>
+    <div class="edit_proposal">
+        <a href="/proposal_create"><i class="fa-solid fa-plus fa-2x center "></i></a>
+    </div>
 
-    <div class="plus_proposal">
-        <a href="proposal_create.html"><i class="fa-solid fa-plus fa-2x center "></i></a>
+    <div class="plus_proposal" style="cursor: pointer;">
+        <a  onclick="input()"><i class="fa-solid fa-bold fa-2x center "></i></a>
     </div>
 
 

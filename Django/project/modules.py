@@ -51,4 +51,8 @@ def db_password_generator(password: str, salt: str):
 def salt_generator():
      return "".join([uuid.uuid4().hex for x in range(2)])
 
+def get_user(request: HttpRequest):
+    user = User.objects.get(pk=request.session.get("user_email"))
+    return user
+
 #----------others----------

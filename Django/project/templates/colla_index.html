@@ -7,25 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     </title>
-    <link rel="stylesheet" href="/static/project/css/colla_index.css" />
-    <link rel="stylesheet" href="/static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="../static/project/css/colla_index.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
     <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
     <div class="background"></div>
+    
     <!--Nav start-->
     <div class="wrapper">
         <div class="sidebar">
-            <h2>專案管理系統</h2>
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
 
             <div class="nav_table">
                 <ul class="test">
-                    <li><a href="event_index.html"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</a></li>
-                    <li><a href="myproposal.html"><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</a></li>
-                    <li><a href="mywork.html"><i class="icon fa-solid fa-book fa-1x"></i>我的工作</a></li>
-                    <li><a href="colla_index.html"><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</a></li>
-                    <li><a href=""><i class="icon fa-solid fa-comment fa-1x"></i>社群</a></li>
+                    <a href={%url 'event_index'%}>
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href={%url 'myproposal'%}>
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href={%url 'mywork'%}>
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href={%url 'colla_index'%}>
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href={%url 'social_index'%}>
+                        <li><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
                 </ul>
             </div>
 
@@ -34,11 +48,21 @@
                     <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
                     <div class="function_list">
                         <ul>
-                            <li><a href="information.html">主頁</a></li>
-                            <li><a href="myproposal.html">我的企劃</a></li>
-                            <li><a href="mywork.html">我的工作</a></li>
-                            <li><a href="colla_index.html">合作店家</a></li>
-                            <li><a href="">社群</a></li>
+                            <a href={%url 'information'%}>
+                                <li>主頁</li>
+                            </a>
+                            <a href={%url 'myproposal'%}>
+                                <li>我的企劃</li>
+                            </a>
+                            <a href={%url 'mywork'%}>
+                                <li>我的工作</li>
+                            </a>
+                            <a href={%url 'colla_index'%}>
+                                <li>合作店家</li>
+                            </a>
+                            <a href={%url 'social_index'%}>
+                                <li>社群</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -46,9 +70,15 @@
                 <div class="indi">
                     <div class="indi_list">
                         <ul>
-                            <li><a href="information.html">個人檔案</a></li>
-                            <li><a href="">設定</a></li>
-                            <li><a href="">登出</a></li>
+                            <a href={%url 'information'%}>
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="">
+                                <li>設定</li>
+                            </a>
+                            <a href={%url 'logout'%}>
+                                <li>登出</li>
+                            </a>
                         </ul>
                     </div>
                 </div>
@@ -67,51 +97,60 @@
 
     <!--header start-->
     <div class="header_table">
-        <h3 class="header_text">合作店家列表</h3>
+
+        <div class="detail">
+            查找店家
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}</b>
+        </div>
+
 
         <div class="dot">
             <div class="dot_list">
                 <ul>
-                    <div class="">
-                        <li><a href="information.html">個人檔案</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">設定</a></li>
-                    </div>
-                    <div class="">
-                        <li><a href="">登出</a></li>
-                    </div>
+                    <a href={%url 'information'%}>
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="">
+                        <li>設定</li>
+                    </a>
+                    <a href={%url 'logout'%}>
+                        <li>登出</li>
+                    </a>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="header_mobile">
-        <h2>合作店家列表</h2>
+        <h2>{{user.user_name}}</h2>
     </div>
 
     <!--header end-->
 
     <div class="container">
-
-       <div class="shop">
+    {%for shop in shops%}
+        <div class="shop">
             <div class="shop_img">
-                <a href="colla_checked.html"><img src="https://picsum.photos/400/299" alt=""></a>
+                <a href={%url 'colla_checked' shop.shop_email%}><img src="/static/project/images/shop.jpg" alt=""></a>
             </div>
 
             <div class="shop_list">
                 <ul>
-                    <li><b>店家名稱店家名稱店家名稱店家名稱店家名稱家名稱店</b></li>
-                    <li><b>類型類型類型類型類型類型類型類型類型類型類型類型類型</b></li>
+                    <li><b>{{shop.shop_name}}</b></li>
+                    <li><b>{{shop.genre.genre}}</b></li>
                 </ul>
             </div>
 
             <div class="shop_intro">
-                好你好好你好你好你好你好你好你好你好你好好你好好你好你好你好你好你好你好你好你好好你好好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你你好你好你好你好你好你好你好你好你好你好你好
+                {{shop.profile|linebreaksbr}}
             </div>
         </div>
+    {%endfor%}
 
-       
+
     </div>
 
 </body>

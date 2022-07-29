@@ -1,0 +1,43 @@
+.container {
+    width: calc(100% - 200px);
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 200px;
+}
+
+.check_list{
+    position: relative;
+    width: 90%;
+    height: fit-content;
+    background-color: white;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    margin: 10px 20px;
+}
+
+.check_list .title{
+    text-align: center;
+    font-size: 30px;
+}
+
+.check_list ul li{
+    color: rgb(99 115 129);
+    font-size: 20px;
+    border-bottom: 2px solid #b8c1df;
+    padding: 10px 0;
+}
+
+@media  screen and  (max-width:768px){
+    .container{
+        width: 100%;
+        margin-left: 0;
+        top: 10px;
+    }
+
+    .check_list{
+        top: 120px;
+    }
+}
+

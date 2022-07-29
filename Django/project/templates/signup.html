@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up | Play Tailwind</title>
+    <title>註冊</title>
     <link
       rel="shortcut icon"
       href="/static/project/images/favicon.png"
@@ -37,7 +37,7 @@
     <div class="container">
       <div class="flex -mx-4 items-center justify-between relative">
         <div class="px-4 w-60 max-w-full">
-          <a href="index.html" class="navbar-logo w-full block py-5">
+          <a href="/" class="navbar-logo w-full block py-5">
             <img
               src="/static/project/images/logo/logo-white.svg"
               alt="logo"
@@ -93,33 +93,11 @@
                 lg:block lg:static lg:shadow-none
               "
             >
-            <ul class="blcok lg:flex">
-              <li class="relative group">
-                <a
-                  href="index.html"
-                  class="
-                    ud-menu-scroll
-                    text-base text-dark
-                    lg:text-white
-                    lg:group-hover:opacity-70
-                    lg:group-hover:text-white
-                    group-hover:text-primary
-                    py-2
-                    lg:py-6 lg:inline-flex lg:px-0
-                    flex
-                    mx-8
-                    lg:mr-0
-                  "
-                >
-                  首頁
-                </a>
-              </li>
-            </ul>
             </nav>
           </div>
           <div class="sm:flex justify-end hidden pr-16 lg:pr-0">
             <a
-              href="signin.html"
+              href="/signin"
               class="
                 text-base
                 font-medium
@@ -133,7 +111,7 @@
               登入
             </a>
             <a
-              href="signup.html"
+              href="/signup"
               class="
                 text-base
                 font-medium
@@ -244,15 +222,16 @@
               <div class="mb-10 text-center text-2xl font-bold">
               註冊
               </div>
-              {% if response %}
-              <div class="mb-10 text-center text-2xl font-bold">
-              {{ response }}
-              </div>
+              {% if message %}
+              <h5 style="margin-top: 1rem; margin-bottom: 1rem; color: red;">{{message}}</h5>
+              {% else %}
+              <h5 style="margin-top: 1rem; margin-bottom: 1rem; color: red; visibility: hidden;">placeholder</h5>
               {% endif %}
               <form method="post">
                 {% csrf_token %}
                 <div class="mb-6">
                   <input
+                    name="user_name"
                     type="text"
                     placeholder="稱呼"
                     class="
@@ -270,11 +249,11 @@
                       focus:border-primary
                       transition
                     "
-                    name="user_name"
                   />
                 </div>
                 <div class="mb-6">
                   <input
+                    name="user_email"
                     type="email"
                     placeholder="電子信箱"
                     class="
@@ -292,11 +271,11 @@
                       focus:border-primary
                       transition
                     "
-                    name="user_email"
                   />
                 </div>
                 <div class="mb-6">
                   <input
+                    name="password"
                     type="password"
                     placeholder="密碼"
                     class="
@@ -314,7 +293,6 @@
                       focus:border-primary
                       transition
                     "
-                    name="password"
                   />
                 </div>
                 <div class="mb-10">
@@ -342,7 +320,7 @@
            
               <p class="text-base text-[#adadad]">
                 已經有帳號了?
-                <a href="signin.html" class="text-primary hover:underline">
+                <a href="/signin" class="text-primary hover:underline">
                   登入
                 </a>
               </p>

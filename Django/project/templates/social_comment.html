@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/project/css/social_comment.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
+    <link rel="stylesheet" href="../static/project/css/dot2.css" />
+    <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <!--Nav start-->
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
+
+            <div class="nav_table">
+                <ul class="test">
+                    <a href="/event_index">
+                        <li><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href="/myproposal">
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href="/mywork">
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href="/colla_index">
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href="/social_index">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="nav_mobile">
+                <div class="function">
+                    <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
+                    <div class="function_list">
+                        <ul>
+                            <a href="/information">
+                                <li>主頁</li>
+                            </a>
+                            <a href="/myproposal">
+                                <li>我的企劃</li>
+                            </a>
+                            <a href="/mywork">
+                                <li>我的工作</li>
+                            </a>
+                            <a href="/colla_index">
+                                <li>合作店家</li>
+                            </a>
+                            <a href="/social_index">
+                                <li>社群</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="indi">
+                    <div class="indi_list">
+                        <ul>
+                            <a href="/information">
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="/">
+                                <li>設定</li>
+                            </a>
+                            <a href="/logout">
+                                <li>登出</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="social_media">
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+
+        </div>
+    </div>
+    <!--Nav end-->
+
+    <!--header start-->
+    <div class="header_table">
+
+        <div class="detail">
+            評論
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}</b>
+        </div>
+
+
+        <div class="dot">
+            <div class="dot_list">
+                <ul>
+                    <a href="/information">
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="/">
+                        <li>設定</li>
+                    </a>
+                    <a href="/logout">
+                        <li>登出</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="header_mobile">
+        <h2>{{user.user_name}}</h2>
+    </div>
+
+    <!--header end-->
+
+    <div class="container">
+        <div class="deal_square">
+            
+            <form method="post" id = "review_form">
+                {% csrf_token %}
+                <div class="comment_add">
+                    <p>評論分數</p>
+
+                    <div class="rating">
+                        <input type="radio" name="rating" id="rating-5" value="5">
+                        <label for="rating-5"></label>
+                        <input type="radio" name="rating" id="rating-4" value="4">
+                        <label for="rating-4"></label>
+                        <input type="radio" name="rating" id="rating-3" value="3">
+                        <label for="rating-3"></label>
+                        <input type="radio" name="rating" id="rating-2" value="2">
+                        <label for="rating-2"></label>
+                        <input type="radio" name="rating" id="rating-1" value="1">
+                        <label for="rating-1"></label>
+                    </div>
+
+                    <div class="comment_content" form = "review_form">
+                        <p>評論內容</p>
+                        <textarea form="review_form" name="review_comment">{{review.content}}</textarea>
+                    </div>
+
+                    <div class="button">
+                        <a href="social_checked.html"><input type="submit" value="送出資料"></a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>

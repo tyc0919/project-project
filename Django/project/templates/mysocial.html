@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    </title>
+    <link rel="stylesheet" href="../static/project/css/mysocial.css" />
+    <link rel="stylesheet" href="../static/project/css/sidebar.css" />
+    <script src="https://kit.fontawesome.com/0383c5fdd8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <!--Nav start-->
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="../static/project/images/logo/logoE.svg" alt="">
+            </div>
+
+            <div class="nav_table">
+                <ul class="test">
+                    <a href="/event_index">
+                        <li><i class="icon fa-solid fa-house-user fa-1x"></i>主頁</li>
+                    </a>
+                    <a href="/myproposal">
+                        <li><i class="icon fa-solid fa-list fa-1x"></i>我的企劃</li>
+                    </a>
+                    <a href="/mywork">
+                        <li><i class="icon fa-solid fa-book fa-1x"></i>我的工作</li>
+                    </a>
+                    <a href="/colla_index">
+                        <li><i class="icon fa-solid fa-user-group fa-1x"></i>合作店家</li>
+                    </a>
+                    <a href="/social_index">
+                        <li style="opacity: 0.7;"><i class="icon fa-solid fa-comment fa-1x"></i>社群</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="nav_mobile">
+                <div class="function">
+                    <i class="fa-solid fa-bars fa-2xl" style="color: white;"></i>
+                    <div class="function_list">
+                        <ul>
+                            <a href="/information">
+                                <li>主頁</li>
+                            </a>
+                            <a href="/myproposal">
+                                <li>我的企劃</li>
+                            </a>
+                            <a href="/mywork">
+                                <li>我的工作</li>
+                            </a>
+                            <a href="/colla_index">
+                                <li>合作店家</li>
+                            </a>
+                            <a href="/social_index">
+                                <li>社群</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="indi">
+                    <div class="indi_list">
+                        <ul>
+                            <a href="/information">
+                                <li>個人檔案</li>
+                            </a>
+                            <a href="/">
+                                <li>設定</li>
+                            </a>
+                            <a href="../tailwind/index">
+                                <li>登出</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="social_media">
+                <a href="/#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/#"><i class="fa-brands fa-github"></i></a>
+                <a href="/#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+
+        </div>
+    </div>
+    <!--Nav end-->
+
+    <!--header start-->
+    <div class="header_table">
+
+        <div class="detail">
+           我的貼文
+        </div>
+
+        <div class="header_text">
+            <b>{{user.user_name}}用戶</b>
+        </div>
+
+
+        <div class="dot">
+            <div class="dot_list">
+                <ul>
+                    <a href="/information">
+                        <li>個人檔案</li>
+                    </a>
+                    <a href="/">
+                        <li>設定</li>
+                    </a>
+                    <a href="../tailwind/index">
+                        <li>登出</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="header_mobile">
+        <h2>{{user.user_name}}用戶</h2>
+    </div>
+
+    <!--header end-->
+
+    <div class="container">
+
+        {% for data in datas %}
+        <div class="post">
+            <div class="post_img">
+                <a href="/social_checked/{{ data.id }}"><img src="/static/project/images/activity.jpg" alt=""></a>
+            </div>
+       
+            
+            <div class="post_list">
+                
+                <ul>
+                    <li><b>{{ data.post_time|date:'Y/m/d' }}</b></li>
+                    <li>
+                        <svg width="18" height="13" viewBox="0 0 18 13" class="fill-current">
+                            <path
+                                d="M15.9754 0H2.02539C1.09727 0 0.337891 0.759375 0.337891 1.6875V10.6875C0.337891 11.3062 0.647266 11.8406 1.18164 12.15C1.43477 12.2906 1.74414 12.375 2.02539 12.375C2.30664 12.375 2.58789 12.2906 2.86914 12.15L5.34414 10.7156C5.45664 10.6594 5.56914 10.6312 5.68164 10.6312H15.9473C16.8754 10.6312 17.6348 9.87187 17.6348 8.94375V1.6875C17.6629 0.759375 16.9035 0 15.9754 0ZM16.6785 8.94375C16.6785 9.3375 16.3691 9.64687 15.9754 9.64687H5.70977C5.42852 9.64687 5.11914 9.73125 4.86602 9.87187L2.39102 11.3063C2.16602 11.4187 1.91289 11.4187 1.68789 11.3063C1.46289 11.1938 1.35039 10.9688 1.35039 10.7156V1.6875C1.35039 1.29375 1.65977 0.984375 2.05352 0.984375H16.0035C16.3973 0.984375 16.7066 1.29375 16.7066 1.6875V8.94375H16.6785Z">
+                            </path>
+                            <path
+                                d="M12.5721 3.375H5.03457C4.75332 3.375 4.52832 3.6 4.52832 3.88125C4.52832 4.1625 4.75332 4.3875 5.03457 4.3875H12.6002C12.8814 4.3875 13.1064 4.1625 13.1064 3.88125C13.1064 3.6 12.8533 3.375 12.5721 3.375Z">
+                            </path>
+                            <path
+                                d="M11.3908 6.55322H5.03457C4.75332 6.55322 4.52832 6.77822 4.52832 7.05947C4.52832 7.34072 4.75332 7.56572 5.03457 7.56572H11.4189C11.7002 7.56572 11.9252 7.34072 11.9252 7.05947C11.9252 6.77822 11.6721 6.55322 11.3908 6.55322Z">
+                            </path>
+                        </svg>
+                        {{ data.review_count }}
+                    </li>
+                    <li>
+                        <svg width="18" height="16" viewBox="0 0 18 16" class="fill-current">
+                            <path
+                                d="M9.09815 0.360596L11.1054 6.06493H17.601L12.3459 9.5904L14.3532 15.2947L9.09815 11.7693L3.84309 15.2947L5.85035 9.5904L0.595291 6.06493H7.0909L9.09815 0.360596Z">
+                            </path>
+                        </svg>
+                        {{ data.review_score }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+        
+
+        <!-- <div class="post">
+            <div class="post_img">
+                <a href="/colla_checked"><img src="./assets/image/test.jpg" alt=""></a>
+            </div>
+
+            <div class="post_list">
+                <ul>
+                    <li><b>2019_11_30</b></li>
+                    <li>
+                        <svg width="18" height="13" viewBox="0 0 18 13" class="fill-current">
+                            <path
+                                d="M15.9754 0H2.02539C1.09727 0 0.337891 0.759375 0.337891 1.6875V10.6875C0.337891 11.3062 0.647266 11.8406 1.18164 12.15C1.43477 12.2906 1.74414 12.375 2.02539 12.375C2.30664 12.375 2.58789 12.2906 2.86914 12.15L5.34414 10.7156C5.45664 10.6594 5.56914 10.6312 5.68164 10.6312H15.9473C16.8754 10.6312 17.6348 9.87187 17.6348 8.94375V1.6875C17.6629 0.759375 16.9035 0 15.9754 0ZM16.6785 8.94375C16.6785 9.3375 16.3691 9.64687 15.9754 9.64687H5.70977C5.42852 9.64687 5.11914 9.73125 4.86602 9.87187L2.39102 11.3063C2.16602 11.4187 1.91289 11.4187 1.68789 11.3063C1.46289 11.1938 1.35039 10.9688 1.35039 10.7156V1.6875C1.35039 1.29375 1.65977 0.984375 2.05352 0.984375H16.0035C16.3973 0.984375 16.7066 1.29375 16.7066 1.6875V8.94375H16.6785Z">
+                            </path>
+                            <path
+                                d="M12.5721 3.375H5.03457C4.75332 3.375 4.52832 3.6 4.52832 3.88125C4.52832 4.1625 4.75332 4.3875 5.03457 4.3875H12.6002C12.8814 4.3875 13.1064 4.1625 13.1064 3.88125C13.1064 3.6 12.8533 3.375 12.5721 3.375Z">
+                            </path>
+                            <path
+                                d="M11.3908 6.55322H5.03457C4.75332 6.55322 4.52832 6.77822 4.52832 7.05947C4.52832 7.34072 4.75332 7.56572 5.03457 7.56572H11.4189C11.7002 7.56572 11.9252 7.34072 11.9252 7.05947C11.9252 6.77822 11.6721 6.55322 11.3908 6.55322Z">
+                            </path>
+                        </svg>
+                        123
+                    </li>
+                    <li>
+                        <svg width="18" height="16" viewBox="0 0 18 16" class="fill-current">
+                            <path
+                                d="M9.09815 0.360596L11.1054 6.06493H17.601L12.3459 9.5904L14.3532 15.2947L9.09815 11.7693L3.84309 15.2947L5.85035 9.5904L0.595291 6.06493H7.0909L9.09815 0.360596Z">
+                            </path>
+                        </svg>
+                        3.5
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+
+
+    </div>
+
+</body>
+
+</html>
