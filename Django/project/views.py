@@ -1,25 +1,12 @@
-import re
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
-from . import modules
-from .models import Activity
-from .models import User
-from .models import Job
 from .modules import *
+from . import modules
 
 
 # Create your views here.
-
-#---------Test-----------
-
-# def test(request: HttpRequest):
-#     if request.method == "GET": return render(request, 'signin.html')
-#     if request.POST:
-#         request.session["test"] = "test"
-#         return redirect(test)
-
 #----------Not Required Login----------
 
 def index(request: HttpRequest):

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.urls import re_path as url
-from  . import views, views_collab, views_proposal, views_social, views_userpage, views_work
+from  . import views, views_collab, views_proposal, views_social, views_userpage, views_work, views_api
 
 urlpatterns = [
     #path('test/', views.test, name="test"),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('forgetpasswd/', views.forgetpasswd, name="forgetpasswd"),
     path('logout/', views.logout, name="logout"),
+    path('api/login/', views_api.LogIn.as_view(), name="login"),
     # #---------------------------------------------
     # path('event_index/', views_userpage.event_index, name="event_index"),
     # path('information/', views_userpage.information, name="information"),
