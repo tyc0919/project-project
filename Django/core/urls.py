@@ -26,4 +26,5 @@ urlpatterns = [
     path('', include('project.urls_social')),
     path('', include('project.urls_userpage')),
     path('', include('project.urls_work')),
+    path('api/', include('project.urls_api')),
 ]
