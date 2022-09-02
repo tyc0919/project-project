@@ -85,7 +85,8 @@ INSERT INTO `activity` VALUES
 'helloMyActivity',
 now(),
 'HSC5487',
-'6.jpg');
+'6.jpg',
+50000,'activityContentTest');
 
 INSERT INTO `activity` VALUES
 (2,
@@ -97,7 +98,8 @@ INSERT INTO `activity` VALUES
 'testMyActivity',
 now(),
 'HSC5487',
-'6.jpg');
+'6.jpg',
+50000,'activityContentTest');
 
 INSERT INTO `activity` VALUES
 (3,
@@ -109,7 +111,8 @@ INSERT INTO `activity` VALUES
 'testMyActivity',
 now(),
 'HSC5487',
-'6.jpg');
+'6.jpg',
+50000,'activityContentTest');
 
 -- colab_shop
 INSERT INTO `collab_shop`
@@ -160,7 +163,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來'
+,500,300);
 
 INSERT INTO `job`
 VALUES
@@ -172,7 +176,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
+500,300);
 
 
 INSERT INTO `job`
@@ -185,7 +190,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob2就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'testjob2就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
+500,300);
 
 INSERT INTO `job`
 VALUES
@@ -197,7 +203,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob3就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'testjob3就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來'
+,500,300);
 
 
 INSERT INTO `job`
@@ -210,7 +217,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob4就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'testjob4就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
+500,300);
 
 INSERT INTO `job`
 VALUES
@@ -222,7 +230,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob5就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'testjob5就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
+500,300);
 
 INSERT INTO`job`
 VALUES
@@ -234,7 +243,8 @@ VALUES
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob6就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來');
+'testjob6就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
+500,300);
 
 
 INSERT INTO `job_detail`
@@ -294,3 +304,15 @@ VALUES
 (1,
 2,
 '10846015@ntub.edu.tw');
+
+INSERT INTO `111401_project`.`file`
+(`id`,
+`job_id`,
+`file_path`,
+`file_uploaded_time`)
+VALUES
+(1,
+1,
+'file.jpg',
+now());
+

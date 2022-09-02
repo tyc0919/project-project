@@ -1,6 +1,6 @@
-
--- CREATE DATABASE `111401_project`;
 -- DROP DATABASE `111401_project`;
+CREATE DATABASE `111401_project`;
+
 
 USE `111401_project`;
 
@@ -64,6 +64,8 @@ CREATE TABLE `activity`(
     `post_time` datetime,
     `invitation_code` char(20),
     `activity_picture` varchar(50),
+	`activity_budget` int,
+    `activity_description` text,
     FOREIGN KEY(`city`) REFERENCES `city`(`id`)  ON DELETE CASCADE ON UPDATE CASCADE ,
     FOREIGN KEY(`owner`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -94,6 +96,8 @@ CREATE TABLE `job`(
     `create_time` datetime, -- 建立時間
     `dead_line` datetime,	-- 到期時間
     `content` text,
+    `job_budget` int,
+    `job_expenditure` int,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`person_in_charge_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(`status`) REFERENCES `job_status`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -128,5 +132,19 @@ CREATE TABLE `collab_shop`(
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `file`(
+	`id` int PRIMARY KEY,
+    `job_id` int,
+    `file_path` varchar(50) DEFAULT NULL,
+    `file_uploaded_time` datetime,
+    FOREIGN KEY(`job_id`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
+CREATE TABLE `expenditure`(
+	id int PRIMARY KEY,
+    job_id int,
+    expenditure_receipt_path varchar(50) DEFAULT NULL,
+    expenditure_uploaded_time datetime,
+    FOREIGN KEY(job_id) REFERENCES job(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
