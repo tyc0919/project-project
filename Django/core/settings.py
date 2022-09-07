@@ -19,6 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
+JWT_SECRET = 'Lnd)73+Egs@8,3^3hMXwP*)rzqq#bHpI'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-@&9tph*l@bwr@+**5%fcu@v+56p$qod&_3o*#@&0%8(&u2ilqs'
 
@@ -154,3 +156,6 @@ STATICFILES_DIRS = (
     #('js', os.path.join(STATIC_ROOT, 'js').replace('\\', '/')),
     # os.path.join(DevStaticFiles),
 )
+
+CSRF_TRUSTED_ORIGINS = ['http://*.ace.project']
+CSRF_COOKIE_DOMAIN = ".ace.project"
