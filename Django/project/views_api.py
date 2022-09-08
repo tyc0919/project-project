@@ -72,6 +72,24 @@ class SignUp(APIView):
             print(Exception)
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
+class GetUserProfile(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request):
+        return Response(serializers.UserSerializer(request.user).data)
+
+class UpdateUserProfile(APIView):
+    parser_classes = [JSONParser]
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        serializer = serializers.UserProfileSerializer(request.user, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'success':'變更成功!'})
+
 class GetActivityCards(APIView):
     authentication_classes = [CustomAuth]
     @method_decorator(csrf_protect)
@@ -90,7 +108,7 @@ class GetActivity(APIView):
             activity = Activity.objects.get(pk=activity_id)
             data = serializers.ActivitySerializer(activity).data
         except:
-            return Response({'error':'Activity not found'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
         return Response(data)
 
 class GetMyJob(APIView):
@@ -98,6 +116,13 @@ class GetMyJob(APIView):
     @method_decorator(csrf_protect)
     def get(self, request: Request):
         queryset = Job.objects.filter(person_in_charge_email=request.user)
+        return Response(serializers.JobSerializer(queryset, many=True).data)
+
+class GetJob(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        queryset = Job.objects.filter(activity=activity_id)
         return Response(serializers.JobSerializer(queryset, many=True).data)
 
 class GetBudget(APIView):
@@ -108,11 +133,12 @@ class GetBudget(APIView):
             activity = Activity.objects.get(pk=activity_id)
             budget = activity.activity_budget
         except:
-            return Response({'error':'Activity not found'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
         jobs = Job.objects.filter(activity=activity)
         expenditure = 0
         # wait for model revise to calculate expenditure and get files
-        
+
+
 
 class TestView(APIView):
     authentication_classes = [CustomAuth]

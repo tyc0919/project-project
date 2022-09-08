@@ -8,6 +8,21 @@ class UserSerializer(serializers.ModelSerializer):
         # fields = ['user_email', 'password', 'avatar']
         exclude = ['password', 'enable', 'enable_time']
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    # Override the model.py field, which sets null=True, so as to make the field required
+    user_name = serializers.CharField(max_length=15)
+    telephone = serializers.CharField(max_length=10)
+
+    class Meta:
+        model = User
+        fields = ['user_name', 'telephone']
+
+class UserPasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['user_name', 'telephone']
+
+
 # class UserPasswordSerializer(serializers.ModelSerializer):
     # class Meta:
         # model = User
