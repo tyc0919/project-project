@@ -18,6 +18,8 @@ class Activity(models.Model):
     post_time = models.DateTimeField(blank=True, null=True)
     invitation_code = models.CharField(max_length=20, blank=True, null=True)
     activity_picture = models.CharField(max_length=50, blank=True, null=True)
+    activity_budget = models.IntegerField(blank=True, null=True)
+    activity_description = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -44,13 +46,35 @@ class CollabShop(models.Model):
 
 
 class Collaborator(models.Model):
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, primary_key=True)
+    activity = models.OneToOneField(Activity, models.DO_NOTHING, primary_key=True)
     user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
 
     class Meta:
         managed = False
         db_table = 'collaborator'
         unique_together = (('activity', 'user_email'),)
+
+
+class Expenditure(models.Model):
+    id = models.IntegerField(primary_key=True)
+    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
+    expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'expenditure'
+
+
+class File(models.Model):
+    id = models.IntegerField(primary_key=True)
+    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    file_path = models.CharField(max_length=50, blank=True, null=True)
+    file_uploaded_time = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'file'
 
 
 class Job(models.Model):
@@ -62,6 +86,8 @@ class Job(models.Model):
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)
+    job_budget = models.IntegerField(blank=True, null=True)
+    job_expenditure = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False

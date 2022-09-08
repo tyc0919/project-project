@@ -8,8 +8,8 @@ from django.db import IntegrityError
 
 from project.authentication import CustomAuth
 
-from .serializers import UserSerializer
-from .models import User
+from . import serializers
+from .models import User, Collaborator, Activity, JobDetail, Job
 from . import modules
 
 from django.utils.decorators import method_decorator
@@ -51,6 +51,8 @@ class SignIn(APIView):
 
 
 class SignUp(APIView):
+    parser_classes = [JSONParser]
+
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         if request.data.get('user_type') == "shop": return Response({'error': '尚未開放店家註冊!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -70,9 +72,51 @@ class SignUp(APIView):
             print(Exception)
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
+class GetActivityCards(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request):
+        queryset = Collaborator.objects.filter(user_email=request.user)
+        cards = []
+        for as_collab in queryset:
+            cards.append(serializers.ActivityCardsSerializer(as_collab.activity).data)
+        return Response(cards)
+
+class GetActivity(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        try:
+            activity = Activity.objects.get(pk=activity_id)
+            data = serializers.ActivitySerializer(activity).data
+        except:
+            return Response({'error':'Activity not found'},status=status.HTTP_404_NOT_FOUND)
+        return Response(data)
+
+class GetMyJob(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request):
+        queryset = Job.objects.filter(person_in_charge_email=request.user)
+        return Response(serializers.JobSerializer(queryset, many=True).data)
+
+class GetBudget(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        try:
+            activity = Activity.objects.get(pk=activity_id)
+            budget = activity.activity_budget
+        except:
+            return Response({'error':'Activity not found'},status=status.HTTP_404_NOT_FOUND)
+        jobs = Job.objects.filter(activity=activity)
+        expenditure = 0
+        # wait for model revise to calculate expenditure and get files
+        
 
 class TestView(APIView):
     authentication_classes = [CustomAuth]
-
+    @method_decorator(csrf_protect)
     def post(self, request):
         return Response({'success': 'Access is granted'})
+

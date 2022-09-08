@@ -2,6 +2,8 @@ import hashlib
 import uuid
 import re
 import jwt
+import datetime
+
 
 from core.settings import JWT_SECRET
 from django.core.exceptions import ValidationError
@@ -23,7 +25,7 @@ def custom_login(email, password, type=None):
 
 def set_credential(response: Response, user: User):
     if user is not None:
-        encoded = jwt.encode({"user_email": user.user_email}, JWT_SECRET, algorithm="HS256")
+        encoded = jwt.encode({"user_email": user.user_email, "exp": datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(days=1)}, JWT_SECRET, algorithm="HS256")
         response.set_cookie('jwt', encoded, domain=".ace.project")
         return response
 
