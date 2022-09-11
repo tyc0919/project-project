@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 from .models import User
 
 #----------Credentials----------
-def custom_login(email, password, type=None):
+def custom_login(email: str, password: str, type=None):
     try:
         user = User.objects.get(pk=email)
     except User.DoesNotExist:
@@ -47,8 +47,7 @@ def check_password(password: str, db_passwd: str):
     temp = db_passwd.split('$')
     salt = temp[0]
     hashed = temp[1]
-    if hashlib.sha256((password+salt).encode('utf8')).hexdigest() == hashed:
-        return True
+    if hashlib.sha256((password+salt).encode('utf8')).hexdigest() == hashed: return True
     return False
 
 def db_password_generator(password: str, salt: str):
