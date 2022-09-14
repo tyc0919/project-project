@@ -1,10 +1,14 @@
 import hashlib
 import uuid
 import re
+import jwt
 
+from core.settings import JWT_SECRET
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.http import HttpRequest
+from rest_framework.response import Response
+from rest_framework.request import Request
 from django.shortcuts import redirect
 from .models import User
 
@@ -17,10 +21,11 @@ def custom_login(email, password, type=None):
     if check_password(password, user.password): return user
     else: return None
 
-def set_credential(request: HttpRequest, user: User):
+def set_credential(response: Response, user: User):
     if user is not None:
-        request.session["user_email"] = user.user_email
-        return request
+        encoded = jwt.encode({"user_email": user.user_email}, JWT_SECRET, algorithm="HS256")
+        response.set_cookie('jwt', encoded, domain=".ace.project")
+        return response
 
 def register(email: str, password: str, user_name: str):
     isValid = re.search('([a-zA-Z0-9-]+)@([a-zA-Z0-9-]+\.[a-zA-Z0-9-]+)(\.[a-zA-Z0-9-]*)*', email)
