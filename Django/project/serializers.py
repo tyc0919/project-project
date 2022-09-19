@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Job, User, Activity, Collaborator
+from .models import Job, User, Activity, Collaborator, JobDetail
 from .modules import db_password_generator, salt_generator
 
 
@@ -60,6 +60,26 @@ class JobSerializer(serializers.ModelSerializer):
             model = Job
             fields = '__all__'
 
+class JobDetailSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = JobDetail
+            exclude = ['order']
+
+class JobDetailCreateSerializer(serializers.ModelSerializer): #
+        class Meta:
+            model = JobDetail
+            exclude = ['order', 'job_detail_id']
+
+class JobDetailUpdateSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = JobDetail
+            include = ['content', 'order']
+
+class JobDetailStatusSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = JobDetail
+            fields = ['order']
+
 class ActivityBudgetSerializer(serializers.ModelSerializer):  #WIP
     activity_budget = serializers.IntegerField(min_value=0)
     class Meta:
@@ -99,3 +119,9 @@ class ActivityFinishSerializer(serializers.ModelSerializer):
         fields = ['is_finished']
 
 # -----Activity END-----
+# -----Social START-----
+class SocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        exclude = ['city', 'invitation_code', 'is_public']
+# -----Social END-----

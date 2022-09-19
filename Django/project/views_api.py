@@ -180,7 +180,7 @@ class UpdateActivity(APIView):
         serializer.save()
         return Response({'success':'更新成功'})
 
-class UpdateActivityBudjet(APIView):
+class UpdateActivityBudget(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
 
@@ -255,6 +255,12 @@ class FinishActivity(APIView):
         msg = '' if instance.is_finished == 1 else '未'
         return Response({'success':f'已經將活動設置成{msg}完成!'})
 
+class GetCollaborator(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        queryset = Collaborator.objects.filter(activity=activity_id)
+        return Response(serializers.CollaboratorSerializer(queryset, many=True).data)
 
 
 # -----Activity END-----
@@ -273,6 +279,24 @@ class GetJob(APIView):
     def get(self, request: Request, activity_id):
         queryset = Job.objects.filter(activity=activity_id)
         return Response(serializers.JobSerializer(queryset, many=True).data)
+    
+class GetJobDetail(APIView):                                                #job details below here are not finished
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request,job_serial_number, activity_id):
+        queryset = JobDetail.objects.filter(job_serial_number=job_serial_number, activity=activity_id)
+        return Response(serializers.JobDetailSerializer(queryset, many=True).data)
+
+class CreateJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        serializer = serializers.JobDetailCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'success':'新增成功'})
 
 # -----Job END-----
 # -----Budget START-----
@@ -291,6 +315,28 @@ class GetBudget(APIView):
         # wait for model revise to calculate expenditure and get files
 
 # -----Budget END-----
+# -----Social START-----
+class GetSocial(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request):
+        queryset = Activity.objects.filter(is_public=1)
+        return Response(serializers.ActivitySerializer(queryset, many=True).data)
+        pass
+        # wait for model revise to calculate expenditure and get files
+
+class GetPublicActivity(APIView):
+    authentication_classes = [CustomAuth]
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        try:
+            activity = Activity.objects.get(pk=activity_id)
+            if activity.is_public != 1: raise Exception
+            data = serializers.SocialSerializer(activity).data
+        except:
+            return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
+        return Response(data)
+# -----Social END-----
 
 class TestView(APIView):
     authentication_classes = [CustomAuth]
