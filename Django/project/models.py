@@ -57,9 +57,10 @@ class Collaborator(models.Model):
 
 class Expenditure(models.Model):
     id = models.IntegerField(primary_key=True)
-    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
     expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
     expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
+    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="Expenditure")
+    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -68,9 +69,10 @@ class Expenditure(models.Model):
 
 class File(models.Model):
     id = models.IntegerField(primary_key=True)
-    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
     file_path = models.CharField(max_length=50, blank=True, null=True)
     file_uploaded_time = models.DateTimeField(blank=True, null=True)
+    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="File")
+    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -78,11 +80,12 @@ class File(models.Model):
 
 
 class Job(models.Model):
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    serial_number = models.IntegerField(primary_key=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
     order = models.IntegerField(blank=True, null=True)
-    status = models.ForeignKey('JobStatus', models.DO_NOTHING, db_column='status', blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)
@@ -92,25 +95,19 @@ class Job(models.Model):
     class Meta:
         managed = False
         db_table = 'job'
+        unique_together = (('serial_number', 'activity'),)
 
 
 class JobDetail(models.Model):
-    id = models.IntegerField(primary_key=True)
-    job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
+    job_detail_id = models.IntegerField(primary_key=True)
     content = models.TextField(blank=True, null=True)
     order = models.IntegerField()
+    job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="job_detail")
+    activity = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'job_detail'
-
-
-class JobStatus(models.Model):
-    status_name = models.CharField(max_length=10, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'job_status'
 
 
 class Review(models.Model):
