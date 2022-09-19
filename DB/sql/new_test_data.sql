@@ -146,13 +146,6 @@ VALUES
 (3,
 'test@gmail.com');
 
-
-
-INSERT INTO `job_status` VALUES
-(1,'未完成'),
-(2,'進行中'),
-(3,'已完成');
-
 INSERT INTO `job`
 VALUES
 (1,
@@ -168,7 +161,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(2,
+(1,
 2,
 'test@gmail.com',
 'testJob',
@@ -182,7 +175,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(3,
+(2,
 2,
 'test@gmail.com',
 'testJob3',
@@ -195,7 +188,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(4,
+(3,
 2,
 'test@gmail.com',
 'testJob3',
@@ -209,7 +202,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(5,
+(1,
 3,
 'test@gmail.com',
 'testJob4',
@@ -222,7 +215,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(6,
+(2,
 3,
 'test@gmail.com',
 'testJob5',
@@ -235,7 +228,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO`job`
 VALUES
-(7,
+(3,
 3,
 'test@gmail.com',
 'testJob6',
@@ -248,37 +241,43 @@ date_add(now(), interval 1 month),
 
 
 INSERT INTO `job_detail`
-(`id`,
-`job_id`,
+(`job_detail_id`,
+`order`,
 `content`,
-`order`)
+`job_serial_number`,
+`activity_id`)
 VALUES
 (1,
 1,
 'myFirstJobDetail',
+1,
 1);
 
 INSERT INTO `job_detail`
-(`id`,
-`job_id`,
+(`job_detail_id`,
+`order`,
 `content`,
-`order`)
+`job_serial_number`,
+`activity_id`)
 VALUES
 (2,
 2,
 'test2JobDetail',
-1);
+1,
+2);
 
 INSERT INTO `job_detail`
-(`id`,
-`job_id`,
+(`job_detail_id`,
+`order`,
 `content`,
-`order`)
+`job_serial_number`,
+`activity_id`)
 VALUES
 (3,
 2,
 'test3JobDetail',
-1);
+1,
+2);
 
 INSERT INTO `review`
 (`id`,
@@ -307,12 +306,14 @@ VALUES
 
 INSERT INTO `111401_project`.`file`
 (`id`,
-`job_id`,
+`job_serial_number`,
+`activity_id`,
 `file_path`,
 `file_uploaded_time`)
 VALUES
 (1,
 1,
+2,
 'file.jpg',
 now());
 
