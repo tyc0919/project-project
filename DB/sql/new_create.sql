@@ -100,17 +100,17 @@ CREATE TABLE `job`(
 
 -- 建立資料表 '工作細項'
 CREATE TABLE `job_detail`(
-	`job_detail_id` int PRIMARY KEY,
-    
+	`job_detail_id` int PRIMARY KEY AUTO_INCREMENT,
     `content` text,
     `order` int NOT NULL,
     `job_serial_number` int,
-    `activity_id` int ,
+    `activity_id` int,
+    `status` tinyint,
 	FOREIGN KEY(`job_serial_number`, `activity_id`) REFERENCES `job`(`serial_number`, `activity_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `review`(
-	`id` int PRIMARY KEY,
+	`id` int PRIMARY KEY AUTO_INCREMENT,
     `activity_id` int,
     `reviewer` char(30),
     `content` varchar(500),
@@ -130,7 +130,7 @@ CREATE TABLE `collab_shop`(
 );
 
 CREATE TABLE `file`(
-	`id` int PRIMARY KEY,
+	`id` int PRIMARY KEY auto_increment,
     `file_path` varchar(50) DEFAULT NULL,
     `file_uploaded_time` datetime,
     `job_serial_number` int,
@@ -139,7 +139,7 @@ CREATE TABLE `file`(
 );
 
 CREATE TABLE `expenditure`(
-	`id` int PRIMARY KEY,
+	`id` int PRIMARY KEY AUTO_INCREMENT,
     `expenditure_receipt_path` varchar(50) DEFAULT NULL,
     `expenditure_uploaded_time` datetime,
     `job_serial_number` int,
