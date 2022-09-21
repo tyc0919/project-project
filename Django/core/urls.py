@@ -20,11 +20,11 @@ from django.urls import re_path as url
 
 
 urlpatterns = [
-    path('', include('project.urls')),
-    path('', include('project.urls_collab')),
-    path('', include('project.urls_proposal')),
-    path('', include('project.urls_social')),
-    path('', include('project.urls_userpage')),
-    path('', include('project.urls_work')),
+    # path('', include('project.urls')),
+    # path('', include('project.urls_collab')),
+    # path('', include('project.urls_proposal')),
+    # path('', include('project.urls_social')),
+    # path('', include('project.urls_userpage')),
+    # path('', include('project.urls_work')),
     path('api/', include('project.urls_api')),
 ]

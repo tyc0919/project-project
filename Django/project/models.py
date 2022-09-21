@@ -12,12 +12,14 @@ class Activity(models.Model):
     owner = models.ForeignKey('User', models.DO_NOTHING, db_column='owner')
     city = models.ForeignKey('City', models.DO_NOTHING, db_column='city', blank=True, null=True)
     activity_name = models.CharField(max_length=30)
-    is_public = models.IntegerField(blank=True, null=True)
-    is_finished = models.IntegerField(blank=True, null=True)
+    is_public = models.IntegerField(blank=True, null=True, default=0)
+    is_finished = models.IntegerField(blank=True, null=True, default=0)
     content = models.TextField(blank=True, null=True)
     post_time = models.DateTimeField(blank=True, null=True)
     invitation_code = models.CharField(max_length=20, blank=True, null=True)
     activity_picture = models.CharField(max_length=50, blank=True, null=True)
+    activity_budget = models.IntegerField(blank=True, null=True)
+    activity_description = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -44,7 +46,7 @@ class CollabShop(models.Model):
 
 
 class Collaborator(models.Model):
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, primary_key=True)
+    activity = models.OneToOneField(Activity, models.DO_NOTHING, primary_key=True)
     user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
 
     class Meta:
@@ -53,38 +55,59 @@ class Collaborator(models.Model):
         unique_together = (('activity', 'user_email'),)
 
 
+class Expenditure(models.Model):
+    id = models.IntegerField(primary_key=True)
+    expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
+    expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
+    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="Expenditure")
+    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'expenditure'
+
+
+class File(models.Model):
+    id = models.IntegerField(primary_key=True)
+    file_path = models.CharField(max_length=50, blank=True, null=True)
+    file_uploaded_time = models.DateTimeField(blank=True, null=True)
+    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="File")
+    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'file'
+
+
 class Job(models.Model):
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    serial_number = models.IntegerField(primary_key=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
     order = models.IntegerField(blank=True, null=True)
-    status = models.ForeignKey('JobStatus', models.DO_NOTHING, db_column='status', blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)
+    job_budget = models.IntegerField(blank=True, null=True)
+    job_expenditure = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'job'
+        unique_together = (('serial_number', 'activity'),)
 
 
 class JobDetail(models.Model):
-    id = models.IntegerField(primary_key=True)
-    job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
+    job_detail_id = models.IntegerField(primary_key=True)
     content = models.TextField(blank=True, null=True)
     order = models.IntegerField()
+    job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="job_detail")
+    activity = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'job_detail'
-
-
-class JobStatus(models.Model):
-    status_name = models.CharField(max_length=10, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'job_status'
 
 
 class Review(models.Model):

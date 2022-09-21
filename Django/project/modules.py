@@ -2,6 +2,8 @@ import hashlib
 import uuid
 import re
 import jwt
+import datetime
+
 
 from core.settings import JWT_SECRET
 from django.core.exceptions import ValidationError
@@ -13,7 +15,7 @@ from django.shortcuts import redirect
 from .models import User
 
 #----------Credentials----------
-def custom_login(email, password, type=None):
+def custom_login(email: str, password: str, type=None):
     try:
         user = User.objects.get(pk=email)
     except User.DoesNotExist:
@@ -23,7 +25,7 @@ def custom_login(email, password, type=None):
 
 def set_credential(response: Response, user: User):
     if user is not None:
-        encoded = jwt.encode({"user_email": user.user_email}, JWT_SECRET, algorithm="HS256")
+        encoded = jwt.encode({"user_email": user.user_email, "exp": datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(days=1)}, JWT_SECRET, algorithm="HS256")
         response.set_cookie('jwt', encoded, domain=".ace.project")
         return response
 
@@ -45,8 +47,7 @@ def check_password(password: str, db_passwd: str):
     temp = db_passwd.split('$')
     salt = temp[0]
     hashed = temp[1]
-    if hashlib.sha256((password+salt).encode('utf8')).hexdigest() == hashed:
-        return True
+    if hashlib.sha256((password+salt).encode('utf8')).hexdigest() == hashed: return True
     return False
 
 def db_password_generator(password: str, salt: str):
