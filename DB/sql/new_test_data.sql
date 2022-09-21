@@ -245,39 +245,45 @@ INSERT INTO `job_detail`
 `order`,
 `content`,
 `job_serial_number`,
-`activity_id`)
+`activity_id`,
+`status`)
 VALUES
 (1,
 1,
 'myFirstJobDetail',
 1,
-1);
+1,
+0);
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
 `order`,
 `content`,
 `job_serial_number`,
-`activity_id`)
+`activity_id`,
+`status`)
 VALUES
 (2,
 2,
 'test2JobDetail',
 1,
-2);
+2,
+0);
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
 `order`,
 `content`,
 `job_serial_number`,
-`activity_id`)
+`activity_id`,
+`status`)
 VALUES
 (3,
 2,
 'test3JobDetail',
-1,
-2);
+2,
+2,
+0);
 
 INSERT INTO `review`
 (`id`,
