@@ -11,7 +11,7 @@ from project.authentication import CustomAuth
 from project.permissions import IsOwner
 from project import modules, serializers
 
-from .models import User, Collaborator, Activity, JobDetail, Job
+from .models import *
 
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
@@ -298,6 +298,40 @@ class CreateJobDetail(APIView):
         serializer.save()
         return Response({'success':'新增成功'})
 
+class DeleteJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        # self.check_object_permissions(request,activity)
+        jd.delete()
+        return Response({'success':'刪除成功'})
+
+class UpdateJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        # self.check_object_permissions(request,activity)
+        serializer = serializers.ActivityFinishSerializer(jd, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = serializer.save()
+        return Response({'success':'更新成功'})        
+
 # -----Job END-----
 # -----Budget START-----
 
@@ -308,10 +342,17 @@ class GetBudget(APIView):
         try:
             activity = Activity.objects.get(pk=activity_id)
             budget = activity.activity_budget
+            exps =serializers.ExpenditureSerializer(Expenditure.objects.filter(activity=activity), many=True).data
+            jobs =serializers.JobSerializer(Job.objects.filter(activity=activity), many=True).data
+            data = {
+                'activity_budget': budget,
+                'expenditures': exps,
+                'jobs': jobs
+            }
+
         except:
             return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
-        jobs = Job.objects.filter(activity=activity)
-        expenditure = 0
+        return Response(data)
         # wait for model revise to calculate expenditure and get files
 
 # -----Budget END-----
@@ -322,8 +363,6 @@ class GetSocial(APIView):
     def get(self, request: Request):
         queryset = Activity.objects.filter(is_public=1)
         return Response(serializers.ActivitySerializer(queryset, many=True).data)
-        pass
-        # wait for model revise to calculate expenditure and get files
 
 class GetPublicActivity(APIView):
     authentication_classes = [CustomAuth]
