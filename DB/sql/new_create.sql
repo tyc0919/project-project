@@ -101,11 +101,12 @@ CREATE TABLE `job`(
 -- 建立資料表 '工作細項'
 CREATE TABLE `job_detail`(
 	`job_detail_id` int PRIMARY KEY AUTO_INCREMENT,
+    `title` varchar(15),
     `content` text,
     `order` int NOT NULL,
     `job_serial_number` int,
     `activity_id` int,
-    `status` tinyint,
+    `status` tinyint Default 0,
 	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
