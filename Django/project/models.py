@@ -104,6 +104,7 @@ class JobDetail(models.Model):
     order = models.IntegerField()
     job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="job_detail")
     activity = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True, default=0)
 
     class Meta:
         managed = False
