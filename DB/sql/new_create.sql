@@ -106,7 +106,8 @@ CREATE TABLE `job_detail`(
     `job_serial_number` int,
     `activity_id` int,
     `status` tinyint,
-	FOREIGN KEY(`job_serial_number`, `activity_id`) REFERENCES `job`(`serial_number`, `activity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `review`(
@@ -135,7 +136,8 @@ CREATE TABLE `file`(
     `file_uploaded_time` datetime,
     `job_serial_number` int,
     `activity_id` int ,
-    FOREIGN KEY(`job_serial_number`, `activity_id`) REFERENCES `job`(`serial_number`, `activity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `expenditure`(
@@ -144,6 +146,7 @@ CREATE TABLE `expenditure`(
     `expenditure_uploaded_time` datetime,
     `job_serial_number` int,
     `activity_id` int ,
-	FOREIGN KEY(`job_serial_number`, `activity_id`) REFERENCES `job`(`serial_number`, `activity_id`) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
