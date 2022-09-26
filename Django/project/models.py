@@ -98,6 +98,7 @@ class Job(models.Model):
 
 class JobDetail(models.Model):
     job_detail_id = models.AutoField(primary_key=True) #auto increment but with custom field name
+    title = models.CharField(max_length=15)
     content = models.TextField(blank=True, null=True)
     order = models.IntegerField(default=0)
     job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', related_name="job_detail")
