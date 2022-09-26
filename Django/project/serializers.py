@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Job, User, Activity, Collaborator, JobDetail
+from .models import Expenditure, Job, User, Activity, Collaborator, JobDetail, File
 from .modules import db_password_generator, salt_generator
 
 
@@ -56,29 +56,39 @@ class CollaboratorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class JobSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Job
-            fields = '__all__'
+    class Meta:
+        model = Job
+        fields = '__all__'
 
 class JobDetailSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = JobDetail
-            exclude = ['order']
+    class Meta:
+        model = JobDetail
+        exclude = ['order']
 
 class JobDetailCreateSerializer(serializers.ModelSerializer): #
-        class Meta:
-            model = JobDetail
-            exclude = ['order', 'job_detail_id']
+    content = serializers.CharField(default="")
+    job_serial_number = serializers.IntegerField()
+    activity_id = serializers.IntegerField()
+    class Meta:
+        model = JobDetail
+        fields = ['content', 'job_serial_number', 'activity_id']
+
+    def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
+        activity = Activity.objects.get(pk=validated_data.get("activity_id"))
+        job = Job.objects.get(serial_number=validated_data.get("job_serial_number"), activity=activity)
+        jd = JobDetail.objects.create(job_serial_number=job, activity=activity, content=validated_data.get("content"))
+        return jd
 
 class JobDetailUpdateSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = JobDetail
-            include = ['content', 'order']
+    class Meta:
+        model = JobDetail
+        fields = ['content', 'title']
 
 class JobDetailStatusSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = JobDetail
-            fields = ['order']
+    status = serializers.IntegerField(min_value=0, max_value=1)
+    class Meta:
+        model = JobDetail
+        fields = ['status']
 
 class ActivityBudgetSerializer(serializers.ModelSerializer):  #WIP
     activity_budget = serializers.IntegerField(min_value=0)
@@ -117,6 +127,17 @@ class ActivityFinishSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = ['is_finished']
+
+class ExpenditureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Expenditure
+        fields = '__all__'
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = '__all__'
+
 
 # -----Activity END-----
 # -----Social START-----

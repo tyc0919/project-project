@@ -2,16 +2,19 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework import status
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
+from django.conf import settings
+from django.utils import timezone
+import uuid, os, datetime
 
 from project.authentication import CustomAuth
 from project.permissions import IsOwner
 from project import modules, serializers
 
-from .models import User, Collaborator, Activity, JobDetail, Job
+from .models import *
 
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect, csrf_exempt
@@ -298,6 +301,60 @@ class CreateJobDetail(APIView):
         serializer.save()
         return Response({'success':'新增成功'})
 
+class DeleteJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        # self.check_object_permissions(request,activity)
+        jd.delete()
+        return Response({'success':'刪除成功'})
+
+class UpdateJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        # self.check_object_permissions(request,activity)
+
+        serializer = serializers.JobDetailUpdateSerializer(jd, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = serializer.save()
+        return Response({'success':'更新成功'})
+
+class StatusJobDetail(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        # self.check_object_permissions(request,activity)
+
+        serializer = serializers.JobDetailStatusSerializer(jd, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = serializer.save()
+        return Response({'success':'更新成功'})        
+
 # -----Job END-----
 # -----Budget START-----
 
@@ -308,11 +365,17 @@ class GetBudget(APIView):
         try:
             activity = Activity.objects.get(pk=activity_id)
             budget = activity.activity_budget
+            exps =serializers.ExpenditureSerializer(Expenditure.objects.filter(activity=activity), many=True).data
+            jobs =serializers.JobSerializer(Job.objects.filter(activity=activity), many=True).data
+            data = {
+                'activity_budget': budget,
+                'expenditures': exps,
+                'jobs': jobs
+            }
+
         except:
             return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
-        jobs = Job.objects.filter(activity=activity)
-        expenditure = 0
-        # wait for model revise to calculate expenditure and get files
+        return Response(data)
 
 # -----Budget END-----
 # -----Social START-----
@@ -322,8 +385,6 @@ class GetSocial(APIView):
     def get(self, request: Request):
         queryset = Activity.objects.filter(is_public=1)
         return Response(serializers.ActivitySerializer(queryset, many=True).data)
-        pass
-        # wait for model revise to calculate expenditure and get files
 
 class GetPublicActivity(APIView):
     authentication_classes = [CustomAuth]
@@ -337,10 +398,161 @@ class GetPublicActivity(APIView):
             return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
         return Response(data)
 # -----Social END-----
-
-class TestView(APIView):
+# -----File START-----
+class UploadJobFile(APIView):
     authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
+
     @method_decorator(csrf_protect)
     def post(self, request):
-        return Response({'success': 'Access is granted'})
+        try:
+            s_n = int(request.data.get('serial_number'))
+            a_id = int(request.data.get('activity_id'))
+            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+            # TODO: Check for permission then do below
+
+
+            file = request.FILES['file']
+            file_name = file.name
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+
+            # Add File info into database
+            # TODO: Deal with repetitive file name
+            new_file = File.objects.create(
+                file_path=file_name,
+                file_uploaded_time=timezone.now(),
+                job_serial_number=job,
+                activity=job.activity
+            )
+
+            return Response({'success': f'{file.name}檔案上傳成功'})
+        except:
+            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UploadExpenditure(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request):
+        try:
+            s_n = int(request.data.get('serial_number'))
+            a_id = int(request.data.get('activity_id'))
+            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+            # TODO: Check for permission then do below
+
+
+            file = request.FILES['file']
+            file_name = file.name
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+
+            # Add Expenditure info into database
+            # TODO: Deal with repetitive file name to prevent file from overriden
+            new_file = Expenditure.objects.create(
+                expenditure_receipt_path=file_name,
+                expenditure_uploaded_time=timezone.now(),
+                job_serial_number=job,
+                activity=job.activity
+            )
+
+            return Response({'success': f'{file.name}檔案上傳成功'})
+        except:
+            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UploadActivityPic(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request):
+        try:
+            a_id = int(request.data.get('activity_id'))
+            a = Activity.objects.get(pk=a_id)
+            # TODO: Check for permission then do below
+
+
+            file = request.FILES['file']
+            file_name = uuid.uuid4().hex[:16] + ".jpg"
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+
+            # Add Expenditure info into database
+            # TODO: Deal with repetitive file name to prevent file from overriden
+            a.activity_picture = file_name
+            a.save()
+
+            return Response({'success': f'{file.name}檔案上傳成功'})
+        except:
+            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UploadUserAvatar(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request):
+        try:
+            user = request.user
+            # TODO: Check for permission then do below
+            #   Deal with arbitrary file upload
+
+            file = request.FILES['file']
+            file_name = uuid.uuid4().hex[:16] + ".jpg"
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+            
+            user.picture_path = file_name
+            user.save()
+            return Response({'success': '頭像上傳成功'})
+        except Exception as e:
+            print(e)
+            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+# -----File END-----
+class TestView(APIView):
+    # authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser, MultiPartParser, FormParser]
+
+    # @method_decorator(csrf_protect)
+    def post(self, request):
+
+
+        try:
+            s_n = int(request.data.get('serial_number'))
+            a_id = int(request.data.get('activity_id'))
+            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+
+            # check for job permission then do below
+
+            file = request.FILES['file']
+
+            # file_name = uuid.uuid4().hex[:16] + ".jpg"
+            # with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+            #     for chunk in file.chunks():
+            #         destination.write(chunk)
+
+            file_name = file.name
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+
+
+            # Add File info to database, need to deal with repetitive file name someday
+            new_file = File.objects.create(
+                file_path=file_name,
+                file_uploaded_time=datetime.datetime.now(),
+                job_serial_number=job,
+                activity=job.activity
+            )
+
+            return Response({'success': 'File is uploaded'})
+        except:
+            return Response({'error': 'File upload failed'}, status=status.HTTP_400_BAD_REQUEST)
 

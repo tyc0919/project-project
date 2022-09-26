@@ -56,11 +56,10 @@ class Collaborator(models.Model):
 
 
 class Expenditure(models.Model):
-    id = models.IntegerField(primary_key=True)
     expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
     expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
     job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="Expenditure")
-    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
 
     class Meta:
         managed = False
@@ -68,11 +67,10 @@ class Expenditure(models.Model):
 
 
 class File(models.Model):
-    id = models.IntegerField(primary_key=True)
     file_path = models.CharField(max_length=50, blank=True, null=True)
     file_uploaded_time = models.DateTimeField(blank=True, null=True)
     job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="File")
-    activity = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
 
     class Meta:
         managed = False
@@ -99,11 +97,12 @@ class Job(models.Model):
 
 
 class JobDetail(models.Model):
-    job_detail_id = models.IntegerField(primary_key=True)
+    job_detail_id = models.AutoField(primary_key=True) #auto increment but with custom field name
+    title = models.CharField(max_length=15)
     content = models.TextField(blank=True, null=True)
-    order = models.IntegerField()
-    job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="job_detail")
-    activity = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
+    order = models.IntegerField(default=0)
+    job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', related_name="job_detail")
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
     status = models.IntegerField(blank=True, null=True, default=0)
 
     class Meta:
