@@ -82,7 +82,13 @@ class JobDetailCreateSerializer(serializers.ModelSerializer): #
 class JobDetailUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobDetail
-        include = ['content', 'status']
+        fields = ['content', 'title']
+
+class JobDetailStatusSerializer(serializers.ModelSerializer):
+    status = serializers.IntegerField(min_value=0, max_value=1)
+    class Meta:
+        model = JobDetail
+        fields = ['status']
 
 class ActivityBudgetSerializer(serializers.ModelSerializer):  #WIP
     activity_budget = serializers.IntegerField(min_value=0)
