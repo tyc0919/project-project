@@ -72,6 +72,7 @@ CREATE TABLE `activity`(
 
 -- 建立資料表 '協作人員'
 CREATE TABLE `collaborator` (
+   `id` int,
    `activity_id` int NOT NULL,
     `user_email` char(30) NOT NULL,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -82,6 +83,7 @@ CREATE TABLE `collaborator` (
 
 -- 建立資料表 '工作'
 CREATE TABLE `job`(
+	`id` int,
 	`serial_number` int,
     `activity_id` int ,
     `person_in_charge_email` char(30), -- 負責人
