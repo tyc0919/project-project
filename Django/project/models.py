@@ -78,17 +78,17 @@ class File(models.Model):
 
 
 class Job(models.Model):
-    serial_number = models.IntegerField(primary_key=True)
+    serial_number = models.IntegerField()
     activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
     order = models.IntegerField(blank=True, null=True)
-    status = models.IntegerField(blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True, default=0)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    job_budget = models.IntegerField(blank=True, null=True)
-    job_expenditure = models.IntegerField(blank=True, null=True)
+    job_budget = models.IntegerField(blank=True, null=True, default=0)
+    job_expenditure = models.IntegerField(blank=True, null=True, default=0)
 
     class Meta:
         managed = False
