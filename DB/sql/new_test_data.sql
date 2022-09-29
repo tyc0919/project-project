@@ -162,7 +162,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(0,
+(1,
 1,
 2,
 'test@gmail.com',
@@ -177,7 +177,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(0,
+(2,
 2,
 2,
 'test@gmail.com',
@@ -191,7 +191,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(0,
+(3,
 3,
 2,
 'test@gmail.com',
@@ -206,7 +206,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(0,
+(4,
 1,
 3,
 'test@gmail.com',
@@ -220,7 +220,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job`
 VALUES
-(0,
+(5,
 2,
 3,
 'test@gmail.com',
@@ -234,7 +234,7 @@ date_add(now(), interval 1 month),
 
 INSERT INTO`job`
 VALUES
-(0,
+(6,
 3,
 3,
 'test@gmail.com',
