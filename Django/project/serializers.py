@@ -1,4 +1,7 @@
+import datetime
+from email.policy import default
 from rest_framework import serializers
+from django.utils import timezone
 from .models import Expenditure, Job, User, Activity, Collaborator, JobDetail, File
 from .modules import db_password_generator, salt_generator
 
@@ -55,15 +58,110 @@ class CollaboratorSerializer(serializers.ModelSerializer):
         model = Collaborator
         fields = '__all__'
 
-class JobSerializer(serializers.ModelSerializer):
+# Job validator
+def activity_exsists(value):
+    try:
+        Activity.objects.get(pk=value)
+    except:
+        raise serializers.ValidationError('無此活動')
+
+def valid_datetime(value):
+    if value < timezone.now(): raise serializers.ValidationError('截止日期必須大於今天')
+
+def valid_user(value):
+    try:
+        User.objects.get(pk=value)
+    except:
+        raise serializers.ValidationError('使用者不存在')
+# Job validator end
+
+class JobCreateSerializer(serializers.ModelSerializer):
+    activity_id = serializers.IntegerField(validators=[activity_exsists])
+    person_in_charge_email = serializers.EmailField(validators=[valid_user])
+    dead_line = serializers.DateTimeField(validators=[valid_datetime])
+    content = serializers.CharField(max_length=500, default="")
+    job_budget = serializers.IntegerField(min_value=0, default=0)
+
     class Meta:
         model = Job
-        fields = '__all__'
+        exclude = ['activity', 'serial_number', 'status', 'create_time', 'job_expenditure']
+    
+    def create(self, validated_data): 
+        data = {
+            "activity": Activity.objects.get(pk=validated_data.get("activity_id")),
+            "person_in_charge_email": User.objects.get(pk=validated_data.get("person_in_charge_email")),
+            "title": validated_data.get("title"),
+            "create_time": timezone.now(),
+            "dead_line": validated_data.get("dead_line"),
+            "content": validated_data.get("content"),
+            "job_budget": validated_data.get("job_budget"),
+            "job_expenditure": 0
+        }
+        temp = Job.objects.filter(activity=data.get("activity"))
+        if temp:
+            serial_number = temp.order_by('-serial_number').first().serial_number + 1
+        else:
+            serial_number = 1
+        data["serial_number"] = serial_number
+        print(data.get("create_time"))
+        print(data.get("dead_line"))
+        return Job.objects.create(**data)
+        
+class JobUpdateSerializer(serializers.ModelSerializer):
+    person_in_charge_email = serializers.EmailField(validators=[valid_user])
+    dead_line = serializers.DateTimeField(validators=[valid_datetime])
+    title = serializers.CharField(max_length=15)
+    content = serializers.CharField(max_length=15)
+    job_budget = serializers.IntegerField(min_value=0)
+    job_expenditure = serializers.IntegerField(min_value=0)
+
+    class Meta:
+        model = Job
+        fields = ['person_in_charge_email', 'title', 'dead_line', 'content', 'job_budget', 'job_expenditure']
+
+    def update(self, instance, validated_data):
+        instance.person_in_charge_email = User.objects.get(user_email=validated_data.get("person_in_charge_email"))
+        instance.dead_line = validated_data.get("dead_line")
+        instance.title = validated_data.get("title")
+        instance.content = validated_data.get("content")
+        instance.job_budget = validated_data.get("job_budget")
+        instance.job_expenditure = validated_data.get("job_expenditure")
+        instance.save(update_fields=[
+            'person_in_charge_email',
+            'dead_line',
+            'title',
+            'content',
+            'job_budget',
+            'job_expenditure'
+            ])
+        # data = {
+            # "person_in_charge_email": User.objects.get(pk=validated_data.get("person_in_charge_email")),
+            # "title": validated_data.get("title"),
+            # "dead_line": validated_data.get("dead_line"),
+            # "content": validated_data.get("content"),
+            # "job_budget": validated_data.get("job_budget"),
+            # "job_expenditure": 0
+        # }
+
+        return instance
+
+class JobStatusSerializer(serializers.ModelSerializer):
+    status = serializers.IntegerField(min_value=0, max_value=1)
+    class Meta:
+        model = Job
+        fields = ['status']
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get("status")
+        instance.save(update_fields=['status'])
+        return instance
+
 
 class JobDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobDetail
         exclude = ['order']
+
+
 
 class JobDetailCreateSerializer(serializers.ModelSerializer): #
     content = serializers.CharField(default="")

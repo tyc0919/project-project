@@ -283,7 +283,70 @@ class GetJob(APIView):
         queryset = Job.objects.filter(activity=activity_id)
         return Response(serializers.JobSerializer(queryset, many=True).data)
     
-class GetJobDetail(APIView):                                                #job details below here are not finished
+class CreateJob(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        serializer = serializers.JobCreateSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'success':'新增成功'})
+
+class UpdateJob(APIView):           
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+        serializer = serializers.JobUpdateSerializer(job, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'success':'更新成功'})
+
+class DeleteJob(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        try:
+            job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+            # TODO: check permission 
+            job.delete()
+        except Exception as e:
+            return Response({'error': f"{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'success':'刪除成功'})
+
+class StatusJob(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    # permission_classes = [IsOwner]
+
+    def get_object(self, **kwargs):
+        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+        serializer = serializers.JobStatusSerializer(job, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        result = '' if request.data.get("status") == 1 else '未'
+        return Response({'success':f'已將狀態設置為{result}完成'})
+
+class GetJobDetail(APIView):                                                
     authentication_classes = [CustomAuth]
     @method_decorator(csrf_protect)
     def get(self, request: Request,job_serial_number, activity_id):
