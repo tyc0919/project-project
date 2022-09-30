@@ -1,7 +1,6 @@
 -- DROP DATABASE `111401_project`;
 CREATE DATABASE `111401_project`;
 
-
 USE `111401_project`;
 
 -- 建立資料表 '使用者'
@@ -135,20 +134,22 @@ CREATE TABLE `collab_shop`(
 
 CREATE TABLE `file`(
 	`id` int PRIMARY KEY auto_increment,
+	`job_serial_number` int,
+    `activity_id` int ,
     `file_path` varchar(50) DEFAULT NULL,
     `file_uploaded_time` datetime,
-    `job_serial_number` int,
-    `activity_id` int ,
 	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `expenditure`(
 	`id` int PRIMARY KEY AUTO_INCREMENT,
+	`job_serial_number` int,
+    `activity_id` int ,
+    `expense` int Default 0,
     `expenditure_receipt_path` varchar(50) DEFAULT NULL,
     `expenditure_uploaded_time` datetime,
-    `job_serial_number` int,
-    `activity_id` int ,
+    `is_deleted` tinyint,
 	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

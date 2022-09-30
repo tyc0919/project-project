@@ -330,3 +330,23 @@ VALUES
 'file.jpg',
 now());
 
+INSERT INTO `111401_project`.`expenditure`
+(`id`,
+`expense`,
+`expenditure_receipt_path`,
+`expenditure_uploaded_time`,
+`is_deleted`,
+`job_serial_number`,
+`activity_id`)
+VALUES
+(1,
+2022,
+'expense.jpg',
+now(),
+1,
+1);
+
+
+
+
+
