@@ -343,6 +343,7 @@ VALUES
 2022,
 'expense.jpg',
 now(),
+0,
 1,
 1);
 
