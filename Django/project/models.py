@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from email.policy import default
 from django.db import models
 
 
@@ -58,9 +59,10 @@ class Collaborator(models.Model):
 class Expenditure(models.Model):
     expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
     expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
-    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="Expenditure")
+    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', related_name="Expenditure")
     activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
-
+    expense = models.IntegerField(default=0)
+    is_deleted = models.IntegerField(default=0)
     class Meta:
         managed = False
         db_table = 'expenditure'
