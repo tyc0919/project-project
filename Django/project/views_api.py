@@ -139,7 +139,12 @@ class GetActivityCards(APIView):
         queryset = Collaborator.objects.filter(user_email=request.user)
         cards = []
         for as_collab in queryset:
-            cards.append(serializers.ActivityCardsSerializer(as_collab.activity).data)
+            jobs = Job.objects.filter(activity=as_collab.activity)
+            expenditure = 0
+            for job in jobs:
+                expenditure += job.job_expenditure
+            data = dict(serializers.ActivityCardsSerializer(as_collab.activity).data) | {'activity_expenditure': expenditure}
+            cards.append(data)
         return Response(cards)
 
 class GetActivity(APIView):
@@ -503,6 +508,8 @@ class UploadExpenditure(APIView):
         try:
             s_n = int(request.data.get('serial_number'))
             a_id = int(request.data.get('activity_id'))
+            expense = int(request.data.get('expense'))
+
             job = Job.objects.get(serial_number=s_n, activity_id=a_id)
             # TODO: Check for permission then do below
 
@@ -519,12 +526,20 @@ class UploadExpenditure(APIView):
                 expenditure_receipt_path=file_name,
                 expenditure_uploaded_time=timezone.now(),
                 job_serial_number=job,
-                activity=job.activity
+                activity=job.activity,
+                expense=expense
             )
-
+            sum_ex = 0
+            all_receipt = Expenditure.objects.filter(job_serial_number=job, activity=job.activity)
+            for receipt in all_receipt:
+                print(receipt)
+                sum_ex += receipt.expense
+            job.job_expenditure = sum_ex
+            job.save()
+        
             return Response({'success': f'{file.name}檔案上傳成功'})
-        except:
-            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': '檔案上傳失敗', 'reason': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UploadActivityPic(APIView):
     authentication_classes = [CustomAuth]
