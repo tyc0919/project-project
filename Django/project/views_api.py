@@ -115,7 +115,6 @@ class UpdateUserPassword(APIView):
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         password = request.data.get('password')
-        print(password)
         validated_data = serializers.UserPasswordSerializer(
             request.user, data={'password': password})  # use serializer to check field format
 
@@ -532,7 +531,6 @@ class UploadExpenditure(APIView):
             sum_ex = 0
             all_receipt = Expenditure.objects.filter(job_serial_number=job, activity=job.activity)
             for receipt in all_receipt:
-                print(receipt)
                 sum_ex += receipt.expense
             job.job_expenditure = sum_ex
             job.save()
