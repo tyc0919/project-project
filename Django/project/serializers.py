@@ -75,6 +75,12 @@ def valid_user(value):
         raise serializers.ValidationError('使用者不存在')
 # Job validator end
 
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = '__all__'
+
+
 class JobCreateSerializer(serializers.ModelSerializer):
     activity_id = serializers.IntegerField(validators=[activity_exsists])
     person_in_charge_email = serializers.EmailField(validators=[valid_user])
