@@ -1,5 +1,4 @@
 import datetime
-from email.policy import default
 from rest_framework import serializers
 from django.utils import timezone
 from .models import Expenditure, Job, User, Activity, Collaborator, JobDetail, File
@@ -174,13 +173,14 @@ class JobDetailSerializer(serializers.ModelSerializer):
 
 
 
-class JobDetailCreateSerializer(serializers.ModelSerializer): #
+class JobDetailCreateSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=15)
     content = serializers.CharField(default="")
     job_serial_number = serializers.IntegerField()
     activity_id = serializers.IntegerField()
     class Meta:
         model = JobDetail
-        fields = ['content', 'job_serial_number', 'activity_id']
+        fields = ['content', 'job_serial_number', 'activity_id', 'title']
 
     def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
         activity = Activity.objects.get(pk=validated_data.get("activity_id"))
