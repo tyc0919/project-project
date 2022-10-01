@@ -267,7 +267,9 @@ class GetCollaborator(APIView):
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
         queryset = Collaborator.objects.filter(activity=activity_id)
-        return Response(serializers.CollaboratorSerializer(queryset, many=True).data)
+        user_list = [x.user_email for x in queryset]
+        data = serializers.UserInfoSerializer(user_list, many=True).data
+        return Response(data)
 
 
 # -----Activity END-----

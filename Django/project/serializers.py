@@ -23,6 +23,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = ['user_name', 'telephone']
 
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['user_email', 'user_name', 'picture_path', 'telephone']
+
 class UserPasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=1)
     
