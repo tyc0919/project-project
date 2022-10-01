@@ -146,26 +146,14 @@ VALUES
 (3,
 'test@gmail.com');
 
-INSERT INTO `job`
-VALUES
-(0,
-1,
-1,
-'10846017@ntub.edu.tw',
-'myFirstJob',
-1,
-1,
-now(),
-date_add(now(), interval 1 month),
-'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來'
-,500,300);
+
 
 INSERT INTO `job`
 VALUES
 (1,
 1,
-2,
-'test@gmail.com',
+1,
+'10846017@ntub.edu.tw',
 'testJob',
 2,
 1,
@@ -173,6 +161,7 @@ now(),
 date_add(now(), interval 1 month),
 '就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
 500,300);
+
 
 
 INSERT INTO `job`

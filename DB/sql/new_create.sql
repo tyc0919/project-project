@@ -71,18 +71,18 @@ CREATE TABLE `activity`(
 
 -- 建立資料表 '協作人員'
 CREATE TABLE `collaborator` (
-   `id` int default 0,
+   `id` int PRIMARY KEY AUTO_INCREMENT,
    `activity_id` int NOT NULL,
     `user_email` char(30) NOT NULL,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY (`activity_id`, `user_email`)
+    UNIQUE (`activity_id`, `user_email`)
 );
 
 
 -- 建立資料表 '工作'
 CREATE TABLE `job`(
-	`id` int default 0,
+	`id` int PRIMARY KEY AUTO_INCREMENT,
 	`serial_number` int,
     `activity_id` int ,
     `person_in_charge_email` char(30), -- 負責人
@@ -96,7 +96,7 @@ CREATE TABLE `job`(
     `job_expenditure` int,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`person_in_charge_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `pk_job_id` PRIMARY KEY(`serial_number`, `activity_id`)
+    UNIQUE(`serial_number`, `activity_id`)
 );	
 
 -- 建立資料表 '工作細項'
@@ -108,7 +108,7 @@ CREATE TABLE `job_detail`(
     `job_serial_number` int,
     `activity_id` int,
     `status` tinyint Default 0,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -138,7 +138,7 @@ CREATE TABLE `file`(
     `activity_id` int ,
     `file_path` varchar(50) DEFAULT NULL,
     `file_uploaded_time` datetime,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -150,7 +150,7 @@ CREATE TABLE `expenditure`(
     `expenditure_receipt_path` varchar(50) DEFAULT NULL,
     `expenditure_uploaded_time` datetime,
     `is_deleted` tinyint,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
