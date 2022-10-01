@@ -288,7 +288,18 @@ class GetJob(APIView):
     def get(self, request: Request, activity_id):
         queryset = Job.objects.filter(activity=activity_id)
         return Response(serializers.JobSerializer(queryset, many=True).data)
-    
+
+class GetCertainJob(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id, serial_number):
+        try:
+            queryset = Job.objects.get(activity=activity_id, serial_number=serial_number)
+        except:
+            return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializers.JobSerializer(queryset).data)
+
 class CreateJob(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
