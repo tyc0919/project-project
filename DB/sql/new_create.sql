@@ -108,7 +108,7 @@ CREATE TABLE `job_detail`(
     `job_serial_number` int,
     `activity_id` int,
     `status` tinyint Default 0,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -138,7 +138,7 @@ CREATE TABLE `file`(
     `activity_id` int ,
     `file_path` varchar(50) DEFAULT NULL,
     `file_uploaded_time` datetime,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -150,7 +150,7 @@ CREATE TABLE `expenditure`(
     `expenditure_receipt_path` varchar(50) DEFAULT NULL,
     `expenditure_uploaded_time` datetime,
     `is_deleted` tinyint,
-	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(`job_serial_number`) REFERENCES `job`(`serial_number`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
