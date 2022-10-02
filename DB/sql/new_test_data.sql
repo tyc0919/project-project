@@ -240,7 +240,7 @@ INSERT INTO `job_detail`
 (`job_detail_id`,
 `order`,
 `content`,
-`job_serial_number`,
+`job_id`,
 `activity_id`,
 `status`)
 VALUES
@@ -255,7 +255,7 @@ INSERT INTO `job_detail`
 (`job_detail_id`,
 `order`,
 `content`,
-`job_serial_number`,
+`job_id`,
 `activity_id`,
 `status`)
 VALUES
@@ -270,7 +270,7 @@ INSERT INTO `job_detail`
 (`job_detail_id`,
 `order`,
 `content`,
-`job_serial_number`,
+`job_id`,
 `activity_id`,
 `status`)
 VALUES
@@ -308,7 +308,7 @@ VALUES
 
 INSERT INTO `111401_project`.`file`
 (`id`,
-`job_serial_number`,
+`job_id`,
 `activity_id`,
 `file_path`,
 `file_uploaded_time`)
@@ -325,7 +325,7 @@ INSERT INTO `111401_project`.`expenditure`
 `expenditure_receipt_path`,
 `expenditure_uploaded_time`,
 `is_deleted`,
-`job_serial_number`,
+`job_id`,
 `activity_id`)
 VALUES
 (1,
