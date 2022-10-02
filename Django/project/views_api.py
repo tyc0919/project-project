@@ -293,9 +293,9 @@ class GetCertainJob(APIView):
     authentication_classes = [CustomAuth]
 
     @method_decorator(csrf_protect)
-    def get(self, request: Request, activity_id, serial_number):
+    def get(self, request: Request, activity_id, job_id):
         try:
-            queryset = Job.objects.get(activity=activity_id, serial_number=serial_number)
+            queryset = Job.objects.get(pk=job_id)
         except:
             return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializers.JobSerializer(queryset).data)
@@ -316,58 +316,58 @@ class UpdateJob(APIView):
     parser_classes = [JSONParser]
 
     def get_object(self, **kwargs):
-        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+        return get_object_or_404(Job, pk=kwargs.get('job_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
-        job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+        job = self.get_object(job_id=request.data.get("job_id"))
         serializer = serializers.JobUpdateSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'success':'更新成功'})
 
-class DeleteJob(APIView):
+class DeleteJob(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
 
     # permission_classes = [IsOwner]
 
     def get_object(self, **kwargs):
-        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+        return get_object_or_404(Job, pk=kwargs.get('job_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         try:
-            job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+            job = self.get_object(job_id=request.data.get("job_id"))
             # TODO: check permission 
             job.delete()
         except Exception as e:
-            return Response({'error': f"{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': f"{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'success':'刪除成功'})
 
-class StatusJob(APIView):
+class StatusJob(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
 
     # permission_classes = [IsOwner]
 
     def get_object(self, **kwargs):
-        return get_object_or_404(Job, serial_number=kwargs.get('serial_number'), activity_id=kwargs.get('activity_id'))
+        return get_object_or_404(Job, pk=kwargs.get('job_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
-        job = self.get_object(serial_number=request.data.get("serial_number"), activity_id=request.data.get("activity_id"))
+        job = self.get_object(job_id=request.data.get("job_id"))
         serializer = serializers.JobStatusSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         result = '' if request.data.get("status") == 1 else '未'
         return Response({'success':f'已將狀態設置為{result}完成'})
 
-class GetJobDetail(APIView):                                                
+class GetJobDetail(APIView):                                            
     authentication_classes = [CustomAuth]
     @method_decorator(csrf_protect)
-    def get(self, request: Request,job_serial_number, activity_id):
-        queryset = JobDetail.objects.filter(job_serial_number=job_serial_number, activity=activity_id)
+    def get(self, request: Request,job_id, activity_id):
+        queryset = JobDetail.objects.filter(job_id=job_id)
         return Response(serializers.JobDetailSerializer(queryset, many=True).data)
 
 class CreateJobDetail(APIView):
@@ -479,16 +479,15 @@ class GetPublicActivity(APIView):
         return Response(data)
 # -----Social END-----
 # -----File START-----
-class UploadJobFile(APIView):
+class UploadJobFile(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
 
     @method_decorator(csrf_protect)
     def post(self, request):
         try:
-            s_n = int(request.data.get('serial_number'))
-            a_id = int(request.data.get('activity_id'))
-            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+            job_id = int(request.data.get('job_id'))
+            job = Job.objects.get(pk=job_id)
             # TODO: Check for permission then do below
 
 
@@ -503,7 +502,7 @@ class UploadJobFile(APIView):
             new_file = File.objects.create(
                 file_path=file_name,
                 file_uploaded_time=timezone.now(),
-                job_serial_number=job,
+                job=job,
                 activity=job.activity
             )
 
@@ -511,18 +510,17 @@ class UploadJobFile(APIView):
         except:
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
-class UploadExpenditure(APIView):
+class UploadExpenditure(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
 
     @method_decorator(csrf_protect)
     def post(self, request):
         try:
-            s_n = int(request.data.get('serial_number'))
-            a_id = int(request.data.get('activity_id'))
+            job_id = int(request.data.get('job_id'))
             expense = int(request.data.get('expense'))
 
-            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+            job = Job.objects.get(pk=job_id)
             # TODO: Check for permission then do below
 
 
@@ -537,12 +535,12 @@ class UploadExpenditure(APIView):
             new_file = Expenditure.objects.create(
                 expenditure_receipt_path=file_name,
                 expenditure_uploaded_time=timezone.now(),
-                job_serial_number=job,
+                job=job,
                 activity=job.activity,
                 expense=expense
             )
             sum_ex = 0
-            all_receipt = Expenditure.objects.filter(job_serial_number=job, activity=job.activity)
+            all_receipt = Expenditure.objects.filter(job=job)
             for receipt in all_receipt:
                 sum_ex += receipt.expense
             job.job_expenditure = sum_ex
@@ -603,39 +601,43 @@ class UploadUserAvatar(APIView):
             print(e)
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
-class DeleteFile(APIView):
+class DeleteFile(APIView): #asdasd
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
 
     @method_decorator(csrf_protect)
     def post(self, request):
         model = request.data.get("model")
-        activity_id = request.data.get("activity_id")
-        job_serial_number = request.data.get("job_serial_number")
+        job_id = request.data.get("job_id")
         file_name = request.data.get("file_name")
-        local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
 
         try:
-            job = Job.objects.get(activity_id=activity_id, serial_number=job_serial_number)
+            job = Job.objects.get(pk=job_id)
+            local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
+        except TypeError: 
+            return Response({'error': '請輸入檔案名稱'}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
 
         if model == "file": # need activity id & job serial number
             try:
-                f = File.objects.get(activity_id=activity_id,job_serial_number=job,  file_path=file_name)
-                # if os.path.exists(local_path):
-                #     f.delete()
-                #     os.remove(local_path)
-                return Response({'success': '檔案已經刪除!'})
+                f = File.objects.get(job=job, file_path=file_name)
+                if os.path.exists(local_path):
+                    f.delete()
+                    os.remove(local_path)
+                    return Response({'success': '檔案已經刪除!'})
+                return Response({'error': '檔案不存在'})
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         elif model == "expenditure":
             try:
-                f = Expenditure.objects.get(activity_id=activity_id, job_serial_number=job, expenditure_receipt_path=file_name)
-                # if os.path.exists(local_path):
-                #     f.delete()
-                #     os.remove(local_path)
-            except:
+                f = Expenditure.objects.get(job=job, expenditure_receipt_path=file_name)
+                if os.path.exists(local_path):
+                    f.delete()
+                    os.remove(local_path)
+                    return Response({'success': '檔案已經刪除!'})
+                return Response({'error': '檔案不存在'})
+            except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         pass
 # -----File END-----
@@ -648,9 +650,8 @@ class TestView(APIView):
 
 
         try:
-            s_n = int(request.data.get('serial_number'))
-            a_id = int(request.data.get('activity_id'))
-            job = Job.objects.get(serial_number=s_n, activity_id=a_id)
+            job_id = int(request.data.get('job_id'))
+            job = Job.objects.get(pk=job_id)
 
             # check for job permission then do below
 
@@ -671,7 +672,7 @@ class TestView(APIView):
             new_file = File.objects.create(
                 file_path=file_name,
                 file_uploaded_time=datetime.datetime.now(),
-                job_serial_number=job,
+                job=job,
                 activity=job.activity
             )
 

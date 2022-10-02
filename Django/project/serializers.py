@@ -176,18 +176,16 @@ class JobDetailSerializer(serializers.ModelSerializer):
 class JobDetailCreateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=15)
     content = serializers.CharField(default="")
-    job_serial_number = serializers.IntegerField()
-    activity_id = serializers.IntegerField()
+    job_id = serializers.IntegerField()
     class Meta:
         model = JobDetail
-        fields = ['content', 'job_serial_number', 'activity_id', 'title']
+        fields = ['content', 'job_id', 'title']
 
     def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
-        activity = Activity.objects.get(pk=validated_data.get("activity_id"))
-        job = Job.objects.get(serial_number=validated_data.get("job_serial_number"), activity=activity)
+        job = Job.objects.get(pk=validated_data.get("job_id"), activity=activity)
         jd = JobDetail.objects.create(
-            job_serial_number=job,
-            activity=activity,
+            job_id=job,
+            activity=job.activity,
             content=validated_data.get("content"),
             title=validated_data.get("title"))
         return jd
