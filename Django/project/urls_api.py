@@ -38,5 +38,6 @@ urlpatterns = [
     path('upload/avatar/',UploadUserAvatar.as_view() , name="upload-user-avatar"),                     # upload user avatar
     path('upload/expenditure/',UploadExpenditure.as_view() , name="upload-expenditure"),               # upload expenditure to specific activity
     path('upload/activity_pic/', UploadActivityPic.as_view(), name="upliad-activity-pic"),             # upload picture for specific activity
+    path('delete-file/',DeleteFile.as_view() , name="delete-file"),
     path('test/', TestView.as_view(), name="test"),
 ]   

@@ -603,7 +603,35 @@ class UploadUserAvatar(APIView):
             print(e)
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
-    
+class DeleteFile(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+
+    @method_decorator(csrf_protect)
+    def post(self, request):
+        model = request.data.get("model")
+        if model == "file": # need activity id & job serial number
+            activity_id = request.data.get("activity_id")
+            job_serial_number = request.data.get("job_serial_number")
+            file_name = request.data.get("file_name")
+
+            try:
+                job = Job.objects.get(activity_id=activity_id, serial_number=job_serial_number)
+            except:
+                return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
+            try:
+                print(job)
+                f = File.objects.get(activity_id=activity_id,job_serial_number=job,  file_path=file_name)
+                local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
+                # if os.path.exists(local_path): os.remove(local_path)
+                print(f)
+                # f.delete()
+                return Response({'success': '檔案已經刪除!'})
+            except Exception as e:
+                return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+            
+
+        pass
 # -----File END-----
 class TestView(APIView):
     # authentication_classes = [CustomAuth]
