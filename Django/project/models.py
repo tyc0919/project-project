@@ -57,22 +57,23 @@ class Collaborator(models.Model):
 
 
 class Expenditure(models.Model):
+    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    expense = models.IntegerField(blank=True, null=True)
     expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
     expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
-    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', related_name="Expenditure")
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
-    expense = models.IntegerField(default=0)
-    is_deleted = models.IntegerField(default=0)
+    is_deleted = models.IntegerField(blank=True, null=True)
+
     class Meta:
         managed = False
         db_table = 'expenditure'
 
 
 class File(models.Model):
+    job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
     file_path = models.CharField(max_length=50, blank=True, null=True)
     file_uploaded_time = models.DateTimeField(blank=True, null=True)
-    job_serial_number = models.ForeignKey('Job', models.DO_NOTHING, db_column='job_serial_number', blank=True, null=True, related_name="File")
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
 
     class Meta:
         managed = False
@@ -99,13 +100,13 @@ class Job(models.Model):
 
 
 class JobDetail(models.Model):
-    job_detail_id = models.AutoField(primary_key=True) #auto increment but with custom field name
-    title = models.CharField(max_length=15)
+    job_detail_id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=15, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    order = models.IntegerField(default=0)
-    job_serial_number = models.ForeignKey(Job, models.DO_NOTHING, db_column='job_serial_number', related_name="job_detail")
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, db_column="activity_id")
-    status = models.IntegerField(blank=True, null=True, default=0)
+    order = models.IntegerField()
+    job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
