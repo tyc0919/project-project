@@ -610,27 +610,33 @@ class DeleteFile(APIView):
     @method_decorator(csrf_protect)
     def post(self, request):
         model = request.data.get("model")
-        if model == "file": # need activity id & job serial number
-            activity_id = request.data.get("activity_id")
-            job_serial_number = request.data.get("job_serial_number")
-            file_name = request.data.get("file_name")
+        activity_id = request.data.get("activity_id")
+        job_serial_number = request.data.get("job_serial_number")
+        file_name = request.data.get("file_name")
+        local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
 
+        try:
+            job = Job.objects.get(activity_id=activity_id, serial_number=job_serial_number)
+        except:
+            return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if model == "file": # need activity id & job serial number
             try:
-                job = Job.objects.get(activity_id=activity_id, serial_number=job_serial_number)
-            except:
-                return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
-            try:
-                print(job)
                 f = File.objects.get(activity_id=activity_id,job_serial_number=job,  file_path=file_name)
-                local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
-                # if os.path.exists(local_path): os.remove(local_path)
-                print(f)
-                # f.delete()
+                # if os.path.exists(local_path):
+                #     f.delete()
+                #     os.remove(local_path)
                 return Response({'success': '檔案已經刪除!'})
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
-            
-
+        elif model == "expenditure":
+            try:
+                f = Expenditure.objects.get(activity_id=activity_id, job_serial_number=job, expenditure_receipt_path=file_name)
+                # if os.path.exists(local_path):
+                #     f.delete()
+                #     os.remove(local_path)
+            except:
+                return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         pass
 # -----File END-----
 class TestView(APIView):
