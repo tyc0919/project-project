@@ -182,7 +182,7 @@ class JobDetailCreateSerializer(serializers.ModelSerializer):
         fields = ['content', 'job_id', 'title']
 
     def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
-        job = Job.objects.get(pk=validated_data.get("job_id"), activity=activity)
+        job = Job.objects.get(pk=validated_data.get("job_id"))
         jd = JobDetail.objects.create(
             job_id=job,
             activity=job.activity,
