@@ -172,7 +172,6 @@ class JobDetailSerializer(serializers.ModelSerializer):
         exclude = ['order']
 
 
-
 class JobDetailCreateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=15)
     content = serializers.CharField(default="")
