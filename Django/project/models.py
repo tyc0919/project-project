@@ -103,7 +103,7 @@ class JobDetail(models.Model):
     job_detail_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=15, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    order = models.IntegerField()
+    order = models.IntegerField(default=0)
     job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
     status = models.IntegerField(blank=True, null=True)
