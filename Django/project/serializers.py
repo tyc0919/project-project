@@ -164,7 +164,6 @@ class JobStatusSerializer(serializers.ModelSerializer):
 class JobDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobDetail
-        exclude = ['order']
 
 
 class JobDetailCreateSerializer(serializers.ModelSerializer):
