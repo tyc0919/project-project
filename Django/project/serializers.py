@@ -94,7 +94,7 @@ class JobCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Job
-        exclude = ['activity', 'serial_number', 'status', 'create_time', 'job_expenditure']
+        exclude = ['activity', 'status', 'create_time', 'job_expenditure']
     
     def create(self, validated_data): 
         data = {
@@ -107,12 +107,7 @@ class JobCreateSerializer(serializers.ModelSerializer):
             "job_budget": validated_data.get("job_budget"),
             "job_expenditure": 0
         }
-        temp = Job.objects.filter(activity=data.get("activity"))
-        if temp:
-            serial_number = temp.order_by('-serial_number').first().serial_number + 1
-        else:
-            serial_number = 1
-        data["serial_number"] = serial_number
+
         print(data.get("create_time"))
         print(data.get("dead_line"))
         return Job.objects.create(**data)

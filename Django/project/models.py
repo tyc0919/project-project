@@ -81,7 +81,6 @@ class File(models.Model):
 
 
 class Job(models.Model):
-    serial_number = models.IntegerField()
     activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
@@ -96,17 +95,15 @@ class Job(models.Model):
     class Meta:
         managed = False
         db_table = 'job'
-        unique_together = (('serial_number', 'activity'),)
 
 
 class JobDetail(models.Model):
     job_detail_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=15, blank=True, null=True)
     content = models.TextField(blank=True, null=True)
-    order = models.IntegerField(default=0)
     job = models.ForeignKey(Job, models.DO_NOTHING, blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    status = models.IntegerField(blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True, default=0)
 
     class Meta:
         managed = False
