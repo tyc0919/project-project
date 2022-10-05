@@ -152,7 +152,6 @@ INSERT INTO `job`
 VALUES
 (1,
 1,
-1,
 '10846017@ntub.edu.tw',
 'testJob',
 2,
@@ -168,7 +167,6 @@ INSERT INTO `job`
 VALUES
 (2,
 2,
-2,
 'test@gmail.com',
 'testJob3',
 2,
@@ -181,7 +179,6 @@ date_add(now(), interval 1 month),
 INSERT INTO `job`
 VALUES
 (3,
-3,
 2,
 'test@gmail.com',
 'testJob3',
@@ -196,7 +193,6 @@ date_add(now(), interval 1 month),
 INSERT INTO `job`
 VALUES
 (4,
-1,
 3,
 'test@gmail.com',
 'testJob4',
@@ -210,7 +206,6 @@ date_add(now(), interval 1 month),
 INSERT INTO `job`
 VALUES
 (5,
-2,
 3,
 'test@gmail.com',
 'testJob5',
@@ -225,7 +220,6 @@ INSERT INTO`job`
 VALUES
 (6,
 3,
-3,
 'test@gmail.com',
 'testJob6',
 2,
@@ -238,14 +232,12 @@ date_add(now(), interval 1 month),
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
-`order`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (1,
-1,
 'myFirstJobDetail',
 1,
 1,
@@ -253,14 +245,12 @@ VALUES
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
-`order`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (2,
-2,
 'test2JobDetail',
 1,
 2,
@@ -268,14 +258,12 @@ VALUES
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
-`order`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (3,
-2,
 'test3JobDetail',
 2,
 2,
