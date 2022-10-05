@@ -1,4 +1,4 @@
--- DROP DATABASE `111401_project`;
+DROP DATABASE `111401_project`;
 CREATE DATABASE `111401_project`;
 
 USE `111401_project`;
@@ -83,7 +83,6 @@ CREATE TABLE `collaborator` (
 -- 建立資料表 '工作'
 CREATE TABLE `job`(
 	`id` int PRIMARY KEY AUTO_INCREMENT,
-	`serial_number` int,
     `activity_id` int ,
     `person_in_charge_email` char(30), -- 負責人
     `title` varchar(15),
@@ -95,8 +94,7 @@ CREATE TABLE `job`(
     `job_budget` int,
     `job_expenditure` int,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`person_in_charge_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
-    UNIQUE(`serial_number`, `activity_id`)
+    FOREIGN KEY(`person_in_charge_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );	
 
 -- 建立資料表 '工作細項'
@@ -104,7 +102,6 @@ CREATE TABLE `job_detail`(
 	`job_detail_id` int PRIMARY KEY AUTO_INCREMENT,
     `title` varchar(15),
     `content` text,
-    `order` int NOT NULL,
     `job_id` int,
     `activity_id` int,
     `status` tinyint Default 0,
@@ -149,8 +146,18 @@ CREATE TABLE `expenditure`(
     `expense` int Default 0,
     `expenditure_receipt_path` varchar(50) DEFAULT NULL,
     `expenditure_uploaded_time` datetime,
-    `is_deleted` tinyint,
+    `is_deleted` tinyint Default 0,
 	FOREIGN KEY(`job_id`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE `log`(
+	`id` int PRIMARY KEY AUTO_INCREMENT,
+    `activity_id` int,
+    `user_eamil` char(30),
+    `action` varchar(50),
+    `time` datetime,
+    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`user_eamil`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+    
