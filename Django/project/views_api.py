@@ -479,6 +479,40 @@ class GetPublicActivity(APIView):
         return Response(data)
 # -----Social END-----
 # -----File START-----
+
+class GetActivityFile(APIView):
+    authentication_classes = [CustomAuth]
+
+    def get_queryset(self, **kwargs):
+        activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
+        return File.objects.filter(activity=activity)
+        # elif kwargs.get("page") == "job":
+        #     job = get_object_or_404(Job, pk=kwargs.get('job_id'))
+        #     return File.objects.filter(job=job)
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        queryset = self.get_queryset(activity_id=activity_id)
+        # TODO: check permission then do below
+        
+        serializer = serializers.FileSerializer(queryset, many=True).data
+        return Response(serializer)
+
+class GetJobFile(APIView):
+    authentication_classes = [CustomAuth]
+
+    def get_queryset(self, **kwargs):
+        job = get_object_or_404(Job, pk=kwargs.get('job_id'))
+        return File.objects.filter(job=job)
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, job_id):
+        queryset = self.get_queryset(job_id=job_id)
+        # TODO: check permission then do below
+        
+        serializer = serializers.FileSerializer(queryset, many=True).data
+        return Response(serializer)
+
 class UploadJobFile(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
