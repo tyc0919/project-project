@@ -84,7 +84,6 @@ class Job(models.Model):
     activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
-    order = models.IntegerField(blank=True, null=True)
     status = models.IntegerField(blank=True, null=True, default=0)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
@@ -108,6 +107,17 @@ class JobDetail(models.Model):
     class Meta:
         managed = False
         db_table = 'job_detail'
+
+
+class Log(models.Model):
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
+    user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
+    action = models.CharField(max_length=50)
+    time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'log'
 
 
 class Review(models.Model):
