@@ -154,10 +154,10 @@ CREATE TABLE `expenditure`(
 CREATE TABLE `log`(
 	`id` int PRIMARY KEY AUTO_INCREMENT,
     `activity_id` int,
-    `user_eamil` char(30),
+    `user_email` char(30),
     `action` varchar(50),
     `time` datetime,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`user_eamil`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
     
