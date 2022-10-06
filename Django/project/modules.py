@@ -12,7 +12,7 @@ from django.http import HttpRequest
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.shortcuts import redirect
-from .models import User
+from .models import User, Log
 
 #----------Credentials----------
 def custom_login(email: str, password: str, type=None):
@@ -62,3 +62,6 @@ def get_user(request: HttpRequest):
     return user
 
 #----------others----------
+
+def event_logger(activity, user, msg, tz=None):
+    log_message = Log.objects.create(activity=activity, user_email=user, action=msg, time=timezone.now())

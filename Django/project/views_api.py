@@ -185,6 +185,7 @@ class UpdateActivity(APIView):
         serializer = serializers.ActivityUpdateSerializer(activity, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        modules.event_logger(activity=activity, user=request.user, msg=f"更新了活動資料，活動標題: '{request.data.get('activity_title')}'，活動敘述: {request.data.get('activity_description')}")
         return Response({'success':'更新成功'})
 
 class UpdateActivityBudget(APIView):
@@ -200,10 +201,12 @@ class UpdateActivityBudget(APIView):
     def post(self, request: Request):
         activity = self.get_object(activity_id=request.data.get('activity_id'))
         self.check_object_permissions(request,activity)
+        budget = activity.activity_budget
 
         serializer = serializers.ActivityBudgetSerializer(activity, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        modules.event_logger(activity=activity, user=request.user, msg=f"更新了活動預算，由: {budget}，變更至: {request.data.get('activity_budget')}")
         return Response({'success':'更新成功'})
 
 class DeleteActivity(APIView):
@@ -241,6 +244,7 @@ class PublishActivity(APIView):
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
         msg = '' if instance.is_public == 1 else '不'
+        modules.event_logger(activity=activity, user=request.user, msg=f"將活動設置為公開")
         return Response({'success':f'已經將活動設置成{msg}公開!'})
 
 class FinishActivity(APIView):
@@ -260,6 +264,7 @@ class FinishActivity(APIView):
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
         msg = '' if instance.is_finished == 1 else '未'
+        modules.event_logger(activity=activity, user=request.user, msg=f"將活動設置為完成")
         return Response({'success':f'已經將活動設置成{msg}完成!'})
 
 class GetCollaborator(APIView):
@@ -308,7 +313,9 @@ class CreateJob(APIView):
     def post(self, request: Request):
         serializer = serializers.JobCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        job = serializer.save()
+
+        modules.event_logger(activity=job.activity, user=request.user, msg=f"創建工作: {job.title}, 工作ID: {job.id}")
         return Response({'success':'新增成功'})
 
 class UpdateJob(APIView):           
@@ -323,7 +330,9 @@ class UpdateJob(APIView):
         job = self.get_object(job_id=request.data.get("job_id"))
         serializer = serializers.JobUpdateSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        job = serializer.save()
+
+        modules.event_logger(activity=job.activity, user=request.user, msg=f"更新了工作{job.title}(工作ID: {job.id})") # TODO: See if it's required to expand length linit
         return Response({'success':'更新成功'})
 
 class DeleteJob(APIView): 
@@ -339,10 +348,14 @@ class DeleteJob(APIView):
     def post(self, request: Request):
         try:
             job = self.get_object(job_id=request.data.get("job_id"))
+            activity = job.activity
+            job_id = job.id
+            job_title = job.title
             # TODO: check permission 
             job.delete()
         except Exception as e:
             return Response({'error': f"{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        modules.event_logger(activity=activity, user=request.user, msg=f"刪除了工作{job_title}(工作ID: {job_id})")
         return Response({'success':'刪除成功'})
 
 class StatusJob(APIView): 
@@ -359,8 +372,10 @@ class StatusJob(APIView):
         job = self.get_object(job_id=request.data.get("job_id"))
         serializer = serializers.JobStatusSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        job = serializer.save()
         result = '' if request.data.get("status") == 1 else '未'
+
+        modules.event_logger(activity=job.activity, user=request.user, msg=f"將工作{job.title}(工作ID: {job.id}的狀態設置為完成)")
         return Response({'success':f'已將狀態設置為{result}完成'})
 
 class GetJobDetail(APIView):                                            
@@ -378,7 +393,9 @@ class CreateJobDetail(APIView):
     def post(self, request: Request):
         serializer = serializers.JobDetailCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        jd = serializer.save()
+
+        modules.event_logger(activity=jd.activity, user=request.user, msg=f"為工作{jd.job.title}(工作ID: {jd.job.id}新增工作細項: {jd.title}(細項ID:{jd.job_detail_id}))")
         return Response({'success':'新增成功'})
 
 class DeleteJobDetail(APIView):
@@ -393,8 +410,13 @@ class DeleteJobDetail(APIView):
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        activity = jd.activity
+        title = jd.title
+        jd_id = jd.job_detail_id
         # self.check_object_permissions(request,activity)
         jd.delete()
+
+        modules.event_logger(activity=activity, user=request.user, msg=f"將工作細項{title}(細項ID: {jd_id}刪除)")
         return Response({'success':'刪除成功'})
 
 class UpdateJobDetail(APIView):
@@ -413,7 +435,9 @@ class UpdateJobDetail(APIView):
 
         serializer = serializers.JobDetailUpdateSerializer(jd, data=request.data)
         serializer.is_valid(raise_exception=True)
-        instance = serializer.save()
+        jd = serializer.save()
+
+        modules.event_logger(activity=jd.activity, user=request.user, msg=f"更新了工作細項: {jd.title}(細項ID:{jd.job_detail_id})")
         return Response({'success':'更新成功'})
 
 class StatusJobDetail(APIView):
@@ -432,7 +456,9 @@ class StatusJobDetail(APIView):
 
         serializer = serializers.JobDetailStatusSerializer(jd, data=request.data)
         serializer.is_valid(raise_exception=True)
-        instance = serializer.save()
+        jd = serializer.save()
+
+        modules.event_logger(activity=jd.activity, user=request.user, msg=f"將工作細項: {jd.title}(細項ID:{jd.job_detail_id})狀態設置為完成")
         return Response({'success':'更新成功'})        
 
 # -----Job END-----
@@ -539,7 +565,7 @@ class UploadJobFile(APIView):
                 job=job,
                 activity=job.activity
             )
-
+            modules.event_logger(activity=new_file.activity, user=request.user, msg=f"上傳檔案: {file_name}至工作: {new_file.job}")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except:
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
@@ -580,6 +606,7 @@ class UploadExpenditure(APIView):
             job.job_expenditure = sum_ex
             job.save()
         
+            modules.event_logger(activity=new_file.activity, user=request.user, msg=f"上傳收據: {file_name}至工作: {new_file.job}")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except Exception as e:
             return Response({'error': '檔案上傳失敗', 'reason': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
@@ -607,6 +634,7 @@ class UploadActivityPic(APIView):
             a.activity_picture = file_name
             a.save()
 
+            modules.event_logger(activity=a, user=request.user, msg=f"為活動上傳了新圖片")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except:
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
@@ -654,26 +682,36 @@ class DeleteFile(APIView): #asdasd
             return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
 
         if model == "file": # need activity id & job serial number
+
             try:
+
                 f = File.objects.get(job=job, file_path=file_name)
                 if os.path.exists(local_path):
+                    modules.event_logger(activity=f.activity, user=request.user, msg=f"刪除了檔案: {f.file_path}")
                     f.delete()
                     os.remove(local_path)
                     return Response({'success': '檔案已經刪除!'})
                 return Response({'error': '檔案不存在'})
+
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         elif model == "expenditure":
+
             try:
+                
                 f = Expenditure.objects.get(job=job, expenditure_receipt_path=file_name)
                 if os.path.exists(local_path):
+                    modules.event_logger(activity=f.activity, user=request.user, msg=f"刪除了檔案: {f.expenditure_receipt_path}")
                     f.delete()
                     os.remove(local_path)
                     return Response({'success': '檔案已經刪除!'})
                 return Response({'error': '檔案不存在'})
+
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
-        pass
+        else:
+            return Response({'error': 'model參數錯誤'}, status=status.HTTP_400_BAD_REQUEST)
+
 # -----File END-----
 class TestView(APIView):
     # authentication_classes = [CustomAuth]
