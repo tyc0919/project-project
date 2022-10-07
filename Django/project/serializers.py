@@ -164,6 +164,7 @@ class JobStatusSerializer(serializers.ModelSerializer):
 class JobDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobDetail
+        fields = '__all__'
 
 
 class JobDetailCreateSerializer(serializers.ModelSerializer):
