@@ -38,7 +38,9 @@ urlpatterns = [
     path('userprofile/resetpassword/',UpdateUserPassword.as_view() , name="reset-password"),           # update the logged in user's password
 
     path('social/',GetSocial.as_view() , name="get-social"),                                           # get all public activities
-    path('social/<int:activity_id>/',GetPublicActivity.as_view() , name="get-public-activity"),        # get certain published activity
+    path('social/<int:activity_id>/',GetPublicActivity.as_view() , name="get-public-activity"),        # get a specific published activity
+    path('social/<int:activity_id>/review/',GetReview.as_view() , name="get-review"),                  # get reviews of a published activity
+    path('social/post-review/',PostReview.as_view() , name="post-review"),                             # post review to a published avticity
 
     path('file/activity/<int:activity_id>/',GetActivityFile.as_view() , name="get-activity-file"),     # get all files of a certain activity
     path('file/job/<int:job_id>/',GetJobFile.as_view() , name="get-job-file"),                         # get all files of a certain job

@@ -485,12 +485,15 @@ class GetBudget(APIView):
 
 # -----Budget END-----
 # -----Social START-----
+
+
 class GetSocial(APIView):
     authentication_classes = [CustomAuth]
     @method_decorator(csrf_protect)
     def get(self, request: Request):
         queryset = Activity.objects.filter(is_public=1)
         return Response(serializers.ActivitySerializer(queryset, many=True).data)
+
 
 class GetPublicActivity(APIView):
     authentication_classes = [CustomAuth]
@@ -503,6 +506,46 @@ class GetPublicActivity(APIView):
         except:
             return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
         return Response(data)
+
+
+class GetReview(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        try:
+            activity = Activity.objects.get(pk=activity_id, is_public=1)
+            review_set = Review.objects.filter(activity=activity)
+            data = serializers.ReviewSerializer(review_set, many=True).data
+        except:
+            return Response({'error':'無此活動'},status=status.HTTP_404_NOT_FOUND)
+        return Response(data)
+
+
+class PostReview(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+    
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        try:
+            data = {
+                'activity': Activity.objects.get(pk=request.data.get("activity_id"), is_public=1).id,
+                'reviewer': User.objects.get(pk=request.data.get("user_email")).user_email,
+                'content': request.data.get("content"),
+                'review_time': timezone.now(),
+                'review_star': request.data.get("review_star")
+            }
+        except:
+            return Response({'error':'使用者或活動不存在'},status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ReviewSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        review = serializer.save()
+
+        return Response({'success': '評論發佈成功'})
+
+
 # -----Social END-----
 # -----File START-----
 

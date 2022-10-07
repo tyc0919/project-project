@@ -1,7 +1,7 @@
 import datetime
 from rest_framework import serializers
 from django.utils import timezone
-from .models import Expenditure, Job, User, Activity, Collaborator, JobDetail, File
+from .models import Expenditure, Job, Review, User, Activity, Collaborator, JobDetail, File
 from .modules import db_password_generator, salt_generator
 
 
@@ -250,4 +250,12 @@ class SocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         exclude = ['city', 'invitation_code', 'is_public']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model= Review
+        fields = '__all__'
+
+
 # -----Social END-----
