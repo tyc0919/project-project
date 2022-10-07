@@ -5,8 +5,9 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from email.policy import default
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+
 
 
 class Activity(models.Model):
@@ -59,7 +60,7 @@ class Collaborator(models.Model):
 class Expenditure(models.Model):
     job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    expense = models.IntegerField(blank=True, null=True)
+    expense = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0)])
     expenditure_receipt_path = models.CharField(max_length=50, blank=True, null=True)
     expenditure_uploaded_time = models.DateTimeField(blank=True, null=True)
     is_deleted = models.IntegerField(blank=True, null=True)
@@ -84,7 +85,6 @@ class Job(models.Model):
     activity = models.ForeignKey(Activity, models.DO_NOTHING)
     person_in_charge_email = models.ForeignKey('User', models.DO_NOTHING, db_column='person_in_charge_email', blank=True, null=True)
     title = models.CharField(max_length=15, blank=True, null=True)
-    order = models.IntegerField(blank=True, null=True)
     status = models.IntegerField(blank=True, null=True, default=0)
     create_time = models.DateTimeField(blank=True, null=True)
     dead_line = models.DateTimeField(blank=True, null=True)
@@ -110,13 +110,23 @@ class JobDetail(models.Model):
         db_table = 'job_detail'
 
 
+class Log(models.Model):
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
+    user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
+    action = models.CharField(max_length=50)
+    time = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'log'
+
+
 class Review(models.Model):
-    id = models.IntegerField(primary_key=True)
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    reviewer = models.ForeignKey('User', models.DO_NOTHING, db_column='reviewer', blank=True, null=True)
-    content = models.CharField(max_length=500, blank=True, null=True)
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
+    reviewer = models.ForeignKey('User', models.DO_NOTHING, db_column='reviewer')
+    content = models.CharField(max_length=500)
     review_time = models.DateTimeField(blank=True, null=True)
-    review_star = models.IntegerField(blank=True, null=True)
+    review_star = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
 
     class Meta:
         managed = False
