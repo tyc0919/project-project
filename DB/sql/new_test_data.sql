@@ -79,14 +79,14 @@ INSERT INTO `activity` VALUES
 (1,
 '10846017@ntub.edu.tw',
 2,
-'myActivity',
+'公司職工團康活動籌備',
 0,
 0,
-'helloMyActivity',
+'這次活動圓滿成功，要感謝公司同仁的配合、各地贊助商的支持。',
 now(),
-'HSC5487',
+'INVITINGCODE',
 '6.jpg',
-50000,'activityContentTest');
+50000,'每年更邀請其他新竹地區的公司參與，達到拓展交友圈與聯誼互動之效。另外也於員工宿舍、廠內設置休閒中心，鼓勵同仁養成運動的習慣，並舉辦健康紓壓');
 
 INSERT INTO `activity` VALUES
 (2,
@@ -95,11 +95,11 @@ INSERT INTO `activity` VALUES
 'myActivity',
 0,
 0,
-'testMyActivity',
+'這次活動圓滿成功，要感謝公司同仁的配合、各地贊助商的支持。',
 now(),
-'HSC5487',
+'INVITINGCODE',
 '6.jpg',
-50000,'activityContentTest');
+50000,'每年更邀請其他新竹地區的公司參與，達到拓展交友圈與聯誼互動之效。另外也於員工宿舍、廠內設置休閒中心，鼓勵同仁養成運動的習慣，並舉辦健康紓壓');
 
 INSERT INTO `activity` VALUES
 (3,
@@ -108,11 +108,11 @@ INSERT INTO `activity` VALUES
 'testActivity3',
 0,
 0,
-'testMyActivity',
+'這次活動圓滿成功，要感謝公司同仁的配合、各地贊助商的支持。',
 now(),
-'HSC5487',
+'INVITINGCODE',
 '6.jpg',
-50000,'activityContentTest');
+50000,'每年更邀請其他新竹地區的公司參與，達到拓展交友圈與聯誼互動之效。另外也於員工宿舍、廠內設置休閒中心，鼓勵同仁養成運動的習慣，並舉辦健康紓壓');
 
 -- colab_shop
 INSERT INTO `collab_shop`
@@ -153,13 +153,13 @@ VALUES
 (1,
 1,
 '10846017@ntub.edu.tw',
-'testJob',
+'前期準備',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
-500,300);
+'包括活動企劃、策劃、宣傳、內容準備、找講者、找場地、準備茶水、準備設備、準備伴手禮等。',
+500,0);
 
 
 
@@ -168,26 +168,26 @@ VALUES
 (2,
 2,
 'test@gmail.com',
-'testJob3',
+'前期準備',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob2就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
-500,300);
+'包括活動企劃、策劃、宣傳、內容準備、找講者、找場地、準備茶水、準備設備、準備伴手禮等。',
+500,0);
 
 INSERT INTO `job`
 VALUES
 (3,
 2,
 'test@gmail.com',
-'testJob3',
+'活動執行',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob3就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來'
-,500,300);
+'桌椅準備、測試設備、活動指引、分發DM、演說內容、互動、變通等。'
+,500,0);
 
 
 INSERT INTO `job`
@@ -195,76 +195,82 @@ VALUES
 (4,
 3,
 'test@gmail.com',
-'testJob4',
+'後期研討',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob4就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
-500,300);
+'收集資料、獲得反饋、再行銷等。',
+500,0);
 
 INSERT INTO `job`
 VALUES
 (5,
 3,
 'test@gmail.com',
-'testJob5',
+'活動指引',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob5就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
-500,300);
+'尋找並列出在每一個活動中需要哪些指引標示、說明書，以提醒各個活動的內容狀態',
+500,0);
 
 INSERT INTO`job`
 VALUES
 (6,
 3,
 'test@gmail.com',
-'testJob6',
+'找場地',
 2,
 1,
 now(),
 date_add(now(), interval 1 month),
-'testjob6就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來說，你媽對我的意義，不能不說非常重大。經過上述討論，就我個人來說，你媽對我的意義就我個人來說就我個人來說就我個人來說就我個人來說就Ssdsdsdsds我個人來說就我個人來',
-500,300);
+'可以容納所有員工的場地，需要一個高舞台來主持和表演',
+500,0);
 
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
+`title`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (1,
-'myFirstJobDetail',
-1,
-1,
+'找尋適合的物件',
+'條件包括: 1. 容納500人 2. 需要提供高舞台',
+6,
+3,
 0);
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
+`title`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (2,
-'test2JobDetail',
-1,
-2,
+'保留聯絡人',
+'保留各候選場地聯絡人的聯絡方式，以方便之後場地的比較與參考。',
+6,
+3,
 0);
 
 INSERT INTO `job_detail`
 (`job_detail_id`,
+`title`,
 `content`,
 `job_id`,
 `activity_id`,
 `status`)
 VALUES
 (3,
-'test3JobDetail',
+'場地活動指引牌',
+'列出有使用場地的活動指引牌，並且測量大小，以及需要的材料',
 2,
 2,
 0);
@@ -280,7 +286,7 @@ VALUES
 (1,
 1,
 '10846010@ntub.edu.tw',
-'review1084610',
+'請問這個活動的計畫有在公司官網上嗎?想要一些拍攝的照片作為參考。',
 now(),
 5);
 
