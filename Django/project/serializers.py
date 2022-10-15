@@ -254,8 +254,13 @@ class SocialSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model= Review
+        model = Review
         fields = '__all__'
+
+class ReviewUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['content', 'review_star']
 
 
 # -----Social END-----

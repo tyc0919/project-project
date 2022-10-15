@@ -545,6 +545,28 @@ class PostReview(APIView):
 
         return Response({'success': '評論發佈成功'})
 
+class UpdateReview(APIView):
+    authentication_classes = [CustomAuth]
+    parser_classes = [JSONParser]
+    
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        try:
+            review = Review.objects.get(pk=request.data.get("id"), reviewer=request.user)
+            data = {
+                'content': request.data.get("content"),
+                'review_star': request.data.get("review_star")
+            }
+        except Exception as e:
+            print(str(e))
+            return Response({'error':'使用者或活動不存在'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ReviewUpdateSerializer(review, data=data)
+        serializer.is_valid(raise_exception=True)
+        review = serializer.save()
+
+        return Response({'success': '評論修改成功'})
+
 
 # -----Social END-----
 # -----File START-----
