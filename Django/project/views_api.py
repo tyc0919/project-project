@@ -1,3 +1,4 @@
+from django.http import FileResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -577,9 +578,6 @@ class GetActivityFile(APIView):
     def get_queryset(self, **kwargs):
         activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
         return File.objects.filter(activity=activity)
-        # elif kwargs.get("page") == "job":
-        #     job = get_object_or_404(Job, pk=kwargs.get('job_id'))
-        #     return File.objects.filter(job=job)
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
@@ -588,6 +586,7 @@ class GetActivityFile(APIView):
         
         serializer = serializers.FileSerializer(queryset, many=True).data
         return Response(serializer)
+
 
 class GetJobFile(APIView):
     authentication_classes = [CustomAuth]
@@ -604,6 +603,7 @@ class GetJobFile(APIView):
         serializer = serializers.FileSerializer(queryset, many=True).data
         return Response(serializer)
 
+
 class UploadJobFile(APIView): 
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
@@ -618,7 +618,15 @@ class UploadJobFile(APIView):
 
             file = request.FILES['file']
             file_name = file.name
-            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+            fn_ext = file_name.rsplit(".")
+            dupe = 0
+            while File.objects.filter(file_path=file_name, activity=job.activity):
+                dupe += 1
+                ext = f".{fn_ext[-1]}" if len(fn_ext) > 1 else ""
+                file_name = f'{fn_ext[0]}_{dupe}{ext}'
+                print(file_name)
+
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name + f'_{job.activity_id}' , 'wb+') as destination:
                 for chunk in file.chunks():
                     destination.write(chunk)
 
@@ -632,8 +640,9 @@ class UploadJobFile(APIView):
             )
             modules.event_logger(activity=new_file.activity, user=request.user, msg=f"上傳檔案: {file_name}至工作: {new_file.job}")
             return Response({'success': f'{file.name}檔案上傳成功'})
-        except:
-            return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': '檔案上傳失敗', 'reason': e}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UploadExpenditure(APIView): 
     authentication_classes = [CustomAuth]
@@ -649,9 +658,18 @@ class UploadExpenditure(APIView):
             # TODO: Check for permission then do below
 
 
-            file = request.FILES['file']
+            file = request.FILES['file']    # The file name confliction solution is here
             file_name = file.name
-            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
+            fn_ext = file_name.rsplit(".")
+            dupe = 0
+            while Expenditure.objects.filter(expenditure_receipt_path=file_name, activity=job.activity):
+                dupe += 1
+                ext = f".{fn_ext[-1]}" if len(fn_ext) > 1 else ""
+                file_name = f'{fn_ext[0]}_{dupe}{ext}'
+                print(file_name)
+
+
+            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name + f'_{job.activity_id}' , 'wb+') as destination:
                 for chunk in file.chunks():
                     destination.write(chunk)
 
@@ -675,6 +693,7 @@ class UploadExpenditure(APIView):
             return Response({'success': f'{file.name}檔案上傳成功'})
         except Exception as e:
             return Response({'error': '檔案上傳失敗', 'reason': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UploadActivityPic(APIView):
     authentication_classes = [CustomAuth]
@@ -704,6 +723,7 @@ class UploadActivityPic(APIView):
         except:
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class UploadUserAvatar(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
@@ -728,6 +748,7 @@ class UploadUserAvatar(APIView):
             print(e)
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class DeleteFile(APIView): #asdasd
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
@@ -740,16 +761,14 @@ class DeleteFile(APIView): #asdasd
 
         try:
             job = Job.objects.get(pk=job_id)
-            local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name
+            local_path = os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name + f'_{job.activity_id}'
         except TypeError: 
             return Response({'error': '請輸入檔案名稱'}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
 
         if model == "file": # need activity id & job serial number
-
             try:
-
                 f = File.objects.get(job=job, file_path=file_name)
                 if os.path.exists(local_path):
                     modules.event_logger(activity=f.activity, user=request.user, msg=f"刪除了檔案: {f.file_path}")
@@ -757,63 +776,126 @@ class DeleteFile(APIView): #asdasd
                     os.remove(local_path)
                     return Response({'success': '檔案已經刪除!'})
                 return Response({'error': '檔案不存在'})
-
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
-        elif model == "expenditure":
 
+        elif model == "expenditure":
             try:
-                
                 f = Expenditure.objects.get(job=job, expenditure_receipt_path=file_name)
                 if os.path.exists(local_path):
                     modules.event_logger(activity=f.activity, user=request.user, msg=f"刪除了檔案: {f.expenditure_receipt_path}")
                     f.delete()
                     os.remove(local_path)
                     return Response({'success': '檔案已經刪除!'})
-                return Response({'error': '檔案不存在'})
-
+                return Response({'error': '檔案不存在'}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
                 return Response({'error': '找不到該檔案', 'msg': f'{str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'model參數錯誤'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+class ServeFile(APIView):
+    authentication_classes = [CustomAuth]
+
+    def get_object(self, **kwargs):
+        activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
+        return activity
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id, file_name):
+        activity = self.get_object(activity_id=activity_id)
+        work_files = File.objects.filter(file_path=file_name, activity=activity)
+        exp_files = Expenditure.objects.filter(expenditure_receipt_path=file_name, activity=activity)
+        if (not work_files) and (not exp_files):
+            raise Http404
+
+        # TODO: check permission then do below
+        try:
+            f = open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name + f'_{activity_id}' , 'rb')
+        except:
+            return Response({'error': '找不到檔案'}, status=status.HTTP_400_BAD_REQUEST)
+        return FileResponse(f, filename=file_name)
+
+
+class ServeAvatar(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, picture_path):
+        try:
+            f = open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + picture_path, 'rb')
+        except:
+            return Response({'error': '找不到檔案'}, status=status.HTTP_400_BAD_REQUEST)
+        return FileResponse(f)
+
+
+class ServeActivityPic(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_picture):
+        try:
+            f = open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + activity_picture, 'rb')
+        except:
+            return Response({'error': '找不到檔案'}, status=status.HTTP_400_BAD_REQUEST)
+        return FileResponse(f)
+
+
 # -----File END-----
+
+# -----Log START-----
+class GetLog(APIView):
+    authentication_classes = [CustomAuth]
+
+    def get_queryset(self, **kwargs):
+        activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
+        return Log.objects.filter(activity=activity)
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, activity_id):
+        queryset = self.get_queryset(activity_id=activity_id)
+        # TODO: check permission then do below
+        result_list = []
+        for log in queryset:
+            data = {
+                "id": log.id,
+                "user_email": log.user_email.user_email,
+                "user_name": log.user_email.user_name,
+                "action": log.action,
+                "time": log.time
+            }
+            result_list.append(data)
+        return Response(result_list)
+# -----Log END-----
+
 class TestView(APIView):
     # authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
 
     # @method_decorator(csrf_protect)
     def post(self, request):
-
-
         try:
-            job_id = int(request.data.get('job_id'))
-            job = Job.objects.get(pk=job_id)
+            # job_id = int(request.data.get('job_id'))
+            # job = Job.objects.get(pk=job_id)
 
             # check for job permission then do below
 
-            file = request.FILES['file']
+            # file = request.FILES['file']
 
-            # file_name = uuid.uuid4().hex[:16] + ".jpg"
+            # file_name = file.name
             # with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
             #     for chunk in file.chunks():
             #         destination.write(chunk)
 
-            file_name = file.name
-            with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/project/avatar/' + file_name , 'wb+') as destination:
-                for chunk in file.chunks():
-                    destination.write(chunk)
 
+            # new_file = File.objects.create(
+            #     file_path=file_name,
+            #     file_uploaded_time=datetime.datetime.now(),
+            #     job=job,
+            #     activity=job.activity
+            # )
 
-            # Add File info to database, need to deal with repetitive file name someday
-            new_file = File.objects.create(
-                file_path=file_name,
-                file_uploaded_time=datetime.datetime.now(),
-                job=job,
-                activity=job.activity
-            )
-
-            return Response({'success': 'File is uploaded'})
+            return Response({'success': '1'})
         except:
-            return Response({'error': 'File upload failed'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': '2'}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -43,12 +43,18 @@ urlpatterns = [
     path('social/post-review/',PostReview.as_view() , name="post-review"),                             # post review to a published avticity
     path('social/update-review/',UpdateReview.as_view() , name="update-review"),                       # update user review
 
-    path('file/activity/<int:activity_id>/',GetActivityFile.as_view() , name="get-activity-file"),     # get all files of a certain activity
-    path('file/job/<int:job_id>/',GetJobFile.as_view() , name="get-job-file"),                         # get all files of a certain job
+    path('file/activity/<int:activity_id>/',GetActivityFile.as_view() , name="get-activity-file"),     # get all files of a specific activity
+    path('file/job/<int:job_id>/',GetJobFile.as_view() , name="get-job-file"),                         # get all files of a specific job
     path('upload/job/',UploadJobFile.as_view() , name="upload-job-file"),                              # upload file to specific job                        
     path('upload/avatar/',UploadUserAvatar.as_view() , name="upload-user-avatar"),                     # upload user avatar
-    path('upload/expenditure/',UploadExpenditure.as_view() , name="upload-expenditure"),               # upload expenditure to specific activity
-    path('upload/activity_pic/', UploadActivityPic.as_view(), name="upliad-activity-pic"),             # upload picture for specific activity
-    path('delete-file/',DeleteFile.as_view() , name="delete-file"),
-    path('test/', TestView.as_view(), name="test"),
+    path('upload/expenditure/',UploadExpenditure.as_view() , name="upload-expenditure"),               # upload expenditure to a specific activity
+    path('upload/activity_pic/', UploadActivityPic.as_view(), name="upliad-activity-pic"),             # upload picture for a specific activity
+    path('delete-file/',DeleteFile.as_view() , name="delete-file"),                                    # delete specific file
+    path('serve-file/<int:activity_id>/<str:file_name>',ServeFile.as_view() , name="serve-file"),     # serve file
+    path('serve-file/avatar/<str:picture_path>',ServeAvatar.as_view() , name="serve-avatar"),         # serve file
+    path('serve-file/activity-pic/<str:activity_picture>',ServeActivityPic.as_view() , name="serve-activity-pic"),        # serve file
+
+    path('log/<int:activity_id>/',GetLog.as_view() , name="get-log"),                                  # get all logs for a specific activity
+
+    # path('test/', TestView.as_view(), name="test"),
 ]   
