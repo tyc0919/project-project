@@ -48,7 +48,7 @@ class UserPasswordSerializer(serializers.ModelSerializer):
 class ActivityCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        exclude = ['city', 'is_public', 'is_finished', 'content', 'post_time', 'invitation_code', 'activity_description']
+        exclude = ['city', 'is_public', 'content', 'post_time', 'invitation_code', 'activity_description']
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
