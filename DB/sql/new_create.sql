@@ -131,10 +131,12 @@ CREATE TABLE `collab_shop`(
 
 CREATE TABLE `file`(
 	`id` int PRIMARY KEY auto_increment,
-	`job_id` int,
     `activity_id` int ,
+	`job_id` int,
+    `uploader` char(30),
     `file_path` varchar(50) DEFAULT NULL,
     `file_uploaded_time` datetime,
+    FOREIGN KEY(`uploader`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(`job_id`) REFERENCES `job`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
