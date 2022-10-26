@@ -199,7 +199,7 @@ class UpdateActivity(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         modules.event_logger(activity=activity, user=request.user,
-                             msg=f"更新了活動資料，活動標題: '{request.data.get('activity_title')}'，活動敘述: {request.data.get('activity_description')}")
+                             msg=f"更新了活動資料，活動標題: '{request.data.get('activity_name')}'，活動敘述: {request.data.get('activity_description')}")
         return Response({'success': '更新成功'})
 
 
@@ -414,7 +414,7 @@ class StatusJob(APIView):
         result = '' if request.data.get("status") == 1 else '未'
 
         modules.event_logger(activity=job.activity, user=request.user,
-                             msg=f"將工作{job.title}(工作ID: {job.id}的狀態設置為完成)")
+                             msg=f"將工作{job.title}(工作ID: {job.id}的狀態設置為{result}完成)")
         return Response({'success': f'已將狀態設置為{result}完成'})
 
 
@@ -508,8 +508,9 @@ class StatusJobDetail(APIView):
         serializer.is_valid(raise_exception=True)
         jd = serializer.save()
 
+        result = '' if request.data.get("status") == 1 else '未'
         modules.event_logger(activity=jd.activity, user=request.user,
-                             msg=f"將工作細項: {jd.title}(細項ID:{jd.job_detail_id})狀態設置為完成")
+                             msg=f"將工作細項: {jd.title}(細項ID:{jd.job_detail_id})狀態設置為{result}完成")
         return Response({'success': '更新成功'})
 
 # -----Job END-----
