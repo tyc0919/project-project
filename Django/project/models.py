@@ -73,6 +73,7 @@ class Expenditure(models.Model):
 class File(models.Model):
     job = models.ForeignKey('Job', models.DO_NOTHING, blank=True, null=True)
     activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
+    uploader = models.ForeignKey('User', models.DO_NOTHING, db_column='uploader')
     file_path = models.CharField(max_length=50, blank=True, null=True)
     file_uploaded_time = models.DateTimeField(blank=True, null=True)
 

@@ -708,6 +708,7 @@ class UploadJobFile(APIView):
             new_file = File.objects.create(
                 file_path=file_name,
                 file_uploaded_time=timezone.now(),
+                uploader=request.user
                 job=job,
                 activity=job.activity
             )
