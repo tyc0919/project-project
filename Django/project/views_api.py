@@ -858,13 +858,21 @@ class DeleteFile(APIView):  # asdasd
 
         elif model == "expenditure":
             try:
-                f = Expenditure.objects.get(
-                    job=job, expenditure_receipt_path=file_name)
+                f = Expenditure.objects.get(job=job, expenditure_receipt_path=file_name)
+                
                 if os.path.exists(local_path):
                     modules.event_logger(
                         activity=f.activity, user=request.user, msg=f"刪除了檔案: {f.expenditure_receipt_path}")
                     f.delete()
                     os.remove(local_path)
+                    sum_ex = 0
+
+                    all_receipt = Expenditure.objects.filter(job=job)
+                    for receipt in all_receipt:
+                        sum_ex += receipt.expense
+                    job.job_expenditure = sum_ex
+                    job.save()
+                    
                     return Response({'success': '檔案已經刪除!'})
                 return Response({'error': '檔案不存在'}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
