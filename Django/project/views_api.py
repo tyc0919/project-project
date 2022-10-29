@@ -265,7 +265,7 @@ class PublishActivity(APIView):
         instance = serializer.save()
         msg = '' if instance.is_public == 1 else '不'
         modules.event_logger(
-            activity=activity, user=request.user, msg=f"將活動設置為公開")
+            activity=activity, user=request.user, msg=f"將活動設置為{msg}公開")
         return Response({'success': f'已經將活動設置成{msg}公開!'})
 
 
@@ -288,7 +288,7 @@ class FinishActivity(APIView):
         instance = serializer.save()
         msg = '' if instance.is_finished == 1 else '未'
         modules.event_logger(
-            activity=activity, user=request.user, msg=f"將活動設置為完成")
+            activity=activity, user=request.user, msg=f"將活動設置為{msg}完成")
         return Response({'success': f'已經將活動設置成{msg}完成!'})
 
 
@@ -411,7 +411,7 @@ class StatusJob(APIView):
         serializer = serializers.JobStatusSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
         job = serializer.save()
-        result = '' if request.data.get("status") == 1 else '未'
+        result = '' if request.data.get("status") == '1' else '未'
 
         modules.event_logger(activity=job.activity, user=request.user,
                              msg=f"將工作{job.title}(工作ID: {job.id}的狀態設置為{result}完成)")
@@ -508,7 +508,7 @@ class StatusJobDetail(APIView):
         serializer.is_valid(raise_exception=True)
         jd = serializer.save()
 
-        result = '' if request.data.get("status") == 1 else '未'
+        result = '' if request.data.get("status") == '1' else '未'
         modules.event_logger(activity=jd.activity, user=request.user,
                              msg=f"將工作細項: {jd.title}(細項ID:{jd.job_detail_id})狀態設置為{result}完成")
         return Response({'success': '更新成功'})
