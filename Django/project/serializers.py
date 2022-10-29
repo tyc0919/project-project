@@ -118,11 +118,10 @@ class JobUpdateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=15)
     content = serializers.CharField(max_length=15)
     job_budget = serializers.IntegerField(min_value=0)
-    job_expenditure = serializers.IntegerField(min_value=0)
 
     class Meta:
         model = Job
-        fields = ['person_in_charge_email', 'title', 'dead_line', 'content', 'job_budget', 'job_expenditure']
+        fields = ['person_in_charge_email', 'title', 'dead_line', 'content', 'job_budget']
 
     def update(self, instance, validated_data):
         instance.person_in_charge_email = User.objects.get(user_email=validated_data.get("person_in_charge_email"))
@@ -130,14 +129,12 @@ class JobUpdateSerializer(serializers.ModelSerializer):
         instance.title = validated_data.get("title")
         instance.content = validated_data.get("content")
         instance.job_budget = validated_data.get("job_budget")
-        instance.job_expenditure = validated_data.get("job_expenditure")
         instance.save(update_fields=[
             'person_in_charge_email',
             'dead_line',
             'title',
             'content',
-            'job_budget',
-            'job_expenditure'
+            'job_budget'
             ])
         # data = {
             # "person_in_charge_email": User.objects.get(pk=validated_data.get("person_in_charge_email")),
