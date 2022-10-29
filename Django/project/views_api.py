@@ -712,7 +712,7 @@ class UploadJobFile(APIView):
                 activity=job.activity
             )
             modules.event_logger(activity=new_file.activity, user=request.user,
-                                 msg=f"上傳檔案: {file_name}至工作: {new_file.job}")
+                                 msg=f"上傳檔案: {file_name}至工作: {new_file.job.title}")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except Exception as e:
             return Response({'error': '檔案上傳失敗', 'reason': e}, status=status.HTTP_400_BAD_REQUEST)
@@ -763,7 +763,7 @@ class UploadExpenditure(APIView):
             job.save()
 
             modules.event_logger(activity=new_file.activity, user=request.user,
-                                 msg=f"上傳收據: {file_name}至工作: {new_file.job}")
+                                 msg=f"上傳收據: {file_name}至工作: {new_file.job.title}")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except Exception as e:
             return Response({'error': '檔案上傳失敗', 'reason': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
