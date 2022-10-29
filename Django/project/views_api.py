@@ -1,3 +1,4 @@
+from time import sleep
 from django.http import FileResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,7 +15,7 @@ import os
 import datetime
 
 from project.authentication import CustomAuth
-from project.permissions import IsOwner
+from project.permissions import *
 from project import modules, serializers
 
 from .models import *
@@ -37,7 +38,7 @@ class CSRFEndpoint(APIView):
 
 class SignIn(APIView):
     parser_classes = [JSONParser]
-
+    
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         try:
@@ -157,11 +158,15 @@ class GetActivityCards(APIView):
 
 class GetActivity(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
         try:
-            activity = Activity.objects.get(pk=activity_id)
+            # permission test
+            activity = Activity.objects.get(pk=activity_id) # if permission check fails in try section, it will go directly into except section.
+            self.check_object_permissions(request, activity) # but I'm gonna leave this here, to be consistent with the code below.
+
             data = dict(serializers.ActivitySerializer(activity).data) | {'user_name': activity.owner.user_name}
         except:
             return Response({'error': '無此活動'}, status=status.HTTP_404_NOT_FOUND)
@@ -294,10 +299,15 @@ class FinishActivity(APIView):
 
 class GetCollaborator(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
-        queryset = Collaborator.objects.filter(activity=activity_id)
+        # permission test
+        activity = get_object_or_404(Activity, pk=activity_id)
+        self.check_object_permissions(request, activity)
+
+        queryset = Collaborator.objects.filter(activity=activity)
         user_list = [x.user_email for x in queryset]
         data = serializers.UserInfoSerializer(user_list, many=True).data
         return Response(data)
@@ -317,31 +327,45 @@ class GetMyJob(APIView):
 
 class GetJob(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
-        queryset = Job.objects.filter(activity=activity_id)
+        activity = get_object_or_404(Activity, pk=activity_id)
+        self.check_object_permissions(request, activity)
+
+        queryset = Job.objects.filter(activity=activity)
         return Response(serializers.JobSerializer(queryset, many=True).data)
 
 
 class GetCertainJob(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id, job_id):
-        try:
-            queryset = Job.objects.get(pk=job_id)
-        except:
-            return Response({'error': '找不到該工作'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(serializers.JobSerializer(queryset).data)
+        # permission test
+        job = get_object_or_404(Job, pk=job_id)
+        self.check_object_permissions(request, job.activity)
+        return Response(serializers.JobSerializer(job).data)
 
 
 class CreateJob(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
+    permission_classes = [IsOwner]
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test
+        activity = get_object_or_404(Activity, pk=request.data.get('activity_id'))
+        self.check_object_permissions(request, activity)
+
+        try:
+            User.objects.get(pk=request.data.get("person_in_charge_email"))
+        except Exception as e:
+            return Response({'error': '協作人員中並無此使用者'}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = serializers.JobCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         job = serializer.save()
@@ -354,6 +378,7 @@ class CreateJob(APIView):
 class UpdateJob(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
+    permission_classes = [IsOwner]
 
     def get_object(self, **kwargs):
         return get_object_or_404(Job, pk=kwargs.get('job_id'))
@@ -361,11 +386,14 @@ class UpdateJob(APIView):
     @method_decorator(csrf_protect)
     def post(self, request: Request):
         job = self.get_object(job_id=request.data.get("job_id"))
+        # permission test, not tested
+        self.check_object_permissions(request, job)
+
         serializer = serializers.JobUpdateSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
         job = serializer.save()
 
-        # TODO: See if it's required to expand length linit
+        # TODO: See if it's required to expand length limit
         modules.event_logger(activity=job.activity, user=request.user,
                              msg=f"更新了工作{job.title}(工作ID: {job.id})")
         return Response({'success': '更新成功'})
@@ -374,20 +402,20 @@ class UpdateJob(APIView):
 class DeleteJob(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
-
-    # permission_classes = [IsOwner]
+    permission_classes = [IsOwner]
 
     def get_object(self, **kwargs):
         return get_object_or_404(Job, pk=kwargs.get('job_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested
+        job = self.get_object(job_id=request.data.get("job_id"))
+        self.check_object_permissions(request, job)
         try:
-            job = self.get_object(job_id=request.data.get("job_id"))
             activity = job.activity
             job_id = job.id
             job_title = job.title
-            # TODO: check permission
             job.delete()
         except Exception as e:
             return Response({'error': f"{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
@@ -399,15 +427,17 @@ class DeleteJob(APIView):
 class StatusJob(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
-
-    # permission_classes = [IsOwner]
+    permission_classes = [IsResponsible]
 
     def get_object(self, **kwargs):
         return get_object_or_404(Job, pk=kwargs.get('job_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested completely
         job = self.get_object(job_id=request.data.get("job_id"))
+        self.check_object_permissions(request, job)
+
         serializer = serializers.JobStatusSerializer(job, data=request.data)
         serializer.is_valid(raise_exception=True)
         job = serializer.save()
@@ -420,19 +450,29 @@ class StatusJob(APIView):
 
 class GetJobDetail(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, job_id, activity_id):
-        queryset = JobDetail.objects.filter(job_id=job_id)
+        # permission test, problem here
+        job = get_object_or_404(Job, pk=job_id)
+        self.check_object_permissions(request, job.activity)
+
+        queryset = JobDetail.objects.filter(job_id=job)
         return Response(serializers.JobDetailSerializer(queryset, many=True).data)
 
 
 class CreateJobDetail(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
+    permission_classes = [IsResponsible]
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested
+        job = get_object_or_404(Job, pk=request.data.get('job_id'))
+        self.check_object_permissions(request, job)
+
         serializer = serializers.JobDetailCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         jd = serializer.save()
@@ -445,19 +485,20 @@ class CreateJobDetail(APIView):
 class DeleteJobDetail(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
-
-    # permission_classes = [IsOwner]
+    permission_classes = [IsResponsible]
 
     def get_object(self, **kwargs):
         return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested
         jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
+        self.check_object_permissions(request, jd.job)
+
         activity = jd.activity
         title = jd.title
         jd_id = jd.job_detail_id
-        # self.check_object_permissions(request,activity)
         jd.delete()
 
         modules.event_logger(activity=activity, user=request.user,
@@ -468,16 +509,16 @@ class DeleteJobDetail(APIView):
 class UpdateJobDetail(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
-
-    # permission_classes = [IsOwner]
+    permission_classes = [IsResponsible]
 
     def get_object(self, **kwargs):
         return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested
         jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
-        # self.check_object_permissions(request,activity)
+        self.check_object_permissions(request, jd.job)
 
         serializer = serializers.JobDetailUpdateSerializer(
             jd, data=request.data)
@@ -492,16 +533,16 @@ class UpdateJobDetail(APIView):
 class StatusJobDetail(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
-
-    # permission_classes = [IsOwner]
+    permission_classes = [IsResponsible]
 
     def get_object(self, **kwargs):
         return get_object_or_404(JobDetail, pk=kwargs.get('job_detail_id'))
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test, not tested
         jd = self.get_object(job_detail_id=request.data.get('job_detail_id'))
-        # self.check_object_permissions(request,activity)
+        self.check_object_permissions(request, jd.job)
 
         serializer = serializers.JobDetailStatusSerializer(
             jd, data=request.data)
@@ -519,9 +560,13 @@ class StatusJobDetail(APIView):
 
 class GetBudget(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
+        # permission test
+        activity = get_object_or_404(Activity, pk=activity_id)
+        self.check_object_permissions(request, activity)
         try:
             activity = Activity.objects.get(pk=activity_id)
             budget = activity.activity_budget
@@ -622,12 +667,15 @@ class PostReview(APIView):
 class UpdateReview(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
+    permission_classes = [IsOwner]
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
+        # permission test
+        review = get_object_or_404(Review, pk=request.data.get("id"), reviewer=request.user)
+        self.check_object_permissions(request, review)
+
         try:
-            review = Review.objects.get(
-                pk=request.data.get("id"), reviewer=request.user)
             data = {
                 'content': request.data.get("content"),
                 'review_star': request.data.get("review_star")
@@ -648,32 +696,34 @@ class UpdateReview(APIView):
 
 class GetActivityFile(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     def get_queryset(self, **kwargs):
+        # permission test
         activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
+        self.check_object_permissions(kwargs.get('request'), activity)
         return File.objects.filter(activity=activity)
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
-        queryset = self.get_queryset(activity_id=activity_id)
-        # TODO: check permission then do below
-
+        queryset = self.get_queryset(activity_id=activity_id, request=request)
         serializer = serializers.FileSerializer(queryset, many=True).data
         return Response(serializer)
 
 
 class GetJobFile(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     def get_queryset(self, **kwargs):
+        # permission test
         job = get_object_or_404(Job, pk=kwargs.get('job_id'))
+        self.check_object_permissions(kwargs.get('request'), job.activity)
         return File.objects.filter(job=job)
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, job_id):
-        queryset = self.get_queryset(job_id=job_id)
-        # TODO: check permission then do below
-
+        queryset = self.get_queryset(job_id=job_id, request=request)
         serializer = serializers.FileSerializer(queryset, many=True).data
         return Response(serializer)
 
@@ -681,14 +731,16 @@ class GetJobFile(APIView):
 class UploadJobFile(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def post(self, request):
         try:
-            job_id = int(request.data.get('job_id'))
-            job = Job.objects.get(pk=job_id)
-            # TODO: Check for permission then do below
+            # permission test, not tested
+            job = Job.objects.get(pk=request.data.get('job_id'))
+            self.check_object_permissions(request, job.activity)
 
+            # Deal with repetitive file name
             file = request.FILES['file']
             file_name = file.name
             fn_ext = file_name.rsplit(".")
@@ -704,7 +756,6 @@ class UploadJobFile(APIView):
                     destination.write(chunk)
 
             # Add File info into database
-            # TODO: Deal with repetitive file name
             new_file = File.objects.create(
                 file_path=file_name,
                 file_uploaded_time=timezone.now(),
@@ -722,15 +773,15 @@ class UploadJobFile(APIView):
 class UploadExpenditure(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
-
+    permission_classes = [IsCollaborator]
+    
     @method_decorator(csrf_protect)
     def post(self, request):
         try:
-            job_id = int(request.data.get('job_id'))
+            # permission test, not tested
+            job = Job.objects.get(pk=request.data.get('job_id'))
+            self.check_object_permissions(request, job.activity)
             expense = int(request.data.get('expense'))
-
-            job = Job.objects.get(pk=job_id)
-            # TODO: Check for permission then do below
 
             # The file name confliction solution is here
             file = request.FILES['file']
@@ -773,13 +824,14 @@ class UploadExpenditure(APIView):
 class UploadActivityPic(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser, MultiPartParser, FormParser]
+    permission_classes = [IsOwner]
 
     @method_decorator(csrf_protect)
     def post(self, request):
         try:
-            a_id = int(request.data.get('activity_id'))
-            a = Activity.objects.get(pk=a_id)
-            # TODO: Check for permission then do below
+            # permission test, not tested
+            a = Activity.objects.get(pk=request.data.get('activity_id'))
+            self.check_object_permissions(request, a)
 
             file = request.FILES['file']
             file_name = uuid.uuid4().hex[:16] + ".jpg"
@@ -824,9 +876,10 @@ class UploadUserAvatar(APIView):
             return Response({'error': '檔案上傳失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class DeleteFile(APIView):  # asdasd
+class DeleteFile(APIView):
     authentication_classes = [CustomAuth]
     parser_classes = [JSONParser]
+    permission_classes = [IsCollaborator]
 
     @method_decorator(csrf_protect)
     def post(self, request):
@@ -835,7 +888,10 @@ class DeleteFile(APIView):  # asdasd
         file_name = request.data.get("file_name")
 
         try:
+            # permission test, not tested
             job = Job.objects.get(pk=job_id)
+            self.check_object_permissions(request, job.activity)
+
             local_path = os.path.join(settings.BASE_DIR).replace(
                 '\\', '/') + '/project/static/project/avatar/' + file_name + f'_{job.activity_id}'
         except TypeError:
@@ -872,7 +928,7 @@ class DeleteFile(APIView):  # asdasd
                         sum_ex += receipt.expense
                     job.job_expenditure = sum_ex
                     job.save()
-                    
+
                     return Response({'success': '檔案已經刪除!'})
                 return Response({'error': '檔案不存在'}, status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
@@ -883,6 +939,7 @@ class DeleteFile(APIView):  # asdasd
 
 class ServeFile(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     def get_object(self, **kwargs):
         activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
@@ -890,15 +947,17 @@ class ServeFile(APIView):
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id, file_name):
+        # permission test, not tested
         activity = self.get_object(activity_id=activity_id)
+        self.check_object_permissions(request, activity)
+
         work_files = File.objects.filter(
             file_path=file_name, activity=activity)
         exp_files = Expenditure.objects.filter(
             expenditure_receipt_path=file_name, activity=activity)
         if (not work_files) and (not exp_files):
             raise Http404
-
-        # TODO: check permission then do below
+            
         try:
             f = open(os.path.join(settings.BASE_DIR).replace(
                 '\\', '/') + '/project/static/project/avatar/' + file_name + f'_{activity_id}', 'rb')
@@ -938,15 +997,17 @@ class ServeActivityPic(APIView):
 # -----Log START-----
 class GetLog(APIView):
     authentication_classes = [CustomAuth]
+    permission_classes = [IsCollaborator]
 
     def get_queryset(self, **kwargs):
+        # permission test
         activity = get_object_or_404(Activity, pk=kwargs.get('activity_id'))
+        self.check_object_permissions(kwargs.get('request'), activity)
         return Log.objects.filter(activity=activity)
 
     @method_decorator(csrf_protect)
     def get(self, request: Request, activity_id):
-        queryset = self.get_queryset(activity_id=activity_id)
-        # TODO: check permission then do below
+        queryset = self.get_queryset(activity_id=activity_id, request=request)
         result_list = []
         for log in queryset:
             data = {
