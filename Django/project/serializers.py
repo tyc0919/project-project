@@ -1,6 +1,7 @@
 import datetime
 from rest_framework import serializers
 from django.utils import timezone
+import uuid
 from .models import Expenditure, Job, Review, User, Activity, Collaborator, JobDetail, File
 from .modules import db_password_generator, salt_generator
 
@@ -208,6 +209,7 @@ class ActivityUpdateSerializer(serializers.ModelSerializer):  #WIP
         fields = ['owner','activity_name', 'activity_budget', 'activity_description']
 
     def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
+        validated_data = validated_data | {'invitation_code': uuid.uuid4().hex[:20]}
         activity = Activity.objects.create(**validated_data)
         Collaborator(activity=activity, user_email=validated_data["owner"]).save()
         return activity
