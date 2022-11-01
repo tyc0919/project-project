@@ -134,6 +134,25 @@ class UpdateUserPassword(APIView):
             return Response({'error': '密碼驗證失敗!'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response({'success': '變更成功'})
 
+
+class JoinActivityWithCode(APIView):
+    parser_classes = [JSONParser]
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        invitation_code = request.data.get('invitation_code')
+        activity = get_object_or_404(Activity, invitation_code=invitation_code)
+        try:
+            new_collab = Collaborator.objects.create(activity=activity, user_email=request.user)
+        except IntegrityError:
+            return Response({'error': '已經是協作者了!'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': '未知錯誤!', 'msg': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'success': '成功加入活動!'})
+
+
+
 # -----UserProfile END-----
 # -----Activity START-----
 
