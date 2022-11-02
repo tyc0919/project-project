@@ -145,6 +145,7 @@ class JoinActivityWithCode(APIView):
         activity = get_object_or_404(Activity, invitation_code=invitation_code)
         try:
             new_collab = Collaborator.objects.create(activity=activity, user_email=request.user)
+            modules.event_logger(activity, request.user, f'加入了本活動')
         except IntegrityError:
             return Response({'error': '已經是協作者了!'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
