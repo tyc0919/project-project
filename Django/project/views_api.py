@@ -990,10 +990,11 @@ class ServeAvatar(APIView):
     authentication_classes = [CustomAuth]
 
     @method_decorator(csrf_protect)
-    def get(self, request: Request, picture_path):
+    def get(self, request: Request, user_email):
+        user = get_object_or_404(User, pk=user_email)
         try:
             f = open(os.path.join(settings.BASE_DIR).replace('\\', '/') +
-                     '/project/static/project/avatar/' + picture_path, 'rb')
+                     '/project/static/project/avatar/' + user.picture_path, 'rb')
         except:
             return Response({'error': '找不到檔案'}, status=status.HTTP_400_BAD_REQUEST)
         return FileResponse(f)

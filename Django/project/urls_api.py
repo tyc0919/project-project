@@ -52,7 +52,7 @@ urlpatterns = [
     path('upload/activity_pic/', UploadActivityPic.as_view(), name="upliad-activity-pic"),             # upload picture for a specific activity
     path('delete-file/',DeleteFile.as_view() , name="delete-file"),                                    # delete specific file
     path('serve-file/<int:activity_id>/<str:file_name>',ServeFile.as_view() , name="serve-file"),     # serve file
-    path('serve-file/avatar/<str:picture_path>',ServeAvatar.as_view() , name="serve-avatar"),         # serve file
+    path('serve-file/avatar/<str:user_email>',ServeAvatar.as_view() , name="serve-avatar"),         # serve file
     path('serve-file/activity-pic/<str:activity_picture>',ServeActivityPic.as_view() , name="serve-activity-pic"),        # serve file
 
     path('log/<int:activity_id>/',GetLog.as_view() , name="get-log"),                                  # get all logs for a specific activity
