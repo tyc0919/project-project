@@ -787,7 +787,7 @@ class UploadJobFile(APIView):
                                  msg=f"上傳檔案: {file_name}至工作: {new_file.job.title}")
             return Response({'success': f'{file.name}檔案上傳成功'})
         except Exception as e:
-            return Response({'error': '檔案上傳失敗', 'reason': e}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': '檔案上傳失敗', 'reason': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UploadExpenditure(APIView):
