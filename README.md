@@ -7,7 +7,7 @@
 1. [登入](https://online.visual-paradigm.com/share.jsp?id=313235323933372d32)
 2. [註冊](https://online.visual-paradigm.com/share.jsp?id=313235323933372d31)
 3. [企劃](https://online.visual-paradigm.com/share.jsp?id=313235323933372d35)
-4. [編輯工作](https://online.visual-paradigm.com/share.jsp?id=313235323933372d36)
+4. [新增工作](https://online.visual-paradigm.com/share.jsp?id=313235323933372d36)
 5. [邀請協作人員](https://online.visual-paradigm.com/share.jsp?id=313939343439322d31)
 6. [引用合作店家](https://online.visual-paradigm.com/share.jsp?id=313939343439322d32)
 7. [查看店家資料](https://online.visual-paradigm.com/share.jsp?id=313937373334352d31)
