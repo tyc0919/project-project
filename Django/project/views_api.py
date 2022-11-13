@@ -614,7 +614,23 @@ class GetSocial(APIView):
     @method_decorator(csrf_protect)
     def get(self, request: Request):
         queryset = Activity.objects.filter(is_public=1)
-        return Response(serializers.ActivitySerializer(queryset, many=True).data)
+        result = []
+        for a in queryset:
+            result.append({
+                "owner": a.owner,
+                "user_name": a.owner.user_name,
+                "activity_name": a.activity_name,
+                "is_public": a.is_public,
+                "is_finished": a.is_finished,
+                "content": a.content,
+                "post_time": a.post_time,
+                'invitation_code': a.invitation_code,
+                "activity_picture": a.activity_picture,
+                "activity_budget": a.activity_budget,
+                "activity_description":a.activity_description
+            })
+            # serializers.ActivitySerializer(queryset, many=True).data
+        return Response(result)
 
 
 class GetPublicActivity(APIView):
@@ -626,7 +642,17 @@ class GetPublicActivity(APIView):
             activity = Activity.objects.get(pk=activity_id)
             if activity.is_public != 1:
                 raise Exception
-            data = serializers.SocialSerializer(activity).data
+            data = {
+                "owner": activity.owner,
+                "user_name": activity.owner.user_name,
+                "activity_name": activity.activity_name,
+                "is_finished": activity.is_finished,
+                "content": activity.content,
+                "post_time": activity.post_time,
+                "activity_picture": activity.activity_picture,
+                "activity_budget": activity.activity_budget,
+                "activity_description":activity.activity_description
+            }
         except:
             return Response({'error': '無此活動'}, status=status.HTTP_404_NOT_FOUND)
         return Response(data)
