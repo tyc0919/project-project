@@ -60,6 +60,7 @@ CREATE TABLE `activity`(
     `is_public` tinyint DEFAULT 0,
     `is_finished` tinyint DEFAULT 0,
     `content` text DEFAULT NULL,
+    `create_time` datetime,
     `post_time` datetime,
     `invitation_code` char(20),
     `activity_picture` varchar(50),
