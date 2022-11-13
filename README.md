@@ -6,7 +6,7 @@
 ## 活動圖
 1. [登入](https://online.visual-paradigm.com/share.jsp?id=313235323933372d32)
 2. [註冊](https://online.visual-paradigm.com/share.jsp?id=313235323933372d31)
-3. [企劃](https://online.visual-paradigm.com/share.jsp?id=313235323933372d35)
+3. [活動](https://online.visual-paradigm.com/share.jsp?id=313235323933372d35)
 4. [新增工作](https://online.visual-paradigm.com/share.jsp?id=313235323933372d36)
 5. [新增細項](https://user-images.githubusercontent.com/96291468/201528519-4324d7a0-68a6-45d2-b856-cec87d1c2298.jpg)
 6. [修改預算](https://user-images.githubusercontent.com/96291468/201528596-7adec646-e360-4f8b-8324-6147baaaf65b.jpg)
@@ -19,8 +19,8 @@
 2. [註冊](https://online.visual-paradigm.com/share.jsp?id=323030303137392d31)
 3. [查看、編輯個人資料](https://online.visual-paradigm.com/share.jsp?id=323030303137392d32)
 4. [瀏覽、評論貼文](https://online.visual-paradigm.com/share.jsp?id=323030303137392d33)
-5. [引用合作店家](https://online.visual-paradigm.com/share.jsp?id=323030313636372d32)
-6. [新增企劃](https://online.visual-paradigm.com/share.jsp?id=323030313636372d31)
+5. [預算編輯](https://user-images.githubusercontent.com/96291468/201533550-0e5dd8c3-f71f-4ece-b762-f36932ada1b1.jpg)
+6. [新增活動](https://online.visual-paradigm.com/share.jsp?id=323030313636372d31)
 7. [編輯工作](https://online.visual-paradigm.com/share.jsp?id=313331303432302d37)
 8. [發表貼文](https://online.visual-paradigm.com/share.jsp?id=313331303432302d39)
 ## 類別圖
