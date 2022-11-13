@@ -617,7 +617,7 @@ class GetSocial(APIView):
         result = []
         for a in queryset:
             result.append({
-                "owner": a.owner,
+                "owner": a.owner.user_email,
                 "user_name": a.owner.user_name,
                 "activity_name": a.activity_name,
                 "is_public": a.is_public,
@@ -643,7 +643,7 @@ class GetPublicActivity(APIView):
             if activity.is_public != 1:
                 raise Exception
             data = {
-                "owner": activity.owner,
+                "owner": activity.owner.user_email,
                 "user_name": activity.owner.user_name,
                 "activity_name": activity.activity_name,
                 "is_finished": activity.is_finished,
