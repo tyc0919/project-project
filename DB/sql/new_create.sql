@@ -14,48 +14,12 @@ CREATE TABLE `user`(
     `enable_time` datetime
 );
 
--- 建立資料表 '店家分類'
-CREATE TABLE `shop_genre`(
-	`id` int PRIMARY KEY,
-    `genre` char(15)
-);
 
--- 建立資料表 '縣市'
-CREATE TABLE `city`(
-	`id` tinyint PRIMARY KEY  AUTO_INCREMENT,
-    `city_name` char(3)
-);
-
--- 建立資料表 '店家'
-CREATE TABLE `shop`(
-	`shop_email` char(30) PRIMARY KEY,
-    `password` char(130),
-    `contact_person` char(15) DEFAULT NULL, -- 聯絡人
-    `shop_name` varchar(30),
-    `genre`  int, -- 分類需要使用編號
-    `profile` text DEFAULT NULL,
-    `picture_path` varchar(50) DEFAULT NULL,
-    `enable` tinyint DEFAULT 0,
-    `enable_time` datetime,
-    `serve_city` tinyint,
-    FOREIGN KEY(`serve_city`) REFERENCES `city`(`id`) ON DELETE CASCADE,
-    FOREIGN KEY(`genre`) REFERENCES `shop_genre`(`id`) ON DELETE CASCADE
-);
-
--- 建立資料表 '服務地點'
-CREATE TABLE `serve_city`(
-	`id` int PRIMARY KEY AUTO_INCREMENT,
-    `city` tinyint,
-    `shop_email` char(30),
-    FOREIGN KEY(`city`) REFERENCES `city`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`shop_email`) REFERENCES `shop`(`shop_email`) ON DELETE CASCADE ON UPDATE CASCADE
-); 
 
 -- 建立資料表 '企劃'
 CREATE TABLE `activity`(
 	`id` int PRIMARY KEY AUTO_INCREMENT,
     `owner` char(30) NOT NULL,
-    `city` tinyint DEFAULT NULL,
     `activity_name` varchar(30) NOT NULL,
     `is_public` tinyint DEFAULT 0,
     `is_finished` tinyint DEFAULT 0,
@@ -66,7 +30,6 @@ CREATE TABLE `activity`(
     `activity_picture` varchar(50),
 	`activity_budget` int,
     `activity_description` text,
-    FOREIGN KEY(`city`) REFERENCES `city`(`id`)  ON DELETE CASCADE ON UPDATE CASCADE ,
     FOREIGN KEY(`owner`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -121,14 +84,7 @@ CREATE TABLE `review`(
     FOREIGN KEY(`reviewer`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `collab_shop`(
-	`id` int PRIMARY KEY,
-	`shop_email` char(30),
-    `activity_id` int,
-    `shop_permission` tinyint default 0,
-    FOREIGN KEY(`shop_email`) REFERENCES `shop`(`shop_email`) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
-);
+
 
 CREATE TABLE `file`(
 	`id` int PRIMARY KEY auto_increment,
