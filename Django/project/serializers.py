@@ -210,6 +210,7 @@ class ActivityUpdateSerializer(serializers.ModelSerializer):  #WIP
 
     def create(self, validated_data):   #Need to add the owner into collaborators as well, so I override the create() method
         validated_data = validated_data | {'invitation_code': uuid.uuid4().hex[:20]}
+        validated_data["create_time"] = timezone.now()
         activity = Activity.objects.create(**validated_data)
         Collaborator(activity=activity, user_email=validated_data["owner"]).save()
         return activity

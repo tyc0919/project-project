@@ -12,11 +12,11 @@ from django.db import models
 
 class Activity(models.Model):
     owner = models.ForeignKey('User', models.DO_NOTHING, db_column='owner')
-    city = models.ForeignKey('City', models.DO_NOTHING, db_column='city', blank=True, null=True)
     activity_name = models.CharField(max_length=30)
     is_public = models.IntegerField(blank=True, null=True, default=0)
     is_finished = models.IntegerField(blank=True, null=True, default=0)
     content = models.TextField(blank=True, null=True)
+    create_time = models.DateTimeField(blank=True, null=True)
     post_time = models.DateTimeField(blank=True, null=True)
     invitation_code = models.CharField(max_length=20, blank=True, null=True)
     activity_picture = models.CharField(max_length=50, blank=True, null=True)
@@ -26,25 +26,6 @@ class Activity(models.Model):
     class Meta:
         managed = False
         db_table = 'activity'
-
-
-class City(models.Model):
-    city_name = models.CharField(max_length=3, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'city'
-
-
-class CollabShop(models.Model):
-    id = models.IntegerField(primary_key=True)
-    shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
-    activity = models.ForeignKey(Activity, models.DO_NOTHING, blank=True, null=True)
-    shop_permission = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'collab_shop'
 
 
 class Collaborator(models.Model):
@@ -132,41 +113,6 @@ class Review(models.Model):
     class Meta:
         managed = False
         db_table = 'review'
-
-
-class ServeCity(models.Model):
-    city = models.ForeignKey(City, models.DO_NOTHING, db_column='city', blank=True, null=True)
-    shop_email = models.ForeignKey('Shop', models.DO_NOTHING, db_column='shop_email', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'serve_city'
-
-
-class Shop(models.Model):
-    shop_email = models.CharField(primary_key=True, max_length=30)
-    password = models.CharField(max_length=130, blank=True, null=True)
-    contact_person = models.CharField(max_length=15, blank=True, null=True)
-    shop_name = models.CharField(max_length=30, blank=True, null=True)
-    genre = models.ForeignKey('ShopGenre', models.DO_NOTHING, db_column='genre', blank=True, null=True)
-    profile = models.TextField(blank=True, null=True)
-    picture_path = models.CharField(max_length=50, blank=True, null=True)
-    enable = models.IntegerField(blank=True, null=True)
-    enable_time = models.DateTimeField(blank=True, null=True)
-    serve_city = models.ForeignKey(City, models.DO_NOTHING, db_column='serve_city', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'shop'
-
-
-class ShopGenre(models.Model):
-    id = models.IntegerField(primary_key=True)
-    genre = models.CharField(max_length=15, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'shop_genre'
 
 
 class User(models.Model):
