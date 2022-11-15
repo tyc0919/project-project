@@ -288,7 +288,12 @@ class PublishActivity(APIView):
             activity, data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
-        msg = '' if instance.is_public == 1 else '不'
+        if instance.is_public == 1:
+            msg = ''
+            instance.post_time = timezone.now()
+            instance.save()
+        else:
+            msg = '不'
         modules.event_logger(
             activity=activity, user=request.user, msg=f"將活動設置為{msg}公開")
         return Response({'success': f'已經將活動設置成{msg}公開!'})
