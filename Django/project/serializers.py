@@ -49,12 +49,12 @@ class UserPasswordSerializer(serializers.ModelSerializer):
 class ActivityCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        exclude = ['city', 'is_public', 'content', 'post_time', 'invitation_code', 'activity_description']
+        exclude = ['is_public', 'content', 'post_time', 'invitation_code', 'activity_description']
 
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        exclude = ['city']
+        fields = '__all__'
 
 
 
@@ -249,7 +249,7 @@ class FileSerializer(serializers.ModelSerializer):
 class SocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        exclude = ['city', 'invitation_code', 'is_public']
+        exclude = ['invitation_code', 'is_public']
 
 class ReviewSerializer(serializers.ModelSerializer):
     
