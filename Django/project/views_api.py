@@ -87,6 +87,17 @@ class SignUp(APIView):
             print(Exception)
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
+
+class Logout(APIView):
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request):
+        res = Response({'success': '登出成功!'})
+        res.delete_cookie('jwt', domain='.ace.project')
+        # res.delete_cookie('jwt', domain='.project-ace.site')
+        return res
+
+
 # -----Authentication END-----
 
 # -----UserProfile START-----

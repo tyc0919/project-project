@@ -7,6 +7,7 @@ urlpatterns = [
     path('csrf-get/', CSRFEndpoint.as_view(), name='csrf-get'),                                        # get csrf token
     path('login/', SignIn.as_view(), name="login"),                                                    # login
     path('signup/', SignUp.as_view(), name="signup"),                                                  # sign up
+    path('logout/', Logout.as_view(), name="logout"),                                                  # logout
     path('join-activity/code/',JoinActivityWithCode.as_view(), name="join-code"),                               # Join activities with invitation_code
 
     path('activity/',GetActivityCards.as_view() , name="activity-cards"),                              # get activities info for default page    
