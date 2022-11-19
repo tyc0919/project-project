@@ -8,7 +8,8 @@ urlpatterns = [
     path('login/', SignIn.as_view(), name="login"),                                                    # login
     path('signup/', SignUp.as_view(), name="signup"),                                                  # sign up
     path('logout/', Logout.as_view(), name="logout"),                                                  # logout
-    path('join-activity/code/',JoinActivityWithCode.as_view(), name="join-code"),                               # Join activities with invitation_code
+    path('join-activity/code/',JoinActivityWithCode.as_view(), name="join-code"),                      # Join activities with invitation_code
+    path('leave-activity/',LeaveActivity.as_view(), name="leave"),                                     # Join activities with invitation_code
 
     path('activity/',GetActivityCards.as_view() , name="activity-cards"),                              # get activities info for default page    
     path('activity/<int:activity_id>/',GetActivity.as_view() , name="activity"),                       # get certain activity info

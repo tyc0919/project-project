@@ -164,6 +164,23 @@ class JoinActivityWithCode(APIView):
         return Response({'success': '成功加入活動!'})
 
 
+class LeaveActivity(APIView):
+    parser_classes = [JSONParser]
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        try:
+            activity = Activity.objects.get(pk=request.data.get("activity_id"))
+            Collaborator.objects.get(user_email=request.user, activity=activity).delete()
+            jobs = Job.objects.filter(activity=activity)
+            for job in jobs:
+                job.person_in_charge_email = None
+                job.save()
+        except:
+            return Response({'error': f'並未加入該活動或是活動不存在'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({'success': '成功退出活動!'})
 
 # -----UserProfile END-----
 # -----Activity START-----
