@@ -25,10 +25,10 @@ JWT_SECRET = 'Lnd)73+Egs@8,3^3hMXwP*)rzqq#bHpI'
 SECRET_KEY = 'django-insecure-@&9tph*l@bwr@+**5%fcu@v+56p$qod&_3o*#@&0%8(&u2ilqs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['backend', 'localhost', 'project-ace.ddns.net']
+ALLOWED_HOSTS = ['backend', 'localhost', 'app.project-ace.site', 'www.project-ace.site']
 
 # Application definition
 
