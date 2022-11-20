@@ -157,5 +157,5 @@ STATICFILES_DIRS = (
     # os.path.join(DevStaticFiles),
 )
 
-CSRF_TRUSTED_ORIGINS = ['http://*.ace.project']
-CSRF_COOKIE_DOMAIN = ".ace.project"
+CSRF_TRUSTED_ORIGINS = ['http://*.ace.project', 'https://*.project-ace.site']
+CSRF_COOKIE_DOMAIN = ".project-ace.site"
