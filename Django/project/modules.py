@@ -26,7 +26,8 @@ def custom_login(email: str, password: str, type=None):
 def set_credential(response: Response, user: User):
     if user is not None:
         encoded = jwt.encode({"user_email": user.user_email, "exp": datetime.datetime.now(tz=timezone.utc) + datetime.timedelta(days=1)}, JWT_SECRET, algorithm="HS256")
-        response.set_cookie('jwt', encoded, domain=".project-ace.site")
+        response.set_cookie('jwt', encoded, domain=".ace.project")
+        # response.set_cookie('jwt', encoded, domain=".project-ace.site")
         return response
 
 def register(email: str, password: str, user_name: str):

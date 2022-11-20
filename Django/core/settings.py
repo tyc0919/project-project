@@ -158,4 +158,5 @@ STATICFILES_DIRS = (
 )
 
 CSRF_TRUSTED_ORIGINS = ['http://*.ace.project', 'https://*.project-ace.site']
-CSRF_COOKIE_DOMAIN = ".project-ace.site"
+CSRF_COOKIE_DOMAIN = ".ace.project"
+# CSRF_COOKIE_DOMAIN = ".project-ace.site"
