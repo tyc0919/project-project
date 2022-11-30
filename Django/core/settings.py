@@ -45,6 +45,13 @@ INSTALLED_APPS = [
     # 'corsheaders',    
     # 'testApp',
 ]
+
+REST_FRAMEWORK = { # Disable GET page
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [

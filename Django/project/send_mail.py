@@ -34,12 +34,6 @@ def send_invite(receiver_email: str, info: dict):
 
     with smtplib.SMTP("smtp.gmail.com", port=587) as server:
         try:
-            print('context: ', context)
-            print('sender_email: ', sender_email)
-            print('password: ', password[:4])
-            print('receiver_email: ', receiver_email)
-            print('message: ', message)
-            print('msg.as_str: ', message.as_string())
             server.starttls(context=context) # Secure the connection
             server.ehlo() # Can be omitted
             server.login(sender_email, password)
