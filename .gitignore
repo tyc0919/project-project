@@ -12,3 +12,4 @@ Django/project/migrations/__pycache__/*.pyc
 Django/core/__pycache__/*.pyc
 Django/project/__pycache__/*.pyc
 Django/project/static/project/avatar/*
+passwd.txt
