@@ -14,7 +14,7 @@ def send_invite(receiver_email: str, info: dict):
         with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/passwd.txt', 'rb') as f: # Need to manually create a txt file with your bot application password
             password = f.read().decode('utf-8')
     except Exception as e:
-        print(str(e))
+        print(1, str(e))
         return False
 
     message = MIMEMultipart()
@@ -26,10 +26,11 @@ def send_invite(receiver_email: str, info: dict):
         with open(os.path.join(settings.BASE_DIR).replace('\\', '/') + '/project/static/mail_template.html', 'rb') as f:
             template = Template(f.read().decode('utf-8')) # Read a html file and replace some variable inside it 
         html = template.substitute(info)                  # with string.Template
+        print(html)
         part = MIMEText(html, "html")
         message.attach(part)
     except Exception as e:
-        print(str(e))
+        print(2, str(e))
         return False
 
     with smtplib.SMTP("smtp.gmail.com", port=587) as server:
@@ -40,7 +41,7 @@ def send_invite(receiver_email: str, info: dict):
             # TODO: Send email here
             server.sendmail(sender_email, receiver_email, message.as_string())
         except Exception as e:
-            print(str(e))
+            print(3, str(e))
             return False
     
     return True
