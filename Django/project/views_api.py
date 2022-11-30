@@ -16,7 +16,7 @@ import datetime
 
 from project.authentication import CustomAuth
 from project.permissions import *
-from project import modules, serializers
+from project import modules, serializers, send_mail
 
 from .models import *
 
@@ -164,6 +164,42 @@ class JoinActivityWithCode(APIView):
         return Response({'success': '成功加入活動!'})
 
 
+class SendMail(APIView):
+    parser_classes = [JSONParser]
+    authentication_classes = [CustomAuth]
+    permission_classes = [IsOwner]
+
+    @method_decorator(csrf_protect)
+    def post(self, request: Request):
+        activity = get_object_or_404(Activity, pk=request.data.get('activity_id')) # if permission check fails in try section, it will go directly into except section.
+        self.check_object_permissions(request, activity) # but I'm gonna leave this here, to be consistent with the code below.
+        receiver_email = request.data.get('receiver_email')
+        info = {
+            'activity_name': activity.activity_name,
+            'activity_description': activity.activity_description,
+            'invitation_code': activity.invitation_code
+        }
+        if send_mail.send_invite(receiver_email=receiver_email, info=info):
+            return Response({'success': '成功送出郵件活動!'})
+        return Response({'error': '郵件送出失敗'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class JoinActivityWithLink(APIView):
+    authentication_classes = [CustomAuth]
+
+    @method_decorator(csrf_protect)
+    def get(self, request: Request, invitation_code):
+        activity = get_object_or_404(Activity, invitation_code=invitation_code)
+        try:
+            new_collab = Collaborator.objects.create(activity=activity, user_email=request.user)
+            modules.event_logger(activity, request.user, f'加入了本活動')
+        except IntegrityError:
+            return Response({'error': '已經是協作者了!'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': '未知錯誤!', 'msg': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'success': '成功加入活動!'})
+
+
 class LeaveActivity(APIView):
     parser_classes = [JSONParser]
     authentication_classes = [CustomAuth]
@@ -184,7 +220,6 @@ class LeaveActivity(APIView):
 
 # -----UserProfile END-----
 # -----Activity START-----
-
 
 class GetActivityCards(APIView):
     authentication_classes = [CustomAuth]

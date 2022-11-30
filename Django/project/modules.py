@@ -62,7 +62,8 @@ def get_user(request: HttpRequest):
     user = User.objects.get(pk=request.session.get("user_email"))
     return user
 
-#----------others----------
+#----------logger----------
 
 def event_logger(activity, user, msg, tz=None):
     log_message = Log.objects.create(activity=activity, user_email=user, action=msg, time=timezone.now())
+

@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup/', SignUp.as_view(), name="signup"),                                                  # sign up
     path('logout/', Logout.as_view(), name="logout"),                                                  # logout
     path('join-activity/code/',JoinActivityWithCode.as_view(), name="join-code"),                      # Join activities with invitation_code
+    path('join-activity/<str:invitation_code>/',JoinActivityWithLink.as_view(), name="join-link"),
     path('leave-activity/',LeaveActivity.as_view(), name="leave"),                                     # Join activities with invitation_code
 
     path('activity/',GetActivityCards.as_view() , name="activity-cards"),                              # get activities info for default page    
@@ -23,6 +24,7 @@ urlpatterns = [
     path('activity/budget/update/',UpdateActivityBudget.as_view() , name="update-activity-budget"),    # update the budget for a certain activity        
     path('activity/<int:activity_id>/collaborator/',GetCollaborator.as_view() , name="get-collaborator"),# get the collaborators of a certain activity                                                                    
     path('activity/<int:activity_id>/budget/',GetBudget.as_view() , name="get-budget-page"),           # get info of budget page
+    path('send-invite/',SendMail.as_view() , name="send-invite"),
 
     path('myjob/',GetMyJob.as_view() , name="myjob"),                                                  # get all jobs of the logged in user
     path('job/create/',CreateJob.as_view() , name="create-job"),                                       # create new job
