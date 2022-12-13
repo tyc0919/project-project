@@ -1,5 +1,5 @@
 from time import sleep
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -171,33 +171,43 @@ class SendMail(APIView):
 
     @method_decorator(csrf_protect)
     def post(self, request: Request):
-        activity = get_object_or_404(Activity, pk=request.data.get('activity_id')) # if permission check fails in try section, it will go directly into except section.
-        self.check_object_permissions(request, activity) # but I'm gonna leave this here, to be consistent with the code below.
+        activity = get_object_or_404(Activity, pk=request.data.get('activity_id'))
+        user = get_object_or_404(User, pk=request.data.get('receiver_email'))
+        self.check_object_permissions(request, activity)
         receiver_email = request.data.get('receiver_email')
         info = {
             'activity_name': activity.activity_name,
             'activity_description': activity.activity_description,
             'invitation_code': activity.invitation_code
         }
+
+        Invitation_list.objects.create(activity=activity, user_email=user, invitation_code=uuid.uuid4().hex[:20])
+
         if send_mail.send_invite(receiver_email=receiver_email, info=info):
             return Response({'success': '成功送出郵件活動!'})
         return Response({'error': '郵件送出失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class JoinActivityWithLink(APIView):
-    authentication_classes = [CustomAuth]
+    # authentication_classes = [CustomAuth]
 
-    @method_decorator(csrf_protect)
+    # @method_decorator(csrf_protect)
     def get(self, request: Request, invitation_code):
-        activity = get_object_or_404(Activity, invitation_code=invitation_code)
+        invitation_entry = get_object_or_404(Invitation_list, invitation_code=invitation_code)
+        activity = invitation_entry.activity
+        user = invitation_entry.user_email
         try:
-            new_collab = Collaborator.objects.create(activity=activity, user_email=request.user)
-            modules.event_logger(activity, request.user, f'加入了本活動')
+            new_collab = Collaborator.objects.create(activity=activity, user_email=user)
+            invitation_entry.delete()
+            modules.event_logger(activity, user, f'加入了本活動')
         except IntegrityError:
-            return Response({'error': '已經是協作者了!'}, status=status.HTTP_400_BAD_REQUEST)
+            # return Response({'error': '已經是協作者了!'}, status=status.HTTP_400_BAD_REQUEST)
+            return HttpResponse('<h1>已經是協作者了!</h1>')
         except Exception as e:
-            return Response({'error': '未知錯誤!', 'msg': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response({'success': '成功加入活動!'})
+            # return Response({'error': '未知錯誤!', 'msg': f'{e}'}, status=status.HTTP_400_BAD_REQUEST)
+            return HttpResponse('<h1>未知錯誤!</h1>')
+        # return Response({'success': '成功加入活動!'})
+        return HttpResponse('<script>alert("成功加入活動!"); location.href = "https://app.project-ace.site";</script>')
 
 
 class LeaveActivity(APIView):
