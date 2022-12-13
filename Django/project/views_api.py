@@ -174,17 +174,19 @@ class SendMail(APIView):
         activity = get_object_or_404(Activity, pk=request.data.get('activity_id'))
         user = get_object_or_404(User, pk=request.data.get('receiver_email'))
         self.check_object_permissions(request, activity)
-        receiver_email = request.data.get('receiver_email')
+        invitation_code = uuid.uuid4().hex[:20]
+        Invitation_list.objects.create(activity=activity, user_email=user, invitation_code=invitation_code)
+
         info = {
             'activity_name': activity.activity_name,
             'activity_description': activity.activity_description,
-            'invitation_code': activity.invitation_code
+            'invitation_code': invitation_code
         }
 
-        Invitation_list.objects.create(activity=activity, user_email=user, invitation_code=uuid.uuid4().hex[:20])
 
-        if send_mail.send_invite(receiver_email=receiver_email, info=info):
-            return Response({'success': '成功送出郵件活動!'})
+
+        if send_mail.send_invite(receiver_email=request.data.get('receiver_email'), info=info):
+            return Response({'success': '成功送出郵件!'})
         return Response({'error': '郵件送出失敗'}, status=status.HTTP_400_BAD_REQUEST)
 
 
