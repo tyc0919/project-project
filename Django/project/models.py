@@ -127,3 +127,14 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+
+class Invitation_list(models.Model):
+    activity = models.ForeignKey(Activity, models.DO_NOTHING)
+    user_email = models.ForeignKey('User', models.DO_NOTHING, db_column='user_email')
+    invitation_code = models.CharField(max_length=20, blank=True, null=True)
+    
+    class Meta:
+        managed = False
+        db_table = 'invitation_list'
+        unique_together = (('activity', 'user_email'),)

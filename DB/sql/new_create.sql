@@ -120,3 +120,12 @@ CREATE TABLE `log`(
     FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE
 );
     
+CREATE TABLE `invitation_list` (
+    `id` int PRIMARY KEY AUTO_INCREMENT,
+    `activity_id` int NOT NULL,
+    `user_email` char(30) NOT NULL,
+    `invitation_code` char(20),
+    FOREIGN KEY(`activity_id`) REFERENCES `activity`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`user_email`) REFERENCES `user`(`user_email`) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (`activity_id`, `user_email`)
+);
