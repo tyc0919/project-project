@@ -1,4 +1,4 @@
-# 企劃管理系統
+# ACE-活動預算協作平台
 ## 工作連結
 - [USE CASE](https://online.visual-paradigm.com/share.jsp?id=313330363836372d39)
 - [FDD功能分解圖](https://app.diagrams.net/#G1GKiTAp0DL5JkGzfQlaD6uhWOmos8Pfeu)
