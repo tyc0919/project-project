@@ -15,7 +15,7 @@ class IsOwner(BasePermission):
 
 class IsCollaborator(BasePermission): # Trying to make this obj only accept Activity
     def has_object_permission(self, request, view, obj):
-        if isinstance(obj, Activity): return True if Collaborator.objects.filter(activity=obj, user_email=request.user) else False
+        if isinstance(obj, Activity): return True if Collaborator.objects.filter(activity=obj, user_email=request.user) or obj.is_public == 1 else False
 
 
 class IsResponsible(BasePermission): # probably only needs job for this permission
